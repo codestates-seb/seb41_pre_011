@@ -15,3 +15,88 @@
 ### 구현 기능
 
 ### 문서
+
+### git & github guide
+<details markdown="1">
+<summary><strong>branch</strong></summary>
+<ul>
+  <li>
+    strategy
+    <ul>
+      <li>main브랜치에서 dev브랜치를 생성합니다. dev브랜치에서 feat브랜치를 생성 후 작업합니다.</li>
+      <li>작업이 완료된 feat브랜치들은 dev브랜치에만 merge할 수 있습니다.</li>
+      <li>배포 전 개발 완료된 dev브랜치를 main브랜치에 merge후 main브랜치를 배포합니다.</li>
+    </ul>
+  </li>
+  <li>
+    branch types
+    <ul>
+      <li>main : 배포 브랜치</li>
+      <li>dev : 개발 브랜치</li>
+      <li>feat/branchname : 기능 브랜치</li>
+      <li>hotfix : 오류 또는 긴급 수정 브랜치</li>
+    </ul>
+  </li>
+  <li>
+    feat브랜치 name style
+    <ul>
+      <li>
+        basic : 기능별로 브랜치를 생성하고, 1개의 브랜치는 1명의 사용자가 담당합니다.
+        <pre>
+feat/개발영역/기능명
+feat/front/login
+feat/back/login</pre>
+      </li>
+      <li>
+        sub : 예외상황으로 1개의 브랜치에서 여러명이 작업할 경우 sub브랜치 생성 후 작업합니다.
+        <pre>
+feat/개발영역/기능명_sub_세부기능
+feat/front/login_sub_sns
+feat/back/login_sub_sns</pre>
+       </li>
+    </ul>
+  </li>
+</ul>
+</details>
+
+<details markdown="1">
+<summary><strong>commit</strong></summary>
+<ul>
+  <li>
+    structure
+    <pre>
+타입 - #이슈번호 : 제목
+(공백줄)
+상세 설명</pre>
+  </li>
+  <li>
+    type
+    <ul>
+      <li>feat: A new feature</li>
+      <li>fix: A bug fix</li>
+      <li>docs: Changes to documentation</li>
+      <li>style: Formatting, missing semi colons, etc; no code change</li>
+      <li>refactor: Refactoring production code</li>
+      <li>test: Adding tests, refactoring test; no production code change</li>
+      <li>chore: Updating build tasks, package manager configs, etc; no production code change</li>
+    </ul>
+  </li>
+  <li>
+    example
+    <pre>
+feat - #1 : 로그인 html,css 완료
+<br/>
+공통 인풋 텍스트, 버튼 컴포넌트 적용</pre>
+  </li>
+</ul>
+</details>
+    
+<details markdown="1">
+<summary><strong>merge</strong></summary>
+<ul>
+  <li>github pull request를 사용해 merge합니다.</li>
+  <li>front개발은 최소 front 1명을 리뷰어로, back개발은 최소 back 1명을 리뷰어로 pull request 합니다.</li>
+  <li>front, back 같이 진행하는 개발은 최소 front,back 각 1명을 리뷰어로 pull request 합니다.</li>
+</ul>
+</details>
+  
