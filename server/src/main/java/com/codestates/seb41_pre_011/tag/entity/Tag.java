@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Tag {
+    private int tagId;
     private String name;
     private String description;
     private int count;
