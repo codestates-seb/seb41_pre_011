@@ -9,4 +9,6 @@ public class TagPatchDto {
     private int tagId;
     private String description;
     private int count;
+
+    public void setTagId(int tagId) {this.tagId = tagId;}
 }
