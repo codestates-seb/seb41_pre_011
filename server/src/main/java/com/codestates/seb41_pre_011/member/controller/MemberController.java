@@ -22,20 +22,20 @@ public class MemberController {
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive int memberId,
                                       @RequestBody MemberPatchDto patchDto) {
-        MemberDto.Response response = new MemberDto.Response(1, "홍길동", "비밀번호");
+        MemberDto.Response response = new MemberDto.Response(1,"kch@gmail.com" , "홍길동", "비밀번호");
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{member-id}")
     public ResponseEntity getMember(@PathVariable("member-id") @Positive int memberId) {
-        MemberDto.Response response = new MemberDto.Response(1, "홍길동", "비밀번호");
+        MemberDto.Response response = new MemberDto.Response(1,"kch@gmail.com" , "홍길동", "비밀번호");
         return ResponseEntity.ok(response);
     }
 
     @GetMapping
     public ResponseEntity getMembers() {
-        MemberDto.Response response1 = new MemberDto.Response(1, "홍길동", "비밀번호");
-        MemberDto.Response response2 = new MemberDto.Response(2, "김코딩", "번호비밀");
+        MemberDto.Response response1 = new MemberDto.Response(1,"kch@gmail.com" , "홍길동", "비밀번호");
+        MemberDto.Response response2 = new MemberDto.Response(2,"chk@gmail.com" , "김코딩", "번호비밀");
         return ResponseEntity.ok(Arrays.asList(response1, response2));
     }
 
