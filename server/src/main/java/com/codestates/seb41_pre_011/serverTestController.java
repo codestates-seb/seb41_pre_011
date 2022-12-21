@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class serverTestController {
-    @GetMapping("/v1/test/")
+    @GetMapping("/v1/test")
     public String serverTest() {
         String abc = "1석 11조 통신 테스트";
         return abc;
