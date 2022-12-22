@@ -13,15 +13,9 @@ import java.time.LocalDateTime;
 @Setter
 public class Question {
     private int questionId;
-
     private String title;
-
     private String questionContent;
-
     private String attemptContent;
-
     private LocalDateTime createdDate;
-
     private LocalDateTime modifiedDate;
-
 }

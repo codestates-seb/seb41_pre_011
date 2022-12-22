@@ -14,6 +14,7 @@ public class QuestionDto {
         private String questionContent;
         private String attemptContent;
     }
+
     @Getter
     @AllArgsConstructor
     public static class Patch{
@@ -22,6 +23,7 @@ public class QuestionDto {
         private String questionContent;
         private String attemptContent;
     }
+
     @Getter
     @AllArgsConstructor
     public static class Response{

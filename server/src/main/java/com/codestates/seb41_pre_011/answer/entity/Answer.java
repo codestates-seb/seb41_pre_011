@@ -12,21 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Answer {
-
     private int answerId;
-
-    //@Column(columnDefinition = "TEXT")
     private String content;
-
-    //@Column(nullable = false)
     private LocalDateTime createdDate = LocalDateTime.now();
-
-    //@Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedDate = LocalDateTime.now();
-
     private boolean adoption;
-
     private int memberId;
-
-
 }
