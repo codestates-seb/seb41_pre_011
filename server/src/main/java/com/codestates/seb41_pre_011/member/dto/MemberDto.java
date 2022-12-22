@@ -32,3 +32,4 @@ public class MemberDto {
         private String image;
     }
 }
+

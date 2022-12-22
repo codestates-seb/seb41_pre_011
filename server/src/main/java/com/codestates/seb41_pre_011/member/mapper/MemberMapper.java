@@ -13,3 +13,4 @@ public interface MemberMapper {
     MemberDto.Response memberToMemberResponseDto(Member member);
     List<MemberDto.Response> membersToMemberResponseDto(List<Member> members);
 }
+
