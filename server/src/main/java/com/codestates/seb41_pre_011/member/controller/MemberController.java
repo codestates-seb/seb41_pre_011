@@ -4,6 +4,7 @@ import com.codestates.seb41_pre_011.member.dto.MemberDto;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.mapper.MemberMapper;
 import com.codestates.seb41_pre_011.member.service.MemberService;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
