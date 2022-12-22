@@ -18,6 +18,7 @@ public class MemberDto {
         private int memberId;
         private String name;
         private String password;
+        private String image;
 
         public void setMemberId(int memberId) {this.memberId = memberId;}
     }
@@ -26,8 +27,9 @@ public class MemberDto {
     @AllArgsConstructor
     public static class Response {
         private int memberId;
-        private String email;
         private String name;
         private String password;
+        private String image;
     }
 }
+
