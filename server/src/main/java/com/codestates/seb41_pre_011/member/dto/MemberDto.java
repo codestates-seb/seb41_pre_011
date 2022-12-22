@@ -31,5 +31,13 @@ public class MemberDto {
         private String password;
         private String image;
     }
+
+    @Getter
+    @AllArgsConstructor
+    public static class GetResponse {
+        private int memberId;
+        private String name;
+        private String image;
+    }
 }
 
