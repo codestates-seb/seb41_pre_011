@@ -6,7 +6,7 @@ import lombok.Getter;
 public class TagDto {
     @Getter
     @AllArgsConstructor
-    public static class post {
+    public static class Post {
         private String name;
         private String description;
         private int count;
@@ -14,7 +14,7 @@ public class TagDto {
 
     @Getter
     @AllArgsConstructor
-    public static class patch {
+    public static class Patch {
         private int tagId;
         private String description;
         private int count;

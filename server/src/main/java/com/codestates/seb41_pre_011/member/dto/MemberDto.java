@@ -6,7 +6,7 @@ import lombok.Getter;
 public class MemberDto {
     @Getter
     @AllArgsConstructor
-    public class post {
+    public static class Post {
         private String email;
         private String name;
         private String password;
@@ -14,7 +14,7 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
-    public class patch {
+    public static class Patch {
         private int memberId;
         private String name;
         private String password;

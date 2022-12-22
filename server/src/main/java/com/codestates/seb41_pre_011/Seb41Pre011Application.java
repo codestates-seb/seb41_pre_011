@@ -16,5 +16,4 @@ public class Seb41Pre011Application extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure (SpringApplicationBuilder builder) {
 		return builder.sources(serverTestController.class);
 	}
-
 }
