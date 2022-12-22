@@ -1,6 +1,5 @@
 package com.codestates.seb41_pre_011.tag.controller;
 
-import com.codestates.seb41_pre_011.member.service.MemberService;
 import com.codestates.seb41_pre_011.tag.dto.TagDto;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
