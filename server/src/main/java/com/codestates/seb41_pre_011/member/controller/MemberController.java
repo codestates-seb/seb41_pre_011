@@ -1,8 +1,6 @@
 package com.codestates.seb41_pre_011.member.controller;
 
-import com.codestates.seb41_pre_011.member.dto.MemberPatchDto;
-import com.codestates.seb41_pre_011.member.dto.MemberPostDto;
-import com.codestates.seb41_pre_011.member.dto.MemberResponseDto;
+import com.codestates.seb41_pre_011.member.dto.MemberDto;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.mapper.MemberMapper;
 import com.codestates.seb41_pre_011.member.service.MemberService;
@@ -28,32 +26,34 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
-
     @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberPostDto memberPostDto) {
-        Member member = memberMapper.memberPostDtoToMember(memberPostDto);
-        Member response = memberService.createMember(member);
-        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.CREATED);
+    public ResponseEntity postMember(@RequestBody MemberDto.Post requestbody) {
+        Member member = memberMapper.memberPostDtoToMember(requestbody);
+        Member createMember = memberService.createMember(member);
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(createMember);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive int memberId,
-                                      @RequestBody MemberPatchDto memberPatchDto) {
-        memberPatchDto.setMemberId(memberId);
-        Member response = memberService.updateMember(memberMapper.memberPatchDtoTomMember(memberPatchDto));
-        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
+                                      @RequestBody MemberDto.Patch requestbody) {
+        requestbody.setMemberId(memberId);
+        Member updateMember = memberService.updateMember(memberMapper.memberPatchDtoTomMember(requestbody));
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(updateMember);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{member-id}")
     public ResponseEntity getMember(@PathVariable("member-id") @Positive int memberId) {
-        Member response = memberService.findMember(memberId);
-        return new ResponseEntity<>(memberMapper.memberToMemberResponseDto(response), HttpStatus.OK);
+        Member findMember = memberService.findMember(memberId);
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(findMember);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getMembers() {
         List<Member> members = memberService.findMembers();
-        List<MemberResponseDto> response = members.stream().map(member -> memberMapper.memberToMemberResponseDto(member))
+        List<MemberDto.Response> response = members.stream().map(member -> memberMapper.memberToMemberResponseDto(member))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
