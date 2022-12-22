@@ -24,13 +24,12 @@ public class AnswerController {
         this.answerMapper = answerMapper;
     }
 
-
     @PostMapping
     public ResponseEntity postAnswer(@RequestBody AnswerDto.Post requestbody) {
         Answer answer = answerMapper.answerPostDtoToAnswer(requestbody);
-        Answer createAnswer = answerService.createAnswer(answer);
-        AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createAnswer);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        Answer createdAnswer = answerService.createAnswer(answer);
+        AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")

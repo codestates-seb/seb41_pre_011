@@ -32,6 +32,5 @@ public class AnswerService {
     }
 
     public void deleteAnswer(int answerId) {
-
     }
 }
