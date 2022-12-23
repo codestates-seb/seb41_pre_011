@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class MemberService {
@@ -18,6 +19,8 @@ public class MemberService {
     }
 
     public Member createMember(Member member) {
+        int randImage = randBetween(1,400);
+        if(member.getImage()==null) {member.setImage("https://avatars.dicebear.com/api/bottts/2" + randImage + ".svg");}
         return memberRepository.save(member);
     }
 
@@ -38,5 +41,9 @@ public class MemberService {
         return memberRepository.findAll();
     }
     public void deleteMember(int memberId) {memberRepository.deleteById(memberId);}
+
+    private static final Random rng = new Random();
+
+    public static int randBetween(int min, int max) {return min+rng.nextInt(max-min+1);}
 }
 
