@@ -1,5 +1,7 @@
 package com.codestates.seb41_pre_011.tag.service;
 
+import com.codestates.seb41_pre_011.exception.BusinessLogicException;
+import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,8 @@ public class TagService {
     }
 
     public Tag findTag(int tagId) {
-        Tag tag = new Tag();
-        return tag;
+        Optional<Tag> findTag =tagRepository.findById(tagId);
+        return findTag.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
     }
 
     public List<Tag> findTags() {
