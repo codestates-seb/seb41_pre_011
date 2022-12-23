@@ -1,52 +1,40 @@
 package com.codestates.seb41_pre_011.tag.service;
 
+import com.codestates.seb41_pre_011.exception.BusinessLogicException;
+import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
+import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TagService {
+    private final TagRepository tagRepository;
+
+    public TagService(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
+    }
+
     public Tag createTag(Tag tag) {
-        Tag createTag = tag;
-        return createTag;
+        return tagRepository.save(tag);
     }
     public Tag updateTag(Tag tag) {
-        Tag updateTag = tag;
-        return updateTag;
+        Tag findTag =findTag(tag.getTagId());
+        Optional.ofNullable(tag.getDescription()).ifPresent(findTag::setDescription);
+        Optional.ofNullable(tag.getCount()).ifPresent(findTag::setCount);
+        return tagRepository.save(findTag);
     }
 
     public Tag findTag(int tagId) {
-        Tag tag = new Tag(1, "spring", "boot", 1);
-        return tag;
+        Optional<Tag> findTag =tagRepository.findById(tagId);
+        return findTag.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
     }
 
     public List<Tag> findTags() {
-        List<Tag> Tags = List.of(
-                new Tag(1,"spring" , "프로그램", 20),
-                new Tag(2,"python" , "프로그램", 19),
-                new Tag(3,"python" , "프로그램", 18),
-                new Tag(4,"c#" , "프로그램", 17),
-                new Tag(5,"android" , "프로그램", 16),
-                new Tag(6,"android" , "프로그램", 15),
-                new Tag(7,"jquery" , "프로그램", 14),
-                new Tag(8,"c++" , "프로그램", 13),
-                new Tag(9,"c++" , "프로그램", 12),
-                new Tag(10,"ios" , "프로그램", 11),
-                new Tag(11,"mysql" , "프로그램", 10),
-                new Tag(12,"sql" , "프로그램", 11),
-                new Tag(13,"node.js" , "프로그램", 11),
-                new Tag(14,"reactjs" , "프로그램", 11),
-                new Tag(15,"arrays" , "프로그램", 11),
-                new Tag(16,"asp.net" , "프로그램", 11),
-                new Tag(17,"json" , "프로그램", 11),
-                new Tag(18,"json" , "프로그램", 11),
-                new Tag(19,"python-3.x" , "프로그램", 11),
-                new Tag(20,"django" , "프로그램", 11)
-
-        );
-        return Tags;
+        return tagRepository.findAll();
     }
 
-    public static void deleteTag(int TagId) {}
+    public void deleteTag(int tagId) {tagRepository.deleteById(tagId);}
 }

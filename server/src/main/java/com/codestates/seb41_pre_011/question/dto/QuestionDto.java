@@ -2,6 +2,7 @@ package com.codestates.seb41_pre_011.question.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,6 +17,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch{
         private int questionId;

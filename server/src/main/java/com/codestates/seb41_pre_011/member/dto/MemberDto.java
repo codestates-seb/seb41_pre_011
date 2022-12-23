@@ -36,6 +36,7 @@ public class MemberDto {
     @AllArgsConstructor
     public static class GetResponse {
         private int memberId;
+        private String email;
         private String name;
         private String image;
     }
