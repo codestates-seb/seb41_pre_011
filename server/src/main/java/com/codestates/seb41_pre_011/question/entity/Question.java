@@ -22,6 +22,8 @@ public class Question {
     private String questionContent;
     @Column(nullable = false)
     private String attemptContent;
+    @Column(nullable = false)
     private LocalDateTime createdDate;
+    @Column(nullable = false)
     private LocalDateTime modifiedDate;
 }
