@@ -27,11 +27,10 @@ public class QuestionService {
     }
 
     public Question updateQuestion(Question question) {
-        Question findQuestion = findQuestion(question.getQuestionId());
+        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getQuestionContent()).ifPresent(findQuestion::setQuestionContent);
         Optional.ofNullable(question.getAttemptContent()).ifPresent(findQuestion::setAttemptContent);
-        Optional.ofNullable(question.getCreatedDate()).ifPresent(findQuestion::setCreatedDate);
         if(question.getModifiedDate() == null) {question.setModifiedDate(LocalDateTime.now());}
         return questionRepository.save(findQuestion);
     }
