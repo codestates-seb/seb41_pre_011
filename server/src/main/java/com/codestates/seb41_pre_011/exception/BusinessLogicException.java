@@ -1,2 +1,13 @@
-package com.codestates.seb41_pre_011.exception;public class BusinessLogicException {
+package com.codestates.seb41_pre_011.exception;
+
+import lombok.Getter;
+
+public class BusinessLogicException extends RuntimeException {
+    @Getter
+    private ExceptionCode exceptionCode;
+
+    public BusinessLogicException(ExceptionCode exceptionCode) {
+        super(exceptionCode.getMessage());
+        this.exceptionCode = exceptionCode;
+    }
 }
