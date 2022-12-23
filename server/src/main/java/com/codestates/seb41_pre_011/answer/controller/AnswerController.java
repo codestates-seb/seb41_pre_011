@@ -25,8 +25,8 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@RequestBody AnswerDto.Post requestbody) {
-        Answer answer = answerMapper.answerPostDtoToAnswer(requestbody);
+    public ResponseEntity postAnswer(@RequestBody AnswerDto.Post RequestBody) {
+        Answer answer = answerMapper.answerPostDtoToAnswer(RequestBody);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
@@ -34,9 +34,9 @@ public class AnswerController {
 
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive int answerId,
-                                      @RequestBody AnswerDto.Patch requestbody) {
-        requestbody.setAnswerId(answerId);
-        Answer updateAnswer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestbody));
+                                      @RequestBody AnswerDto.Patch RequestBody) {
+        RequestBody.setAnswerId(answerId);
+        Answer updateAnswer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(RequestBody));
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(updateAnswer);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
