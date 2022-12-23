@@ -59,7 +59,7 @@ public class TagController {
 
     @DeleteMapping("/{tag-id}")
     public ResponseEntity deleteTag(@PathVariable("tag-id") @Positive int tagId) {
-        TagService.deleteTag(tagId);
+        tagService.deleteTag(tagId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
