@@ -21,18 +21,18 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
-        if(question.getCreatedDate() == null) {}
-        if(question.getModifiedDate() == null) {}
+        if(question.getCreatedDate() == null) {question.setCreatedDate(LocalDateTime.now());}
+        if(question.getModifiedDate() == null) {question.setModifiedDate(LocalDateTime.now());}
         return questionRepository.save(question);
     }
-
-//    if(member.getImage()==null) {member.setImage("https://avatars.dicebear.com/api/bottts/2" + randImage + ".svg");}
 
     public Question updateQuestion(Question question) {
         Question findQuestion = findQuestion(question.getQuestionId());
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getQuestionContent()).ifPresent(findQuestion::setQuestionContent);
         Optional.ofNullable(question.getAttemptContent()).ifPresent(findQuestion::setAttemptContent);
+        Optional.ofNullable(question.getCreatedDate()).ifPresent(findQuestion::setCreatedDate);
+        if(question.getModifiedDate() == null) {question.setModifiedDate(LocalDateTime.now());}
         return questionRepository.save(findQuestion);
     }
 
