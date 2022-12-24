@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
@@ -30,7 +32,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity postMember(@RequestBody MemberDto.Post requestbody) {
+    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestbody) {
         Member member = memberMapper.memberPostDtoToMember(requestbody);
         Member createMember = memberService.createMember(member);
         URI location = UriCreater.createUri(MEMBER_DEFAULT_URL, createMember.getMemberId());
@@ -43,7 +45,7 @@ public class MemberController {
 
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive int memberId,
-                                      @RequestBody MemberDto.Patch requestbody) {
+                                      @Valid @RequestBody MemberDto.Patch requestbody) {
         requestbody.setMemberId(memberId);
         Member updateMember = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestbody));
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(updateMember);

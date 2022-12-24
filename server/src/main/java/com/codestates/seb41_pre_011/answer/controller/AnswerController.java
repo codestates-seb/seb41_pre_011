@@ -6,14 +6,18 @@ import com.codestates.seb41_pre_011.answer.mapper.AnswerMapper;
 import com.codestates.seb41_pre_011.answer.service.AnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/answer")
+@Validated
 public class AnswerController {
 
     private final AnswerService answerService;
@@ -25,7 +29,7 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@RequestBody AnswerDto.Post requestBody) {
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
@@ -34,7 +38,7 @@ public class AnswerController {
 
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive int answerId,
-                                      @RequestBody AnswerDto.Patch requestBody) {
+                                      @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
         Answer updateAnswer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestBody));
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(updateAnswer);

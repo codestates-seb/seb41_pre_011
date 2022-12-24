@@ -6,11 +6,13 @@ import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class TagService {
     private final TagRepository tagRepository;
 
