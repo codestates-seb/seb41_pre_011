@@ -1,22 +1,23 @@
 package com.codestates.seb41_pre_011.tagTest;
 
-import com.codestates.seb41_pre_011.member.dto.MemberDto;
-import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.controller.TagController;
 import com.codestates.seb41_pre_011.tag.dto.TagDto;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
+import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import com.codestates.seb41_pre_011.tag.service.TagService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,18 +28,13 @@ import java.util.List;
 
 import static com.codestates.seb41_pre_011.util.ApiDocumentUtils.*;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -181,6 +177,75 @@ public class tagTestApi {
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
                                         fieldWithPath("data.description").type(JsonFieldType.STRING).description("설명"),
                                         fieldWithPath("data.count").type(JsonFieldType.NUMBER).description("카운트")
+                                )
+                        )
+                ));
+    }
+
+    @Test
+    public void getTagsTest() throws Exception {
+        //given
+        int tagId1 = 1;
+        Tag tag1 = new Tag();
+        tag1.setTagId(tagId1);
+        tag1.setName("java");
+        tag1.setDescription("설명1");
+        tag1.setCount(0);
+
+        int tagId2 = 2;
+        Tag tag2 = new Tag();
+        tag2.setTagId(tagId2);
+        tag2.setName("spring");
+        tag2.setDescription("설명2");
+        tag2.setCount(0);
+
+        TagDto.Response response1 = new TagDto.Response(1, "java", "설명1", 0);
+        TagDto.Response response2 = new TagDto.Response(2, "spring", "설명2", 0);
+
+        int page = 2;
+        int size = 10;
+
+        Page<Tag> tags = new PageImpl<>(List.of(tag1, tag2), PageRequest.of(page - 1, size,
+                Sort.by("tagId").descending()), 2);
+
+        List<TagDto.Response> responses = List.of(response1, response2);
+
+        given(tagService.findTags(Mockito.anyInt(), Mockito.anyInt())).willReturn(tags);
+        given(mapper.tagsToTagResponseDto(Mockito.anyList())).willReturn(responses);
+
+        //when
+        ResultActions actions =
+                mockMvc.perform(
+                        get("/v1/tag")
+                                .param("page", String.valueOf(page))
+                                .param("size", String.valueOf(size))
+                                .accept(MediaType.APPLICATION_JSON)
+                );
+        //then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray())
+                .andDo(document(
+                        "get-tags",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        requestParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("사이즈")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
+                                        fieldWithPath("data[].tagId").type(JsonFieldType.NUMBER).description("태그 식별자"),
+                                        fieldWithPath("data[].name").type(JsonFieldType.STRING).description("이름"),
+                                        fieldWithPath("data[].description").type(JsonFieldType.STRING).description("설명"),
+                                        fieldWithPath("data[].count").type(JsonFieldType.NUMBER).description("카운트"),
+
+                                        fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
+                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 수"),
+                                        fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
+                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지 요소 수"),
+                                        fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수")
                                 )
                         )
                 ));

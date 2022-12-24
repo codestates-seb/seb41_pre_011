@@ -8,6 +8,10 @@ import com.codestates.seb41_pre_011.answer.service.AnswerService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +35,9 @@ import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AnswerController.class)
@@ -142,40 +144,112 @@ public class answerTestApi {
                         )
                 ));
     }
+    @Test
+    public void getAnswerTest() throws Exception {
+        //given
+        int answerId = 1;
+        Answer answer = new Answer();
+        answer.setAnswerId(answerId);
+        answer.setContent("답변");
+        answer.setCreatedDate(LocalDateTime.now());
+        answer.setModifiedDate(LocalDateTime.now());
+
+        AnswerDto.Response response = new AnswerDto.Response(1,"답변", LocalDateTime.now(), LocalDateTime.now());
+
+        given(answerService.findAnswer(Mockito.anyInt())).willReturn(answer);
+        given(mapper.answerToAnswerResponseDto(Mockito.any(Answer.class))).willReturn(response);
+
+        // when
+        ResultActions actions = mockMvc.perform(
+                get("/v1/answer/{answer-id}", answerId)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        // then
+        actions.andExpect(status().isOk())
+                .andDo(document("get-answer",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        pathParameters(
+                                parameterWithName("answer-id").description("답변 식별자")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
+                                        fieldWithPath("data.answerId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
+                                        fieldWithPath("data.content").type(JsonFieldType.STRING).description("댓글"),
+                                        fieldWithPath("data.createdDate").type(JsonFieldType.STRING).description("생성시간"),
+                                        fieldWithPath("data.modifiedDate").type(JsonFieldType.STRING).description("수정시간")
+                                )
+                        )
+                ));
+    }
+    @Test
+    public void getAnswers() throws Exception{
+        //given
+        int answerId1 = 1;
+        Answer answer1 = new Answer();
+        answer1.setAnswerId(answerId1);
+        answer1.setContent("답변1");
+        answer1.setCreatedDate(LocalDateTime.now());
+        answer1.setModifiedDate(LocalDateTime.now());
+
+        int answerId2 = 2;
+        Answer answer2 = new Answer();
+        answer2.setAnswerId(answerId2);
+        answer2.setContent("답변2");
+        answer2.setCreatedDate(LocalDateTime.now());
+        answer2.setCreatedDate(LocalDateTime.now());
+
+        AnswerDto.Response response1 = new AnswerDto.Response(1,"답변1", LocalDateTime.now(), LocalDateTime.now());
+        AnswerDto.Response response2 = new AnswerDto.Response(2,"답변2", LocalDateTime.now(), LocalDateTime.now());
+
+        int page = 2;
+        int size = 10;
+
+        Page<Answer> answers = new PageImpl<>(List.of(answer1, answer2), PageRequest.of(page-1, size,
+                Sort.by("memberId").descending()), 2);
+
+        List<AnswerDto.Response> responses = List.of(response1, response2);
+
+        given(answerService.findAnswers(Mockito.anyInt(), Mockito.anyInt())).willReturn(answers);
+        given(mapper.answersToAnswerResponseDto(Mockito.anyList())).willReturn(responses);
+
+        // when
+        ResultActions actions =
+                mockMvc.perform(
+                        get("/v1/answer")
+                                .param("page", String.valueOf(page))
+                                .param("size", String.valueOf(size))
+                                .accept(MediaType.APPLICATION_JSON)
+                );
+        // then
+        actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data").isArray())
+                .andDo(document(
+                        "get-answers",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        requestParameters(
+                                parameterWithName("page").description("페이지"),
+                                parameterWithName("size").description("사이즈")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
+                                        fieldWithPath("data[].answerId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
+                                        fieldWithPath("data[].content").type(JsonFieldType.STRING).description("댓글"),
+                                        fieldWithPath("data[].createdDate").type(JsonFieldType.STRING).description("생성시간"),
+                                        fieldWithPath("data[].modifiedDate").type(JsonFieldType.STRING).description("수정시간"),
+
+                                        fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
+                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 수"),
+                                        fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
+                                        fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("페이지 요소 수"),
+                                        fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수")
+
+                                )
+                        )
+                ));
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

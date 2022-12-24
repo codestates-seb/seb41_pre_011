@@ -11,5 +11,5 @@ public interface TagMapper {
     Tag tagPostDtoToTag(TagDto.Post requestbody);
     Tag tagPatchDtoToTag(TagDto.Patch requestbody);
     TagDto.Response tagToTagResponseDto(Tag tag);
-    List<TagDto.Response> TagsToTagResponseDto(List<Tag> tags);
+    List<TagDto.Response> tagsToTagResponseDto(List<Tag> tags);
 }

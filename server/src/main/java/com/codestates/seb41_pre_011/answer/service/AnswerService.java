@@ -4,6 +4,10 @@ import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.answer.repository.AnswerRepository;
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
+import com.codestates.seb41_pre_011.tag.entity.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,8 +38,8 @@ public class AnswerService {
         return answer;
     }
 
-    public List<Answer> findAnswers() {
-        return answerRepository.findAll();
+    public Page<Answer> findAnswers(int page, int size) {
+        return answerRepository.findAll(PageRequest.of(page, size, Sort.by("answerId").descending()));
     }
 
     public void deleteAnswer(int answerId) { answerRepository.deleteById(answerId);

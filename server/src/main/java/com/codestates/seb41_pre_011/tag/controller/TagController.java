@@ -1,21 +1,21 @@
 package com.codestates.seb41_pre_011.tag.controller;
 
+import com.codestates.seb41_pre_011.dto.MultiResponseDto;
 import com.codestates.seb41_pre_011.dto.SingleResponseDto;
+import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.dto.TagDto;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
 import com.codestates.seb41_pre_011.tag.service.TagService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/tag")
@@ -54,11 +54,13 @@ public class TagController {
     }
 
     @GetMapping
-    public ResponseEntity getTags() {
-        List<Tag> tags = tagService.findTags();
-        List<TagDto.Response> response = tags.stream().map(tag -> tagMapper.tagToTagResponseDto(tag))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity getTags(@RequestParam int page,
+                                  @RequestParam int size) {
+        Page<Tag> pageTags = tagService.findTags(page - 1, size);
+        List<Tag> tags = pageTags.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(tagMapper.tagsToTagResponseDto(tags),
+                        pageTags), HttpStatus.OK);
     }
 
     @DeleteMapping("/{tag-id}")
