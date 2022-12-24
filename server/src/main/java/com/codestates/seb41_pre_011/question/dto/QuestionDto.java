@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,8 +12,11 @@ public class QuestionDto {
     @Getter
     @AllArgsConstructor
     public static class Post{
+        @NotBlank(message = "제목을 입력해 주세요.")
         private String title;
+        @NotBlank(message = "내용을 입력해 주세요.")
         private String questionContent;
+        @NotBlank(message = "내용을 입력해 주세요.")
         private String attemptContent;
     }
 
@@ -20,8 +24,11 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Patch{
         private int questionId;
+        @NotBlank(message = "수정할 제목을 입력해 주세요.")
         private String title;
+        @NotBlank(message = "수정할 내용을 입력해 주세요.")
         private String questionContent;
+        @NotBlank(message = "수정할 내용을 입력해 주세요.")
         private String attemptContent;
 
         public void setQuestionId(int questionId) {this.questionId = questionId;}

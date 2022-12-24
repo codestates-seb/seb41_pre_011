@@ -3,11 +3,15 @@ package com.codestates.seb41_pre_011.tag.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+
 public class TagDto {
     @Getter
     @AllArgsConstructor
     public static class Post {
+        @NotBlank(message = "태그를 입력해 주세요.")
         private String name;
+        @NotBlank(message = "설명을 입력해 주세요.")
         private String description;
     }
 
@@ -15,6 +19,7 @@ public class TagDto {
     @AllArgsConstructor
     public static class Patch {
         private int tagId;
+        @NotBlank(message = "수정할 설명을 입력해 주세요.")
         private String description;
         private int count;
 

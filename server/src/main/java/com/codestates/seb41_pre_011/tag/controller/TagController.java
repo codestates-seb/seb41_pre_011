@@ -7,8 +7,11 @@ import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
 import com.codestates.seb41_pre_011.tag.service.TagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/tag")
+@Validated
 public class TagController {
     private final TagService tagService;
     private final TagMapper tagMapper;
@@ -26,7 +30,7 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity postTag(@RequestBody TagDto.Post requestbody) {
+    public ResponseEntity postTag(@Valid @RequestBody TagDto.Post requestbody) {
         Tag tag = tagMapper.tagPostDtoToTag(requestbody);
         Tag createTag = tagService.createTag(tag);
         TagDto.Response response = tagMapper.tagToTagResponseDto(createTag);
@@ -35,7 +39,7 @@ public class TagController {
 
     @PatchMapping("/{tag-id}")
     public ResponseEntity patchTag(@PathVariable("tag-id") @Positive int tagId,
-                                   @RequestBody TagDto.Patch requestbody) {
+                                   @Valid @RequestBody TagDto.Patch requestbody) {
         requestbody.setTagId(tagId);
         Tag updateTag = tagService.updateTag(tagMapper.tagPatchDtoToTag(requestbody));
         TagDto.Response response = tagMapper.tagToTagResponseDto(updateTag);

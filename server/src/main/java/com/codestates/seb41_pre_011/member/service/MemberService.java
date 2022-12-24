@@ -5,6 +5,9 @@ import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.repository.MemberRepository;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,14 +42,9 @@ public class MemberService {
         return member;
     }
 
-    public List<Member> findMembers() {
-        List<Member> allMembers = memberRepository.findAll();
-        int members = allMembers.size();
-        for(int i=0; i<members; i++) {
-            Member oneMember = allMembers.get(i);
-            oneMember.setPassword(null);
-        }
-        return allMembers;
+    public Page<Member> findMembers(int page, int size) {
+        return memberRepository.findAll(PageRequest.of(page, size,
+                Sort.by("memberId").descending()));
     }
     public void deleteMember(int memberId) {memberRepository.deleteById(memberId);}
 

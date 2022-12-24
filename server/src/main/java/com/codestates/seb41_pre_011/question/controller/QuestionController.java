@@ -6,13 +6,17 @@ import com.codestates.seb41_pre_011.question.mapper.QuestionMapper;
 import com.codestates.seb41_pre_011.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/question")
+@Validated
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
@@ -23,7 +27,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody){
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody){
         Question question = mapper.questionPostToQuestion(requestBody);
         Question createdQuestion = questionService.createQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createdQuestion);
@@ -32,7 +36,7 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") int questionId,
-                                        @RequestBody QuestionDto.Patch requestBody){
+                                        @Valid @RequestBody QuestionDto.Patch requestBody){
         requestBody.setQuestionId(questionId);
         Question question = mapper.questionPatchToQuestion(requestBody);
         Question updateQuestion = questionService.updateQuestion(question);
