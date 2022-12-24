@@ -4,6 +4,7 @@ import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.repository.MemberRepository;
+import com.codestates.seb41_pre_011.tag.entity.Tag;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MemberService {
     }
 
     public Member updateMember(Member member) {
-        Member findMember = findMember(member.getMemberId());
+        Member findMember = findVerifiedMember(member.getMemberId());
         Optional.ofNullable(member.getName()).ifPresent(findMember::setName);
         Optional.ofNullable(member.getPassword()).ifPresent(findMember::setPassword);
         Optional.ofNullable(member.getImage()).ifPresent(findMember::setImage);
@@ -33,17 +34,29 @@ public class MemberService {
     }
 
     public Member findMember(int memberId) {
-        Optional<Member> findMember = memberRepository.findById(memberId);
-        return findMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member member = findVerifiedMember(memberId);
+        member.setPassword(null);
+        return member;
     }
 
     public List<Member> findMembers() {
-        return memberRepository.findAll();
+        List<Member> allMembers = memberRepository.findAll();
+        int members = allMembers.size();
+        for(int i=0; i<members; i++) {
+            Member oneMember = allMembers.get(i);
+            oneMember.setPassword(null);
+        }
+        return allMembers;
     }
     public void deleteMember(int memberId) {memberRepository.deleteById(memberId);}
 
     private static final Random rng = new Random();
 
     public static int randBetween(int min, int max) {return min+rng.nextInt(max-min+1);}
-}
 
+    public Member findVerifiedMember(int memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findmember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findmember;
+    }
+}
