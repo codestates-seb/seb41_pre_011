@@ -4,6 +4,7 @@ import com.codestates.seb41_pre_011.answer.dto.AnswerDto;
 import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.answer.mapper.AnswerMapper;
 import com.codestates.seb41_pre_011.answer.service.AnswerService;
+import com.codestates.seb41_pre_011.dto.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class AnswerController {
         Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
-        return new ResponseEntity<>(response,HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto(response),HttpStatus.CREATED);
     }
 
     @PatchMapping("/{answer-id}")
@@ -38,7 +39,7 @@ public class AnswerController {
         requestBody.setAnswerId(answerId);
         Answer updateAnswer = answerService.updateAnswer(answerMapper.answerPatchDtoToAnswer(requestBody));
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(updateAnswer);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto(response), HttpStatus.OK);
     }
 
     @GetMapping("/{answer-id}")

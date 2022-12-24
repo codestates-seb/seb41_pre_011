@@ -27,3 +27,19 @@ include::{snippets}/post-member/http-response.adoc[]
 
 .response-fields
 include::{snippets}/post-member/response-fields.adoc[]
+== TagController
+=== 태그 등록
+.curl-request
+include::{snippets}/post-tag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-member/http-request.adoc[]
+
+.request-fiels
+include::{snippets}/post-tag/request-fields.adoc[]
+
+.http-response
+include::{snippets}/post-tag/http-response.adoc[]
+
+.http-response
+include::{snippets}/post-tag/response-fields.adoc[]
