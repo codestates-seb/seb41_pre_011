@@ -9,7 +9,6 @@ public class TagDto {
     public static class Post {
         private String name;
         private String description;
-        private int count;
     }
 
     @Getter

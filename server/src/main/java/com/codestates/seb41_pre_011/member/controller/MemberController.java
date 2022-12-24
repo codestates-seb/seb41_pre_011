@@ -4,7 +4,6 @@ import com.codestates.seb41_pre_011.member.dto.MemberDto;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.mapper.MemberMapper;
 import com.codestates.seb41_pre_011.member.service.MemberService;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -47,14 +46,14 @@ public class MemberController {
     @GetMapping("/{member-id}")
     public ResponseEntity getMember(@PathVariable("member-id") @Positive int memberId) {
         Member findMember = memberService.findMember(memberId);
-        MemberDto.GetResponse response = memberMapper.memberToGetMemberResponseDto(findMember);
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(findMember);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getMembers() {
         List<Member> members = memberService.findMembers();
-        List<MemberDto.GetResponse> response = members.stream().map(member -> memberMapper.memberToGetMemberResponseDto(member))
+        List<MemberDto.Response> response = members.stream().map(member -> memberMapper.memberToMemberResponseDto(member))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

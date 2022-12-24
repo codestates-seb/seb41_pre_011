@@ -17,13 +17,14 @@ public class QuestionDto {
     }
 
     @Getter
-    @Setter
     @AllArgsConstructor
     public static class Patch{
         private int questionId;
         private String title;
         private String questionContent;
         private String attemptContent;
+
+        public void setQuestionId(int questionId) {this.questionId = questionId;}
     }
 
     @Getter

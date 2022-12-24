@@ -2,6 +2,7 @@ package com.codestates.seb41_pre_011.tag.service;
 
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
+import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,18 @@ public class TagService {
     }
 
     public Tag createTag(Tag tag) {
+        tag.setCount(0);
         return tagRepository.save(tag);
     }
     public Tag updateTag(Tag tag) {
-        Tag findTag =findTag(tag.getTagId());
+        Tag findTag =findVerifiedTag(tag.getTagId());
         Optional.ofNullable(tag.getDescription()).ifPresent(findTag::setDescription);
-        Optional.ofNullable(tag.getCount()).ifPresent(findTag::setCount);
         return tagRepository.save(findTag);
     }
 
     public Tag findTag(int tagId) {
-        Optional<Tag> findTag =tagRepository.findById(tagId);
-        return findTag.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
+        Tag tag = findVerifiedTag(tagId);
+        return tag;
     }
 
     public List<Tag> findTags() {
@@ -37,4 +38,10 @@ public class TagService {
     }
 
     public void deleteTag(int tagId) {tagRepository.deleteById(tagId);}
+
+    public Tag findVerifiedTag(int tagId) {
+        Optional<Tag> optionalTag = tagRepository.findById(tagId);
+        Tag findTag = optionalTag.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TAG_NOT_FOUND));
+        return findTag;
+    }
 }
