@@ -1,5 +1,6 @@
 package com.codestates.seb41_pre_011.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Member {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
     private String image;
 }
