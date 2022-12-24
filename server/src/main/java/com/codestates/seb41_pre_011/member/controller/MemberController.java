@@ -1,11 +1,13 @@
 package com.codestates.seb41_pre_011.member.controller;
 
+import com.codestates.seb41_pre_011.dto.MultiResponseDto;
 import com.codestates.seb41_pre_011.dto.SingleResponseDto;
 import com.codestates.seb41_pre_011.member.dto.MemberDto;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.member.mapper.MemberMapper;
 import com.codestates.seb41_pre_011.member.service.MemberService;
 import com.codestates.seb41_pre_011.utils.UriCreater;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -58,15 +60,20 @@ public class MemberController {
     public ResponseEntity getMember(@PathVariable("member-id") @Positive int memberId) {
         Member findMember = memberService.findMember(memberId);
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(findMember);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response),
+                HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getMembers() {
-        List<Member> members = memberService.findMembers();
-        List<MemberDto.Response> response = members.stream().map(member -> memberMapper.memberToMemberResponseDto(member))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity getMembers(@RequestParam int page,
+                                     @RequestParam int size) {
+        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
+        List<Member> members = pageMembers.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(memberMapper.membersToMemberResponseDto(members),
+                        pageMembers),
+                HttpStatus.OK);
     }
 
     @DeleteMapping("/{member-id}")
