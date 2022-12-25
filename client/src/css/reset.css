@@ -58,7 +58,6 @@ input,
 select,
 textarea {
   vertical-align: middle;
-  font-size: 100%;
 }
 button {
   border: 0;
@@ -97,7 +96,7 @@ select,
 td,
 textarea,
 th {
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.5;
   font-family: -apple-system, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕,
     sans-serif;
