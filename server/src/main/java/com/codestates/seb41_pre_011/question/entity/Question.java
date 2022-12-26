@@ -1,5 +1,6 @@
 package com.codestates.seb41_pre_011.question.entity;
 
+import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.entity.TagQuestion;
 import lombok.AllArgsConstructor;
@@ -31,12 +32,13 @@ public class Question {
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member questionMember;
-//    public void addMember(Member member) {this.questionMember = questionMember;}
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member Member;
+
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "question")
     private List<TagQuestion> tagQuestions = new ArrayList<>();
-    public void addTagQuestion(TagQuestion tagQuestion) {this.tagQuestions = tagQuestions;}
 }

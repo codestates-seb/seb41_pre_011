@@ -24,5 +24,4 @@ public class TagAnswer {
     @ManyToOne
     @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
-    public void addAnswer(Answer answer) {this.answer = answer;}
 }

@@ -1,6 +1,7 @@
 package com.codestates.seb41_pre_011.answer.entity;
 
 import com.codestates.seb41_pre_011.member.entity.Member;
+import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.tag.entity.TagAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,12 +28,14 @@ public class Answer {
     private boolean adoption;
     private int memberId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member answerMember;
-//    public void addMember(Member member) {this.answerMember = answerMember;}
+    @ManyToOne
+    @JoinColumn
+    private Member Member;
+
+    @ManyToOne
+    @JoinColumn(name = "question")
+    private Question question;
 
     @OneToMany(mappedBy = "answer")
     private List<TagAnswer> tagAnswers = new ArrayList<>();
-    public void addTagAnswer(TagAnswer tagAnswer) {this.tagAnswers = tagAnswers;}
 }

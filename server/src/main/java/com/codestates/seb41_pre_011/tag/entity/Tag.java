@@ -24,9 +24,7 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag")
     private List<TagQuestion> tagQuestions = new ArrayList<>();
-    public void addTagQuestion(TagQuestion tagQuestion) {this.tagQuestions = tagQuestions;}
 
     @OneToMany(mappedBy = "tag")
     private List<TagAnswer> tagAnswers = new ArrayList<>();
-    public void addTagAnswer(TagAnswer tagAnswer) {this.tagAnswers = tagAnswers;}
 }

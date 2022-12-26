@@ -28,12 +28,10 @@ public class Member {
     private String password;
     private String image;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Question> questions = new ArrayList<>();
-//    public void addQuestion(Question question) {this.questions = questions;}
+    @OneToMany
+    private List<Question> questions = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Answer> answers = new ArrayList<>();
-//    public void addAnswer(Answer answer) {this.answers = answers;}
+    @OneToMany
+    private List<Answer> answers = new ArrayList<>();
 }
 
