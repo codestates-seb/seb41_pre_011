@@ -11,7 +11,6 @@ const Container = styled.div`
   margin: 0 auto;
   position: relative;
   display: flex;
-  hsl(210,8%,85%)
 `;
 
 /* pages */

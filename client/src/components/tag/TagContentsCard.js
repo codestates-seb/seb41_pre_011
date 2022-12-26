@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import TagDummyData from '../../dummy/TagDummyData';
+import { useState, useEffect } from 'react';
 
 const ContentsWrapper = styled.div`
   display: flex;
@@ -69,9 +70,13 @@ const TagContentQuestions = styled.div`
 `;
 
 const TagContentsCard = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setData(TagDummyData);
+  }, []);
   return (
     <ContentsWrapper>
-      {TagDummyData.map((it) => (
+      {data.map((it) => (
         <TagContentsCardBox key={it.id}>
           <TagContentsDiv>
             <TagContentsButton>{it.tag}</TagContentsButton>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import UserDummyData from '../../dummy/UserDummyData';
+import { useState, useEffect } from 'react';
 
 const UserWrapper = styled.div`
   display: flex;
@@ -44,11 +45,15 @@ const Email = styled.div`
 `;
 
 const UserContentsCard = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setData(UserDummyData);
+  }, []);
   return (
     <UserWrapper>
-      {UserDummyData.map((it) => (
+      {data.map((it) => (
         <UserContentsCardBox key={it.id}>
-          <UserImage src={`${it.url}`} />
+          <UserImage src={`${it.image}`} />
           <UserDetails>
             <UserName>{it.name}</UserName>
             <Email>{it.email}</Email>
