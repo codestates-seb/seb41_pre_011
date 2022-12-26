@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import UserDummyData from '../../dummy/UserDummyData';
 import { useState, useEffect } from 'react';
+// import axios from 'axios';
 
 const UserWrapper = styled.div`
   display: flex;
@@ -48,7 +49,19 @@ const UserContentsCard = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     setData(UserDummyData);
+
+    // axios.get('/v1/member/1').then((res) => setData(res.data));
+    // axios
+    //   .post('/v1/member/1', {
+    //     email: 'hgd@gmail.com',
+    //     name: '홍길동',
+    //     password: 'Code^States1',
+    //   })
+    //   .then((res) => setData(res.data))
+    //   .catch((error) => console.log('error : ', error));
   }, []);
+
+  console.log(data);
   return (
     <UserWrapper>
       {data.map((it) => (
