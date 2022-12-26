@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -34,12 +35,10 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 
 @WebMvcTest(MemberController.class)
 @MockBean(JpaMetamodelMappingContext.class)
@@ -59,11 +58,11 @@ public class memberTestApi {
 
     @Test
     public void PostMemberTest()throws Exception {
-        MemberDto.Post post = new MemberDto.Post("hgd@gmail.com", "홍길동", "user_password");
+        MemberDto.Post post = new MemberDto.Post("hgd@gmail.com", "홍길동", "Code^States1");
         String content = gson.toJson(post);
 
         MemberDto.Response responseDto =
-                new MemberDto.Response(1,"hgd@gmail.com","홍길동","user_password","https://avatars.dicebear.com/api/bottts/222.svg");
+                new MemberDto.Response(1,"hgd@gmail.com","홍길동","Code^States1","https://avatars.dicebear.com/api/bottts/222.svg");
 
         given(mapper.memberPostDtoToMember(Mockito.any(MemberDto.Post.class))).willReturn(new Member());
         given(memberService.createMember(Mockito.any(Member.class))).willReturn(new Member());
@@ -106,11 +105,11 @@ public class memberTestApi {
     @Test
     public void patchMemberTest() throws Exception {
         // given
-        MemberDto.Patch patch = new MemberDto.Patch(1, "홍길동", "user_password", "https://avatars.dicebear.com/api/bottts/222.svg");
+        MemberDto.Patch patch = new MemberDto.Patch(1, "홍길동", "Code^States1", "https://avatars.dicebear.com/api/bottts/222.svg");
         String content = gson.toJson(patch);
 
         MemberDto.Response responseDto =
-                new MemberDto.Response(1, "hgd@gmail.com", "홍길동", "user_password", "https://avatars.dicebear.com/api/bottts/222.svg");
+                new MemberDto.Response(1, "hgd@gmail.com", "홍길동", "Code^States1", "https://avatars.dicebear.com/api/bottts/222.svg");
 
         // willReturn()이 최소한 null은 아니어야 한다.
         given(mapper.memberPatchDtoToMember(Mockito.any(MemberDto.Patch.class))).willReturn(new Member());
@@ -277,6 +276,24 @@ public class memberTestApi {
                                         fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수")
 
                                 )
+                        )
+                ));
+    }
+
+    @Test
+    public void deleteMemberTest() throws Exception {
+        //given
+        int memberId = 1;
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                delete("/v1/member/{member-id}", memberId).accept(MediaType.APPLICATION_JSON));
+
+        //then
+        actions.andExpect(status().isNoContent())
+                .andDo(MockMvcRestDocumentation.document("delete-member",
+                        pathParameters(
+                                parameterWithName("member-id").description("멤버 식별자")
                         )
                 ));
     }
