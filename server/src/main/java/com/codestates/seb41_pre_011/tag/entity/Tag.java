@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -19,4 +21,12 @@ public class Tag {
     @Column(length = 255, nullable = false)
     private String description;
     private int count;
+
+    @OneToMany(mappedBy = "tag")
+    private List<TagQuestion> tagQuestions = new ArrayList<>();
+    public void addTagQuestion(TagQuestion tagQuestion) {this.tagQuestions = tagQuestions;}
+
+    @OneToMany(mappedBy = "tag")
+    private List<TagAnswer> tagAnswers = new ArrayList<>();
+    public void addTagAnswer(TagAnswer tagAnswer) {this.tagAnswers = tagAnswers;}
 }

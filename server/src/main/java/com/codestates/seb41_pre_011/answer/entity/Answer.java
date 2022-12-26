@@ -1,5 +1,7 @@
 package com.codestates.seb41_pre_011.answer.entity;
 
+import com.codestates.seb41_pre_011.member.entity.Member;
+import com.codestates.seb41_pre_011.tag.entity.TagAnswer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +26,13 @@ public class Answer {
     private LocalDateTime modifiedDate = LocalDateTime.now();
     private boolean adoption;
     private int memberId;
+
+//    @ManyToOne
+//    @JoinColumn(name = "MEMBER_ID")
+//    private Member answerMember;
+//    public void addMember(Member member) {this.answerMember = answerMember;}
+
+    @OneToMany(mappedBy = "answer")
+    private List<TagAnswer> tagAnswers = new ArrayList<>();
+    public void addTagAnswer(TagAnswer tagAnswer) {this.tagAnswers = tagAnswers;}
 }
