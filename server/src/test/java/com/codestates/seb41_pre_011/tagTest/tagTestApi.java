@@ -19,17 +19,20 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 
+import java.net.URI;
 import java.util.List;
 
 import static com.codestates.seb41_pre_011.util.ApiDocumentUtils.*;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -249,5 +252,24 @@ public class tagTestApi {
                                 )
                         )
                 ));
+    }
+    @Test
+    public void deleteTagTest() throws Exception {
+        //given
+        int tagId = 1;
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                delete("/v1/tag/{tag-id}", tagId).accept(MediaType.APPLICATION_JSON));
+
+        //then
+        actions.andExpect(status().isNoContent())
+                .andDo(MockMvcRestDocumentation.document("delete-tag",
+                        pathParameters(
+                                parameterWithName("tag-id").description("태그 식별자")
+                        )
+                                )
+
+                );
     }
 }

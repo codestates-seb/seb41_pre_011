@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDoc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.MockMvc;
@@ -251,5 +252,25 @@ public class answerTestApi {
                                 )
                         )
                 ));
+
+    }
+    @Test
+    public void deleteAnswerTest() throws Exception {
+        //given
+        int answerId = 1;
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                delete("/v1/answer/{answer-id}", answerId).accept(MediaType.APPLICATION_JSON));
+
+        //then
+        actions.andExpect(status().isNoContent())
+                .andDo(MockMvcRestDocumentation.document("delete-answer",
+                                pathParameters(
+                                        parameterWithName("answer-id").description("답변 식별자")
+                                )
+                        )
+
+                );
     }
 }
