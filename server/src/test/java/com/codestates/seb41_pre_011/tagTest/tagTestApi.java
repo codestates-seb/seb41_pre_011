@@ -4,7 +4,6 @@ import com.codestates.seb41_pre_011.tag.controller.TagController;
 import com.codestates.seb41_pre_011.tag.dto.TagDto;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
-import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import com.codestates.seb41_pre_011.tag.service.TagService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -24,16 +23,10 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-
-import java.net.URI;
 import java.util.List;
 
 import static com.codestates.seb41_pre_011.util.ApiDocumentUtils.*;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;

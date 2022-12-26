@@ -7,7 +7,6 @@ import com.codestates.seb41_pre_011.answer.mapper.AnswerMapper;
 import com.codestates.seb41_pre_011.answer.service.AnswerService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +20,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -29,12 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.codestates.seb41_pre_011.util.ApiDocumentUtils.*;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;

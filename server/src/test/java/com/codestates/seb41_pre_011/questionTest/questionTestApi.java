@@ -1,7 +1,5 @@
 package com.codestates.seb41_pre_011.questionTest;
 
-import com.codestates.seb41_pre_011.answer.dto.AnswerDto;
-import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.question.controller.QuestionController;
 import com.codestates.seb41_pre_011.question.dto.QuestionDto;
 import com.codestates.seb41_pre_011.question.entity.Question;
@@ -30,12 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.codestates.seb41_pre_011.util.ApiDocumentUtils.*;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
