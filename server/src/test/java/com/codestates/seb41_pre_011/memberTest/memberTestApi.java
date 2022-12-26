@@ -96,7 +96,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 url")
                                 )
                         )
@@ -132,7 +131,6 @@ public class memberTestApi {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.memberId").value(patch.getMemberId()))
                 .andExpect(jsonPath("$.data.name").value(patch.getName()))
-                .andExpect(jsonPath("$.data.password").value(patch.getPassword()))
                 .andExpect(jsonPath("$.data.image").value(patch.getImage()))
                 .andDo(document("patch-member",
                         getRequestPreProcessor(),
@@ -154,7 +152,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 주소")
                                 )
                         )
@@ -200,7 +197,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 주소")
                                 )
                         )
@@ -266,7 +262,6 @@ public class memberTestApi {
                                         fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data[].email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data[].name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data[].password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data[].image").type(JsonFieldType.STRING).description("이미지 주소"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
