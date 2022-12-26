@@ -1,4 +1,20 @@
+import styled from 'styled-components';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+/* components */
+import Header from './components/header/Header';
+import Aside from './components/aside/Aside';
+import Footer from './components/footer/Footer';
+const Container = styled.div`
+  max-width: 1264px;
+  min-height: calc(100vh - 372px);
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  hsl(210,8%,85%)
+`;
+
+/* pages */
 import Board from './pages/Board';
 import Board_write from './pages/Board_write';
 import Home from './pages/Home';
@@ -13,17 +29,26 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/sing_up" element={<Sing_up />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/board_list" element={<Board_List />} />
-          <Route path="/board_write" element={<Board_write />} />
-          <Route path="/tag_list" element={<Tag_list />} />
-          <Route path="/user_list" element={<User_list />} />
-        </Routes>
+        <Header />
+
+        <Container>
+          <Aside />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sing_up" element={<Sing_up />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/board_list" element={<Board_List />} />
+              <Route path="/board_write" element={<Board_write />} />
+              <Route path="/tag_list" element={<Tag_list />} />
+              <Route path="/user_list" element={<User_list />} />
+            </Routes>
+          </div>
+        </Container>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );
