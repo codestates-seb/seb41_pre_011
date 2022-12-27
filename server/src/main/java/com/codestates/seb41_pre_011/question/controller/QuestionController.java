@@ -1,9 +1,12 @@
 package com.codestates.seb41_pre_011.question.controller;
 
+import com.codestates.seb41_pre_011.dto.MultiResponseDto;
+import com.codestates.seb41_pre_011.dto.SingleResponseDto;
 import com.codestates.seb41_pre_011.question.dto.QuestionDto;
 import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.question.mapper.QuestionMapper;
 import com.codestates.seb41_pre_011.question.service.QuestionService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +17,7 @@ import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/question")
 @Validated
@@ -31,7 +35,7 @@ public class QuestionController {
         Question question = mapper.questionPostToQuestion(requestBody);
         Question createdQuestion = questionService.createQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createdQuestion);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{question-id}")
@@ -41,24 +45,23 @@ public class QuestionController {
         Question question = mapper.questionPatchToQuestion(requestBody);
         Question updateQuestion = questionService.updateQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(updateQuestion);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") int questionId){
         Question question = questionService.findQuestion(questionId);
         QuestionDto.Response response = mapper.questionToQuestionResponse(question);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(){
-        List<Question> questions = questionService.findQuestions();
-        List<QuestionDto.Response> response = questions
-                .stream()
-                .map(question -> mapper.questionToQuestionResponse(question))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity getQuestions(@RequestParam int page,
+                                       @RequestParam int size){
+        Page<Question> pagequestions = questionService.findQuestions(page - 1, size);
+        List<Question> responses = pagequestions.getContent();
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionsToQuestionResponses(responses),
+                pagequestions), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -34,12 +35,10 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 
 @WebMvcTest(MemberController.class)
 @MockBean(JpaMetamodelMappingContext.class)
@@ -59,11 +58,11 @@ public class memberTestApi {
 
     @Test
     public void PostMemberTest()throws Exception {
-        MemberDto.Post post = new MemberDto.Post("hgd@gmail.com", "홍길동", "user_password");
+        MemberDto.Post post = new MemberDto.Post("hgd@gmail.com", "홍길동", "Code^States1");
         String content = gson.toJson(post);
 
         MemberDto.Response responseDto =
-                new MemberDto.Response(1,"hgd@gmail.com","홍길동","user_password","https://avatars.dicebear.com/api/bottts/222.svg");
+                new MemberDto.Response(1,"hgd@gmail.com","홍길동","Code^States1","https://avatars.dicebear.com/api/bottts/222.svg");
 
         given(mapper.memberPostDtoToMember(Mockito.any(MemberDto.Post.class))).willReturn(new Member());
         given(memberService.createMember(Mockito.any(Member.class))).willReturn(new Member());
@@ -97,7 +96,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 url")
                                 )
                         )
@@ -106,11 +104,11 @@ public class memberTestApi {
     @Test
     public void patchMemberTest() throws Exception {
         // given
-        MemberDto.Patch patch = new MemberDto.Patch(1, "홍길동", "user_password", "https://avatars.dicebear.com/api/bottts/222.svg");
+        MemberDto.Patch patch = new MemberDto.Patch(1, "홍길동", "Code^States1", "https://avatars.dicebear.com/api/bottts/222.svg");
         String content = gson.toJson(patch);
 
         MemberDto.Response responseDto =
-                new MemberDto.Response(1, "hgd@gmail.com", "홍길동", "user_password", "https://avatars.dicebear.com/api/bottts/222.svg");
+                new MemberDto.Response(1, "hgd@gmail.com", "홍길동", "Code^States1", "https://avatars.dicebear.com/api/bottts/222.svg");
 
         // willReturn()이 최소한 null은 아니어야 한다.
         given(mapper.memberPatchDtoToMember(Mockito.any(MemberDto.Patch.class))).willReturn(new Member());
@@ -133,7 +131,6 @@ public class memberTestApi {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.memberId").value(patch.getMemberId()))
                 .andExpect(jsonPath("$.data.name").value(patch.getName()))
-                .andExpect(jsonPath("$.data.password").value(patch.getPassword()))
                 .andExpect(jsonPath("$.data.image").value(patch.getImage()))
                 .andDo(document("patch-member",
                         getRequestPreProcessor(),
@@ -155,7 +152,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 주소")
                                 )
                         )
@@ -201,7 +197,6 @@ public class memberTestApi {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data.image").type(JsonFieldType.STRING).description("이미지 주소")
                                 )
                         )
@@ -267,7 +262,6 @@ public class memberTestApi {
                                         fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data[].email").type(JsonFieldType.STRING).description("이메일"),
                                         fieldWithPath("data[].name").type(JsonFieldType.STRING).description("이름"),
-                                        fieldWithPath("data[].password").type(JsonFieldType.STRING).description("비밀번호"),
                                         fieldWithPath("data[].image").type(JsonFieldType.STRING).description("이미지 주소"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
@@ -277,6 +271,24 @@ public class memberTestApi {
                                         fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수")
 
                                 )
+                        )
+                ));
+    }
+
+    @Test
+    public void deleteMemberTest() throws Exception {
+        //given
+        int memberId = 1;
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                delete("/v1/member/{member-id}", memberId).accept(MediaType.APPLICATION_JSON));
+
+        //then
+        actions.andExpect(status().isNoContent())
+                .andDo(MockMvcRestDocumentation.document("delete-member",
+                        pathParameters(
+                                parameterWithName("member-id").description("멤버 식별자")
                         )
                 ));
     }

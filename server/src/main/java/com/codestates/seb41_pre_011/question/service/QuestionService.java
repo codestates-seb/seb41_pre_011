@@ -4,6 +4,9 @@ import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +43,9 @@ public class QuestionService {
         return question;
     }
 
-    public List<Question> findQuestions() {
-        return questionRepository.findAll();
+    public Page<Question> findQuestions(int page, int size) {
+        return questionRepository.findAll(PageRequest.of(page, size,
+                Sort.by("memberId").descending()));
     }
 
     public void deleteQuestion(int questionId) { questionRepository.deleteById(questionId);

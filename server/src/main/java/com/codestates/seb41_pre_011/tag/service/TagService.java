@@ -2,17 +2,17 @@ package com.codestates.seb41_pre_011.tag.service;
 
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
-import com.codestates.seb41_pre_011.question.entity.Question;
+import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.repository.TagRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-@Validated
 public class TagService {
     private final TagRepository tagRepository;
 
@@ -35,8 +35,8 @@ public class TagService {
         return tag;
     }
 
-    public List<Tag> findTags() {
-        return tagRepository.findAll();
+    public Page<Tag> findTags(int page, int size) {
+        return tagRepository.findAll(PageRequest.of(page, size, Sort.by("tagId").descending()));
     }
 
     public void deleteTag(int tagId) {tagRepository.deleteById(tagId);}

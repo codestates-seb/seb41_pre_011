@@ -1,5 +1,6 @@
 package com.codestates.seb41_pre_011.member.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -43,6 +44,7 @@ public class MemberDto {
         private int memberId;
         private String email;
         private String name;
+        @JsonIgnore
         private String password;
         private String image;
     }
