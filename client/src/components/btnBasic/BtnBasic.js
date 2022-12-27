@@ -10,7 +10,7 @@ const BtnBasicEl = styled.span`
     box-sizing: border-box;
     padding: 0.8em;
     background-color: hsl(206, 100%, 52%);
-    color: hsl(205, 53%, 88%);
+    color: hsl(205, 53%, 98%);
     border: 1px solid hsl(206, 100%, 52%);
     border-radius: 3px;
     cursor: pointer;
@@ -36,20 +36,8 @@ const BtnBasicEl = styled.span`
   }
 `;
 
-const BtnBasic = ({ children, className, link, href = '#none' }) => {
-  if (link) {
-    return (
-      <BtnBasicEl className={className}>
-        <a href={href}>{children}</a>
-      </BtnBasicEl>
-    );
-  } else {
-    return (
-      <BtnBasicEl className={className}>
-        <button type="button">{children}</button>
-      </BtnBasicEl>
-    );
-  }
+const BtnBasic = ({ children, className }) => {
+  return <BtnBasicEl className={className}>{children}</BtnBasicEl>;
 };
 
 export default BtnBasic;

@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import InpTxt from '../inpTxt/InpTxt';
 import BtnBasic from '../btnBasic/BtnBasic';
 
@@ -72,8 +74,8 @@ const UtilsHd = styled.div`
   }
 `;
 const BtnInLinkBoxHd = styled(BtnBasic)`
-  button,
-  a {
+  & > button,
+  & > a {
     padding: 6px 0.8em;
   }
 `;
@@ -98,18 +100,33 @@ const Header = () => {
                 autoComplete="off"
                 ariaLabel="Search"
                 hadIcon={true}
-              />
+              >
+                <svg
+                  aria-hidden="true"
+                  className="icoG"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                >
+                  <path
+                    fill="hsl(210, 8%, 55%)"
+                    d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"
+                  ></path>
+                </svg>
+              </InpTxt>
             </form>
 
             <div className="linkBoxHd">
               <ul className="listLogin">
                 <li>
                   <BtnInLinkBoxHd link="true" className="garyColor">
-                    Log in
+                    <Link to="/login">Log in</Link>
                   </BtnInLinkBoxHd>
                 </li>
                 <li>
-                  <BtnInLinkBoxHd link="true">Sign Up</BtnInLinkBoxHd>
+                  <BtnInLinkBoxHd link="true">
+                    <Link to="/sing_up">Sign Up</Link>
+                  </BtnInLinkBoxHd>
                 </li>
               </ul>
             </div>

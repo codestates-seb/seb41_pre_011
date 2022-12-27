@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Search_list from './common/Search_list';
 
 const Home = () => {
   return (
@@ -19,6 +20,8 @@ const Home = () => {
       <Link to="/tag_list">tag_list</Link>
       <br />
       <Link to="/user_list">user_list</Link>
+
+      <Search_list />
     </div>
   );
 };

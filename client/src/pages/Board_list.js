@@ -1,7 +1,9 @@
+import Search_list from './common/Search_list';
+
 const Board_list = () => {
   return (
     <div>
-      <h1>Board_list</h1>
+      <Search_list />
     </div>
   );
 };
