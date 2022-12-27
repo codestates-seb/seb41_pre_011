@@ -21,6 +21,17 @@ const QuestionsDummyData = [
     tag: null,
     likes: 0,
   },
+  {
+    questionId: 3,
+    title: '자스 질문',
+    questionContent: '자스를 모르겠습니다.',
+    attemptContent: '고쳤습니다',
+    createdDate: '2022-12-23T16:10:15.8723082',
+    modifiedDate: '2022-12-23T16:10:15.8723082',
+    memberName: null,
+    tag: null,
+    likes: 0,
+  },
 ];
 
 export default QuestionsDummyData;
