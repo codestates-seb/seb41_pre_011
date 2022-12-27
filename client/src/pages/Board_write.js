@@ -1,7 +1,9 @@
+import Board_inputs from './common/Board_inputs';
+
 const Boarde_write = () => {
   return (
     <div>
-      <h1>Boarde_write</h1>
+      <Board_inputs />
     </div>
   );
 };

@@ -57,9 +57,6 @@ const AsideEl = styled.aside`
 
 const Aside = () => {
   const { pathname } = useLocation();
-
-  console.log(pathname);
-
   return (
     <AsideEl>
       <ul className="listNav">
