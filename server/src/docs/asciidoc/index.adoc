@@ -1,15 +1,15 @@
-= 커피 주문 애플리케이션    // (1)
+= stack overflow 만들기
 :sectnums:
 :toc: left
 :toclevels: 4
 :toc-title: Table of Contents
 :source-highlighter: prettify
 
-Hwang Jung Sik <jungsik.hwang@codestates.com>   // (2)
+1석 11조 (FE 김은수, 김경배 / BE 김철현 옥건 한규현)
 
-v1.0.0, 2022.04.08    // (3)
+v1.0.0, 2022.12.26
 
-// (4)
+
 ***
 == MemberController
 === 회원 등록
