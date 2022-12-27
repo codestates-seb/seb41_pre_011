@@ -13,6 +13,10 @@ const Container = styled.div`
   display: flex;
 `;
 
+/* redux_toolkit */
+import { Provider } from 'react-redux';
+import store from './stateContainer/store/store';
+
 /* pages */
 import Board from './pages/Board';
 import Board_write from './pages/Board_write';
@@ -27,28 +31,30 @@ import User_list from './pages/User_list';
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Header />
+      <Provider store={store}>
+        <div className="App">
+          <Header />
 
-        <Container>
-          <Aside />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/sing_up" element={<Sing_up />} />
-              <Route path="/mypage" element={<Mypage />} />
-              <Route path="/board" element={<Board />} />
-              <Route path="/board_list" element={<Board_List />} />
-              <Route path="/board_write" element={<Board_write />} />
-              <Route path="/tag_list" element={<Tag_list />} />
-              <Route path="/user_list" element={<User_list />} />
-            </Routes>
-          </div>
-        </Container>
+          <Container>
+            <Aside />
+            <div className="content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/sing_up" element={<Sing_up />} />
+                <Route path="/mypage" element={<Mypage />} />
+                <Route path="/board" element={<Board />} />
+                <Route path="/board_list" element={<Board_List />} />
+                <Route path="/board_write" element={<Board_write />} />
+                <Route path="/tag_list" element={<Tag_list />} />
+                <Route path="/user_list" element={<User_list />} />
+              </Routes>
+            </div>
+          </Container>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </Provider>
     </BrowserRouter>
   );
 }

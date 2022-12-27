@@ -3,6 +3,7 @@ import TitleBasic from '../../components/titleBasic/TitleBasic';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
 import TagBasic from '../../components/tagBasic/TagBasic';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -102,6 +103,9 @@ const SideBar = styled.div`
 `;
 
 const Search_list = () => {
+  const QuestionsSliceData = useSelector(
+    (state) => state.QuestionsSlice.QuestionsDummyData
+  );
   return (
     <Wrapper>
       <MainBar>
@@ -115,117 +119,39 @@ const Search_list = () => {
           <span className="infoQuestions">23,356,349 questions</span>
         </div>
         <ListQuestion>
-          <ItemQuestion>
-            <div className="postState">
-              <div className="voteState">
-                <span className="value">0</span>
-                <span className="txt">votes</span>
+          {QuestionsSliceData.map((it) => (
+            <ItemQuestion key={it.questionId}>
+              <div className="postState">
+                <div className="voteState">
+                  <span className="value">0</span>
+                  <span className="txt">votes</span>
+                </div>
+                <div className="answersState">
+                  <span className="value">0</span>
+                  <span className="txt">answers</span>
+                </div>
+                <div className="viewsState">
+                  <span className="value">0</span>
+                  <span className="txt">views</span>
+                </div>
               </div>
-              <div className="answersState">
-                <span className="value">0</span>
-                <span className="txt">answers</span>
+              <div className="postContent">
+                <strong className="titPc">
+                  <Link to="/board" className="linkPc">
+                    {it.title}
+                  </Link>
+                </strong>
+                <p className="descPc">
+                  {it.questionContent} {it.attemptContent}
+                </p>
+                <div className="tagPc">
+                  <TagBasic>javascript</TagBasic>
+                  <TagBasic>api</TagBasic>
+                  <TagBasic>java</TagBasic>
+                </div>
               </div>
-              <div className="viewsState">
-                <span className="value">0</span>
-                <span className="txt">views</span>
-              </div>
-            </div>
-            <div className="postContent">
-              <strong className="titPc">
-                <Link to="/board" className="linkPc">
-                  Request flow when AWS WAF, ALB associated and ALB 4xx
-                </Link>
-              </strong>
-              <p className="descPc">
-                We have a server configured under a ALB associated with a WAFAs
-                the underlying service receives requests for your web sites, it
-                forwards those requests to AWS WAF for inspection against your
-                rules.
-              </p>
-              <div className="tagPc">
-                <TagBasic>javascript</TagBasic>
-                <TagBasic>api</TagBasic>
-                <TagBasic>java</TagBasic>
-              </div>
-            </div>
-          </ItemQuestion>
-          <ItemQuestion>
-            <div className="postState">
-              <div className="voteState">
-                <span className="value">0</span>
-                <span className="txt">votes</span>
-              </div>
-              <div className="answersState">
-                <span className="value">0</span>
-                <span className="txt">answers</span>
-              </div>
-              <div className="viewsState">
-                <span className="value">0</span>
-                <span className="txt">views</span>
-              </div>
-            </div>
-            <div className="postContent">
-              <strong className="titPc">
-                <Link to="/board" className="linkPc">
-                  Request flow when AWS WAF, ALB associated and ALB 4xx
-                </Link>
-              </strong>
-              <p className="descPc">
-                We have a server configured under a ALB associated with a WAFAs
-                the underlying service receives requests for your web sites, it
-                forwards those requests to AWS WAF for inspection against your
-                rules. We have a server configured under a ALB associated with a
-                WAFAs the underlying service receives requests for your web
-                sites, it forwards those requests to AWS WAF for inspection
-                against your rules.
-              </p>
-              <div className="tagPc">
-                <TagBasic>javascript</TagBasic>
-                <TagBasic>api</TagBasic>
-                <TagBasic>java</TagBasic>
-                <TagBasic>javascript</TagBasic>
-                <TagBasic>api</TagBasic>
-                <TagBasic>java</TagBasic>
-                <TagBasic>javascript</TagBasic>
-                <TagBasic>api</TagBasic>
-                <TagBasic>java</TagBasic>
-              </div>
-            </div>
-          </ItemQuestion>
-          <ItemQuestion>
-            <div className="postState">
-              <div className="voteState">
-                <span className="value">0</span>
-                <span className="txt">votes</span>
-              </div>
-              <div className="answersState">
-                <span className="value">0</span>
-                <span className="txt">answers</span>
-              </div>
-              <div className="viewsState">
-                <span className="value">0</span>
-                <span className="txt">views</span>
-              </div>
-            </div>
-            <div className="postContent">
-              <strong className="titPc">
-                <Link to="/board" className="linkPc">
-                  Request flow when AWS WAF, ALB associated and ALB 4xx
-                </Link>
-              </strong>
-              <p className="descPc">
-                We have a server configured under a ALB associated with a WAFAs
-                the underlying service receives requests for your web sites, it
-                forwards those requests to AWS WAF for inspection against your
-                rules.
-              </p>
-              <div className="tagPc">
-                <TagBasic>javascript</TagBasic>
-                <TagBasic>api</TagBasic>
-                <TagBasic>java</TagBasic>
-              </div>
-            </div>
-          </ItemQuestion>
+            </ItemQuestion>
+          ))}
         </ListQuestion>
       </MainBar>
 
