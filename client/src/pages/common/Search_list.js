@@ -106,6 +106,7 @@ const Search_list = () => {
   const QuestionsSliceData = useSelector(
     (state) => state.QuestionsSlice.QuestionsDummyData
   );
+  console.log(QuestionsSliceData);
   return (
     <Wrapper>
       <MainBar>

@@ -5,6 +5,8 @@ import TagBasic from '../components/tagBasic/TagBasic';
 import BtnBasic from '../components/btnBasic/BtnBasic';
 import { Link, useSearchParams } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
+import { useSelector } from 'react-redux';
+// import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -59,28 +61,28 @@ const ContentBoard = styled.div`
 const Board = () => {
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
-  console.log(questionId);
+  const questionsData = useSelector(
+    (state) => state.QuestionsSlice.QuestionsDummyData
+  );
+  const answerData = useSelector((state) => state.AnswerSlice.AnswerDummyData);
   return (
     <Wrapper>
       <TitBoard>
-        <TitleBasic>
-          Request flow when AWS WAF, ALB associated and ALB 4xx
-        </TitleBasic>
+        <TitleBasic>{questionsData[questionId - 1].title}</TitleBasic>
       </TitBoard>
       <ContentBoard>
         <div className="mainBar">
           <div className="areaQuestion">
             <p className="descQ">
-              We have a server configured under a ALB associated with a WAFAs
-              the underlying service receives requests for your web sites, it
-              forwards those requests to AWS WAF for inspection against your
-              rules.
+              {questionsData[questionId - 1].questionContent}
+              <br />
+              {questionsData[questionId - 1].attemptContent}
             </p>
 
             <div className="tagsQ">
-              <TagBasic>javascript</TagBasic>
-              <TagBasic>api</TagBasic>
-              <TagBasic>java</TagBasic>
+              {questionsData[questionId - 1].tag.map((it, idx) => (
+                <TagBasic key={idx}>{it}</TagBasic>
+              ))}
             </div>
             <div className="editQ">
               <Link to="/board_edit">Edit</Link>
@@ -89,11 +91,8 @@ const Board = () => {
           <div className="areaAnswers">
             <strong className="titA">Answer</strong>
             <div className="descA">
-              답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글
-              답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글
-              답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글
-              답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글 답변 글
-              답변 글 답변 글
+              {answerData[questionId - 1].name}{' '}
+              {answerData[questionId - 1].description}
             </div>
           </div>
           <div className="areaWriteAnswer">

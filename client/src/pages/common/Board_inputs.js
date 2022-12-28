@@ -84,12 +84,13 @@ const NoticeWrite = styled.div`
 const Board_inputs = () => {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
+  const [trying, setTrying] = useState('');
   const [tag, setTag] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create({ title, problem, tag }));
+    dispatch(create({ title, problem, trying, tag }));
   };
   return (
     <Wrapper>
@@ -149,16 +150,28 @@ const Board_inputs = () => {
               Introduce the problem and expand on what you put in the title.
               Minimum 20 characters.
             </p>
-            <p className="descCw">
-              Describe what you tried, what you expected to happen, and what
-              actually resulted. Minimum 20 characters.
-            </p>
             <div className="txtFiledCw">
               <InpTxt
                 autoComplete="off"
                 value={problem}
                 onChange={setProblem}
               />
+            </div>
+          </div>
+          <div className="tipWrite"></div>
+        </BoxWrite>
+
+        <BoxWrite>
+          <div className="contWrite">
+            <strong className="titCw">
+              What did you try and what were you expecting?
+            </strong>
+            <p className="descCw">
+              Describe what you tried, what you expected to happen, and what
+              actually resulted. Minimum 20 characters.
+            </p>
+            <div className="txtFiledCw">
+              <InpTxt autoComplete="off" value={trying} onChange={setTrying} />
             </div>
           </div>
           <div className="tipWrite"></div>

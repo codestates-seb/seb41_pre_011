@@ -11,11 +11,12 @@ const QuestionsSlice = createSlice({
   reducers: {
     create(state, action) {
       state.QuestionsDummyData.push({
+        questionId: 4,
         title: action.payload.title,
-        questionContent: action.payload.title.problem,
-        attemptContent: action.payload.title.tag,
+        questionContent: action.payload.problem,
+        attemptContent: action.payload.trying,
+        tag: [action.payload.tag],
       });
-      console.log(state.QuestionsDummyData);
     },
     // delete(state, actions) {
     //   state.QuestionsDummyData.filter((it) => {
