@@ -34,7 +34,7 @@ public class Question {
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
-    private Member Member;
+    private Member member;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
