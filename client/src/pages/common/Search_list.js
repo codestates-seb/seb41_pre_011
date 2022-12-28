@@ -137,7 +137,10 @@ const Search_list = () => {
               </div>
               <div className="postContent">
                 <strong className="titPc">
-                  <Link to="/board" className="linkPc">
+                  <Link
+                    to={`/board?questionId=${it.questionId}`}
+                    className="linkPc"
+                  >
                     {it.title}
                   </Link>
                 </strong>
@@ -145,9 +148,9 @@ const Search_list = () => {
                   {it.questionContent} {it.attemptContent}
                 </p>
                 <div className="tagPc">
-                  <TagBasic>javascript</TagBasic>
-                  <TagBasic>api</TagBasic>
-                  <TagBasic>java</TagBasic>
+                  {it.tag.map((it, idx) => (
+                    <TagBasic key={idx}>{it}</TagBasic>
+                  ))}
                 </div>
               </div>
             </ItemQuestion>

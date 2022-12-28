@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import TitleBasic from '../../components/titleBasic/TitleBasic';
 import InpTxt from '../../components/inpTxt/InpTxt';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { create } from '../../stateContainer/slice/QuestionsSlice';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -79,6 +82,15 @@ const NoticeWrite = styled.div`
 `;
 
 const Board_inputs = () => {
+  const [title, setTitle] = useState('');
+  const [problem, setProblem] = useState('');
+  const [tag, setTag] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(create({ title, problem, tag }));
+  };
   return (
     <Wrapper>
       <TitleBasic>Ask a public question</TitleBasic>
@@ -113,7 +125,7 @@ const Board_inputs = () => {
         </ul>
       </NoticeWrite>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <BoxWrite>
           <div className="contWrite">
             <strong className="titCw">Title</strong>
@@ -122,7 +134,7 @@ const Board_inputs = () => {
               person.
             </p>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" />
+              <InpTxt autoComplete="off" value={title} onChange={setTitle} />
             </div>
           </div>
           <div className="tipWrite"></div>
@@ -142,7 +154,11 @@ const Board_inputs = () => {
               actually resulted. Minimum 20 characters.
             </p>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" />
+              <InpTxt
+                autoComplete="off"
+                value={problem}
+                onChange={setProblem}
+              />
             </div>
           </div>
           <div className="tipWrite"></div>
@@ -156,7 +172,7 @@ const Board_inputs = () => {
               typing to see suggestions.
             </p>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" />
+              <InpTxt autoComplete="off" value={tag} onChange={setTag} />
             </div>
           </div>
           <div className="tipWrite"></div>

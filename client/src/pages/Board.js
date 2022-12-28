@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import TitleBasic from '../components/titleBasic/TitleBasic';
 import TagBasic from '../components/tagBasic/TagBasic';
 import BtnBasic from '../components/btnBasic/BtnBasic';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
 
 const Wrapper = styled.div`
@@ -57,6 +57,9 @@ const ContentBoard = styled.div`
 `;
 
 const Board = () => {
+  const [searchParams] = useSearchParams();
+  const questionId = searchParams.get('questionId');
+  console.log(questionId);
   return (
     <Wrapper>
       <TitBoard>
