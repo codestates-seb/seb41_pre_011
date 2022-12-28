@@ -1,16 +1,16 @@
-const UserDummyData = [
+const MemberDummyData = [
   {
-    answerId: 1,
-    content: 'Test answer1',
-    createdDate: '2022-12-23T16:10:44.9856362',
-    modifiedDate: '2022-12-23T16:10:44.9856362',
+    memberId: 1,
+    email: 'hgd@gmail.com',
+    name: '홍길동',
+    image: 'https://avatars.dicebear.com/api/bottts/222.svg',
   },
   {
-    answerId: 2,
-    content: 'Test answer2',
-    createdDate: '2022-12-23T16:10:44.9856362',
-    modifiedDate: '2022-12-23T16:10:44.9856362',
+    memberId: 2,
+    email: 'hgd@gmail.com',
+    name: '김길동',
+    image: 'https://avatars.dicebear.com/api/bottts/111.svg',
   },
 ];
 
-export default UserDummyData;
+export default MemberDummyData;

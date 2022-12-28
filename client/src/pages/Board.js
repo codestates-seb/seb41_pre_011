@@ -90,10 +90,7 @@ const Board = () => {
           </div>
           <div className="areaAnswers">
             <strong className="titA">Answer</strong>
-            <div className="descA">
-              {answerData[questionId - 1].name}{' '}
-              {answerData[questionId - 1].description}
-            </div>
+            <div className="descA">{answerData[questionId - 1].content}</div>
           </div>
           <div className="areaWriteAnswer">
             <strong className="titW">Write Answer</strong>
