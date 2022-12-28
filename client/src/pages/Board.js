@@ -85,7 +85,7 @@ const Board = () => {
               ))}
             </div>
             <div className="editQ">
-              <Link to="/board_edit">Edit</Link>
+              <Link to={`/board_edit?questionId=${questionId}`}>Edit</Link>
             </div>
           </div>
           <div className="areaAnswers">
