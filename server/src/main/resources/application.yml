@@ -9,7 +9,7 @@ spring:
     password : pre41011
     driver-class-name: com.mysql.cj.jdbc.Driver
 config:
-  domain: http://http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com
+  domain: http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com
   jpa:
     hibernate:
       ddl-auto: create
