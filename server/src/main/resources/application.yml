@@ -5,8 +5,8 @@ spring:
       path: /h2
   datasource:
     url: jdbc:mysql://database-2.cdf03kzemb3t.ap-northeast-2.rds.amazonaws.com:3306/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username : admin11
-    password : pre410
+    username : admin
+    password : pre41011
     driver-class-name: com.mysql.cj.jdbc.Driver
 config:
   domain: http://http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com
