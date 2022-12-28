@@ -2,6 +2,7 @@ package com.codestates.seb41_pre_011.question.controller;
 
 import com.codestates.seb41_pre_011.dto.MultiResponseDto;
 import com.codestates.seb41_pre_011.dto.SingleResponseDto;
+import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.question.dto.QuestionDto;
 import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.question.mapper.QuestionMapper;
@@ -58,10 +59,10 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity getQuestions(@RequestParam int page,
                                        @RequestParam int size){
-        Page<Question> pagequestions = questionService.findQuestions(page - 1, size);
-        List<Question> responses = pagequestions.getContent();
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+        List<Question> responses = pageQuestions.getContent();
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionsToQuestionResponses(responses),
-                pagequestions), HttpStatus.OK);
+                pageQuestions), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")
@@ -71,3 +72,15 @@ public class QuestionController {
     }
 
 }
+
+
+//    @GetMapping
+//    public ResponseEntity getMembers(@RequestParam int page,
+//                                     @RequestParam int size) {
+//        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
+//        List<Member> members = pageMembers.getContent();
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(memberMapper.membersToMemberResponseDto(members),
+//                        pageMembers),
+//                HttpStatus.OK);
+//    }
