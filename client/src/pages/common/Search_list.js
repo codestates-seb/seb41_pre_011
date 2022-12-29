@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import TitleBasic from '../../components/titleBasic/TitleBasic';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
-// import TagBasic from '../../components/tagBasic/TagBasic';
+import TagBasic from '../../components/tagBasic/TagBasic';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -218,13 +218,13 @@ const Search_list = () => {
                 <p className="descPc">
                   {it.questionContent} {it.attemptContent}
                 </p>
-                {/* {it.tag !== null && (
+                {it.tags !== null && (
                   <div className="tagPc">
-                    {it.tag.map((it, idx) => (
+                    {it.tags.map((it, idx) => (
                       <TagBasic key={idx}>{it}</TagBasic>
                     ))}
                   </div>
-                )} */}
+                )}
               </div>
             </ItemQuestion>
           ))}

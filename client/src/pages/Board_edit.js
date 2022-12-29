@@ -90,7 +90,7 @@ const Board_edit = () => {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [trying, setTrying] = useState('');
-  const [tag, setTag] = useState('');
+  const [tags, setTag] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
@@ -110,7 +110,7 @@ const Board_edit = () => {
         setTitle(res.data.data.title);
         setProblem(res.data.data.questionContent);
         setTrying(res.data.data.attemptContent);
-        if (res.data.data.tag !== null) setTag(res.data.data.tag.join(', '));
+        if (res.data.data.tags !== null) setTag(res.data.data.tags.join(', '));
       });
   }, []);
 
@@ -127,7 +127,7 @@ const Board_edit = () => {
               title: title,
               questionContent: problem,
               attemptContent: trying,
-              tag: makeTagArray(tag),
+              tags: makeTagArray(tags),
             }
           )
           .then(setLoading(false))
@@ -201,7 +201,7 @@ const Board_edit = () => {
           <div className="contWrite">
             <strong className="titCw">Tags</strong>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" value={tag} onChange={setTag} />
+              <InpTxt autoComplete="off" value={tags} onChange={setTag} />
             </div>
           </div>
           <div className="tipWrite"></div>

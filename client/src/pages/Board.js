@@ -95,11 +95,11 @@ const Board = () => {
               {aQuestionData.attemptContent}
             </p>
 
-            {console.log(aQuestionData.tag)}
-            {aQuestionData.tag === null ||
-            aQuestionData.tag === undefined ? undefined : (
+            {console.log(aQuestionData.tags)}
+            {aQuestionData.tags === null ||
+            aQuestionData.tags === undefined ? undefined : (
               <div className="tagsQ">
-                {aQuestionData.tag.map((it, idx) => (
+                {aQuestionData.tags.map((it, idx) => (
                   <TagBasic key={idx}>{it}</TagBasic>
                 ))}
               </div>
