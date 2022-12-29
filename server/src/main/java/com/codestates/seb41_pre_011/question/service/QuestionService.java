@@ -34,6 +34,7 @@ public class QuestionService {
         Optional.ofNullable(question.getTitle()).ifPresent(findQuestion::setTitle);
         Optional.ofNullable(question.getQuestionContent()).ifPresent(findQuestion::setQuestionContent);
         Optional.ofNullable(question.getAttemptContent()).ifPresent(findQuestion::setAttemptContent);
+        Optional.ofNullable(question.getTags()).ifPresent(findQuestion::setTags);
         if(question.getModifiedDate() == null) {question.setModifiedDate(LocalDateTime.now());}
         return questionRepository.save(findQuestion);
     }
