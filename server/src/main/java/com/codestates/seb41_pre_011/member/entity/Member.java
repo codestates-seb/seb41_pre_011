@@ -19,11 +19,11 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int memberId;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String email;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String name;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     @JsonIgnore
     private String password;
     private String image;

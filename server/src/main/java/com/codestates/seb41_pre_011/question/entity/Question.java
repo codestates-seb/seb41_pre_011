@@ -1,6 +1,7 @@
 package com.codestates.seb41_pre_011.question.entity;
 
 import com.codestates.seb41_pre_011.answer.entity.Answer;
+
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.entity.TagQuestion;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class Question {
     @ElementCollection
     private List<String> tags;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 

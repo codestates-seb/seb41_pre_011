@@ -2,7 +2,6 @@ package com.codestates.seb41_pre_011.tag.service;
 
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
-import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.repository.TagRepository;
 import org.springframework.data.domain.Page;

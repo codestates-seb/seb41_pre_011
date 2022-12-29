@@ -1,7 +1,6 @@
 package com.codestates.seb41_pre_011.question.dto;
 
 import com.codestates.seb41_pre_011.member.entity.Member;
-import com.codestates.seb41_pre_011.tag.entity.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
