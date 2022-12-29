@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import InpTxt from '../components/inpTxt/InpTxt';
 import BtnBasic from '../components/btnBasic/BtnBasic';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { create } from '../stateContainer/slice/QuestionsSlice';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+import LoadingDiv from '../components/loading/Loading';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -91,15 +91,54 @@ const Board_edit = () => {
   const [problem, setProblem] = useState('');
   const [trying, setTrying] = useState('');
   const [tag, setTag] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
+  const [loading, setLoading] = useState(false);
+
+  const makeTagArray = (tagString) => {
+    const tagArray = tagString.trim().split(',');
+    return tagArray;
+  };
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question/${questionId}`
+      )
+      .then((res) => {
+        setTitle(res.data.data.title);
+        setProblem(res.data.data.questionContent);
+        setTrying(res.data.data.attemptContent);
+        if (res.data.data.tag !== null) setTag(res.data.data.tag.join(', '));
+      });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create({ title, problem, trying, tag }));
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        axios
+          .patch(
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question/${questionId}`,
+            {
+              questionId: 1,
+              title: title,
+              questionContent: problem,
+              attemptContent: trying,
+              tag: makeTagArray(tag),
+            }
+          )
+          .then(setLoading(false))
+          .then(alert('수정 완료하였습니다'));
+        navigate(`/board?questionId=${questionId}`);
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
   };
+
   return (
     <Wrapper>
       <NoticeWrite>
@@ -177,6 +216,7 @@ const Board_edit = () => {
           </Cancel>
         </BtnRow>
       </form>
+      {loading && <LoadingDiv>Loading...</LoadingDiv>}
     </Wrapper>
   );
 };

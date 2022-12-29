@@ -3,7 +3,10 @@ import TitleBasic from '../../components/titleBasic/TitleBasic';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
 import TagBasic from '../../components/tagBasic/TagBasic';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { getQuestionsData } from '../../stateContainer/slice/QuestionsSlice';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -96,6 +99,12 @@ const ItemQuestion = styled.li`
   }
 `;
 
+const IconTalk = styled.span`
+  width: 16px;
+  height: 16px;
+  background-position: 0 -6120px;
+`;
+
 const SideBar = styled.div`
   width: 300px;
   margin-left: 24px;
@@ -103,10 +112,28 @@ const SideBar = styled.div`
 `;
 
 const Search_list = () => {
+  const dispatch = useDispatch();
   const QuestionsSliceData = useSelector(
-    (state) => state.QuestionsSlice.QuestionsDummyData
+    (state) => state.QuestionsSlice.QuestionsData
   );
-  console.log(QuestionsSliceData);
+
+  useEffect(() => {
+    const updateQuestionsData = () => {
+      try {
+        axios
+          .get(
+            'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question?page=1&size=30'
+          )
+          .then((res) => {
+            return dispatch(getQuestionsData(res.data.data));
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    updateQuestionsData();
+  }, []);
+
   return (
     <Wrapper>
       <MainBar>
@@ -124,17 +151,17 @@ const Search_list = () => {
             <ItemQuestion key={it.questionId}>
               <div className="postState">
                 <div className="voteState">
-                  <span className="value">0</span>
+                  <span className="value">{it.likes}</span>
                   <span className="txt">votes</span>
                 </div>
                 <div className="answersState">
                   <span className="value">0</span>
                   <span className="txt">answers</span>
                 </div>
-                <div className="viewsState">
+                {/* <div className="viewsState">
                   <span className="value">0</span>
                   <span className="txt">views</span>
-                </div>
+                </div> */}
               </div>
               <div className="postContent">
                 <strong className="titPc">
@@ -148,19 +175,74 @@ const Search_list = () => {
                 <p className="descPc">
                   {it.questionContent} {it.attemptContent}
                 </p>
-                <div className="tagPc">
-                  {it.tag.map((it, idx) => (
-                    <TagBasic key={idx}>{it}</TagBasic>
-                  ))}
-                </div>
+                {it.tag !== null && (
+                  <div className="tagPc">
+                    {it.tag.map((it, idx) => (
+                      <TagBasic key={idx}>{it}</TagBasic>
+                    ))}
+                  </div>
+                )}
               </div>
             </ItemQuestion>
           ))}
         </ListQuestion>
       </MainBar>
 
-      <SideBar></SideBar>
+      <SideBar>
+        <svg
+          aria-hidden="true"
+          className="va-text-top svg-icon iconPencilSm"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+        >
+          <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+        </svg>
+        <IconTalk className="icoFavi">
+          <span className="blind">말풍선</span>
+        </IconTalk>
+      </SideBar>
     </Wrapper>
   );
 };
 export default Search_list;
+
+// export default function Home({}) {
+//   const currentUser = useSelector((state) => state.user.value);
+//   const dispatch = useDispatch();
+//   const isUpdated = useSelector((state) => state.isCardUpdated.value);
+//   console.log(isUpdated);
+//   useEffect(() => {
+//     console.log(currentUser);
+//     const updateAllChangedLists = () => {
+//       if (!isUpdated) return;
+//       try {
+//         axios({
+//           method: "put",
+//           url: "/api/updateCard",
+//           data: currentUser,
+//         });
+
+//         dispatch(isCardUpdated(false));
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     };
+//     updateAllChangedLists();
+//     /* window.addEventListener("beforeunload", updateAllChangedLists);
+//     return () => {
+//       window.removeEventListener("beforeunload", updateAllChangedLists);
+//     }; */
+//   }, [currentUser]);
+//   return (
+//     <HomeLayout>
+//       <TodoList
+//         listItems={currentUser && currentUser.toDoList}
+//         currentUser={currentUser}
+//         boardName="To Do"
+//       />
+//       <InProgressList currentUser={currentUser} boardName="In Progress" />
+//       <DoneList currentUser={currentUser} boardName="Done" />
+//     </HomeLayout>
+//   );
+// }
