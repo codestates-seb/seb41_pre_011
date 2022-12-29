@@ -3,8 +3,8 @@ import TitleBasic from '../../components/titleBasic/TitleBasic';
 import InpTxt from '../../components/inpTxt/InpTxt';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { create } from '../../stateContainer/slice/QuestionsSlice';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -80,18 +80,59 @@ const NoticeWrite = styled.div`
     }
   }
 `;
+const LoadingDiv = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  z-index: 200;
+`;
 
 const Board_inputs = () => {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [trying, setTrying] = useState('');
   const [tag, setTag] = useState('');
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const makeSetTag = (stringTag) => {
+    setTag(stringTag.trim().split(','));
+    console.log(tag);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(create({ title, problem, trying, tag }));
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        axios
+          .post(
+            'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question',
+            {
+              title: title,
+              questionContent: problem,
+              attemptContent: trying,
+              tag: ['hi'],
+            }
+          )
+          .then((res) => console.log(res.data))
+          .then(setLoading(false))
+          .then(alert('추가되었습니다'));
+        navigate('/board_list');
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
   };
+
   return (
     <Wrapper>
       <TitleBasic>Ask a public question</TitleBasic>
@@ -185,7 +226,7 @@ const Board_inputs = () => {
               typing to see suggestions.
             </p>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" value={tag} onChange={setTag} />
+              <InpTxt autoComplete="off" value={tag} onChange={makeSetTag} />
             </div>
           </div>
           <div className="tipWrite"></div>
@@ -197,6 +238,7 @@ const Board_inputs = () => {
           </BtnBasic>
         </BtnRow>
       </form>
+      {loading && <LoadingDiv>Loading</LoadingDiv>}
     </Wrapper>
   );
 };

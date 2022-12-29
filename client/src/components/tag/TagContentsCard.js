@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import TagDummyData from '../../dummy/TagDummyData';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ContentsWrapper = styled.div`
   display: flex;
@@ -72,7 +72,15 @@ const TagContentQuestions = styled.div`
 const TagContentsCard = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    setData(TagDummyData);
+    try {
+      axios
+        .get(
+          'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/tag?page=1&size=16'
+        )
+        .then((res) => setData(res.data.data));
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
   return (
     <ContentsWrapper>
