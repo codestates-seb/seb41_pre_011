@@ -1158,7 +1158,7 @@ Host: localhost:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/json
 Content-Length: 315
 
 {
@@ -1167,8 +1167,8 @@ Content-Length: 315
     "title" : "제목",
     "questionContent" : "내용1",
     "attemptContent" : "내용2",
-    "createdDate" : "2022-12-29T14:20:50.1942633",
-    "modifiedDate" : "2022-12-29T14:20:50.1942633",
+    "createdDate" : "2022-12-28T19:26:49.0736358",
+    "modifiedDate" : "2022-12-28T19:26:49.0736358",
     "memberName" : "작성자",
     "tag" : [ ],
     "likes" : 1
@@ -1335,7 +1335,7 @@ Host: localhost:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/json
 Content-Length: 315
 
 {
@@ -1344,8 +1344,8 @@ Content-Length: 315
     "title" : "제목",
     "questionContent" : "내용1",
     "attemptContent" : "내용2",
-    "createdDate" : "2022-12-29T14:20:50.1602633",
-    "modifiedDate" : "2022-12-29T14:20:50.1602633",
+    "createdDate" : "2022-12-28T19:26:49.0096355",
+    "modifiedDate" : "2022-12-28T19:26:49.0096355",
     "memberName" : "작성자",
     "tag" : [ ],
     "likes" : 1
@@ -1471,7 +1471,7 @@ Host: localhost:8080</code></pre>
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/json
 Content-Length: 315
 
 {
@@ -1480,8 +1480,8 @@ Content-Length: 315
     "title" : "제목",
     "questionContent" : "내용1",
     "attemptContent" : "내용2",
-    "createdDate" : "2022-12-29T14:20:50.2212631",
-    "modifiedDate" : "2022-12-29T14:20:50.2212631",
+    "createdDate" : "2022-12-28T19:26:49.1126378",
+    "modifiedDate" : "2022-12-28T19:26:49.1126378",
     "memberName" : "작성자",
     "tag" : [ ],
     "likes" : 1
@@ -1611,8 +1611,8 @@ Host: localhost:8080</code></pre>
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Content-Type: application/json;charset=UTF-8
-Content-Length: 731
+Content-Type: application/json
+Content-Length: 727
 
 {
   "data" : [ {
@@ -1620,8 +1620,8 @@ Content-Length: 731
     "title" : "제목1",
     "questionContent" : "내용1",
     "attemptContent" : "내용2",
-    "createdDate" : "2022-12-29T14:20:50.1042638",
-    "modifiedDate" : "2022-12-29T14:20:50.1042638",
+    "createdDate" : "2022-12-28T19:26:48.911637",
+    "modifiedDate" : "2022-12-28T19:26:48.911637",
     "memberName" : "작성자1",
     "tag" : [ ],
     "likes" : 1
@@ -1630,8 +1630,8 @@ Content-Length: 731
     "title" : "제목2",
     "questionContent" : "내용3",
     "attemptContent" : "내용4",
-    "createdDate" : "2022-12-29T14:20:50.1042638",
-    "modifiedDate" : "2022-12-29T14:20:50.1042638",
+    "createdDate" : "2022-12-28T19:26:48.911637",
+    "modifiedDate" : "2022-12-28T19:26:48.911637",
     "memberName" : "작성자2",
     "tag" : [ ],
     "likes" : 2
@@ -1859,19 +1859,60 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 209
+Content-Length: 175
 
 {
   "data" : {
     "answerId" : 1,
-    "memberName" : "김상순",
     "content" : "댓글1",
-    "createdDate" : "2022-12-29T13:56:20.2247452",
-    "modifiedDate" : "2022-12-29T13:56:20.2247452"
+    "createdDate" : "2022-12-29T16:55:44.299243",
+    "modifiedDate" : "2022-12-29T16:55:44.3002449"
   }
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.answerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.createdDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">생성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.modifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정시간</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_답변_수정">3.2. 답변 수정</h3>
@@ -1903,7 +1944,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. /v1/answer/{answer-id}</caption>
+<caption class="title">Table 23. /v1/answer/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1922,7 +1963,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. request-fields</caption>
+<caption class="title">Table 24. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1951,19 +1992,60 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 208
+Content-Length: 175
 
 {
   "data" : {
     "answerId" : 1,
-    "memberName" : "김상순",
     "content" : "댓글",
-    "createdDate" : "2022-12-29T13:56:20.5657817",
-    "modifiedDate" : "2022-12-29T13:56:20.5657817"
+    "createdDate" : "2022-12-29T16:55:44.9902439",
+    "modifiedDate" : "2022-12-29T16:55:44.9902439"
   }
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.answerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.createdDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">생성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.modifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정시간</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_답변_조회">3.3. 답변 조회</h3>
@@ -1983,7 +2065,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. /v1/answer/{answer-id}</caption>
+<caption class="title">Table 26. /v1/answer/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2016,19 +2098,60 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 208
+Content-Length: 175
 
 {
   "data" : {
     "answerId" : 1,
-    "memberName" : "김상순",
     "content" : "답변",
-    "createdDate" : "2022-12-29T13:56:20.5967819",
-    "modifiedDate" : "2022-12-29T13:56:20.5967819"
+    "createdDate" : "2022-12-29T16:55:45.0562435",
+    "modifiedDate" : "2022-12-29T16:55:45.0562435"
   }
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.answerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.createdDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">생성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.modifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정시간</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_답변_전체_조회">3.4. 답변 전체 조회</h3>
@@ -2040,7 +2163,7 @@ Content-Length: 208
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. request-parameters</caption>
+<caption class="title">Table 28. request-parameters</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2085,21 +2208,19 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 515
+Content-Length: 449
 
 {
   "data" : [ {
     "answerId" : 1,
-    "memberName" : "김상순",
     "content" : "답변1",
-    "createdDate" : "2022-12-29T13:56:20.4977818",
-    "modifiedDate" : "2022-12-29T13:56:20.4977818"
+    "createdDate" : "2022-12-29T16:55:44.8272445",
+    "modifiedDate" : "2022-12-29T16:55:44.8272445"
   }, {
     "answerId" : 2,
-    "memberName" : "김상순",
     "content" : "답변2",
-    "createdDate" : "2022-12-29T13:56:20.4977818",
-    "modifiedDate" : "2022-12-29T13:56:20.4977818"
+    "createdDate" : "2022-12-29T16:55:44.8272445",
+    "modifiedDate" : "2022-12-29T16:55:44.8272445"
   } ],
   "pageInfo" : {
     "page" : 2,
@@ -2110,6 +2231,73 @@ Content-Length: 515
 }</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 29. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].answerId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].createdDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">생성시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].modifiedDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 크기</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalElements</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 요소 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalPages</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전체 페이지 수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_답변_삭제">3.5. 답변 삭제</h3>
@@ -2121,7 +2309,7 @@ Content-Length: 515
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. /v1/answer/{answer-id}</caption>
+<caption class="title">Table 30. /v1/answer/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2205,7 +2393,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. request-fiels</caption>
+<caption class="title">Table 31. request-fiels</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2252,7 +2440,7 @@ Content-Length: 111
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. http-response</caption>
+<caption class="title">Table 32. http-response</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2326,7 +2514,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. /v1/tag/{tag-id}</caption>
+<caption class="title">Table 33. /v1/tag/{tag-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2345,7 +2533,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. request-fields</caption>
+<caption class="title">Table 34. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2392,7 +2580,7 @@ Content-Length: 111
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. response-fields</caption>
+<caption class="title">Table 35. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2452,7 +2640,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. /v1/tag/{tag-id}</caption>
+<caption class="title">Table 36. /v1/tag/{tag-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2498,7 +2686,7 @@ Content-Length: 111
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. response-fields</caption>
+<caption class="title">Table 37. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2550,7 +2738,7 @@ Content-Length: 111
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. request-parameters</caption>
+<caption class="title">Table 38. request-parameters</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2619,7 +2807,7 @@ Content-Length: 323
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. response-fields</caption>
+<caption class="title">Table 39. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2696,7 +2884,7 @@ Content-Length: 323
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. /v1/tag/{tag-id}</caption>
+<caption class="title">Table 40. /v1/tag/{tag-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2751,7 +2939,7 @@ Vary: Access-Control-Request-Headers</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-12-28 13:40:25 +0900
+Last updated 2022-12-27 18:41:06 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
