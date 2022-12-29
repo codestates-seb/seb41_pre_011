@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 
 const InpTxtEl = styled.span`
   display: block;
@@ -47,8 +46,9 @@ const InpTxt = ({
   autoComplete,
   ariaLabel,
   hadIcon,
+  onChange,
+  value,
 }) => {
-  const [title, setTitle] = useState('');
   return (
     <InpTxtEl>
       <span className="innerInpTxt">
@@ -60,9 +60,9 @@ const InpTxt = ({
           autoComplete={autoComplete ? autoComplete : ''}
           aria-label={ariaLabel ? ariaLabel : ''}
           // 기능
-          value={title}
+          value={value}
           onChange={(e) => {
-            setTitle(e.target.value);
+            onChange(e.target.value);
           }}
         />
       </span>

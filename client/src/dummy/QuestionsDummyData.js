@@ -7,7 +7,7 @@ const QuestionsDummyData = [
     createdDate: '2022-12-23T16:10:15.8723082',
     modifiedDate: '2022-12-23T16:10:15.8723082',
     memberName: null,
-    tag: null,
+    tag: ['java', 'python'],
     likes: 0,
   },
   {
@@ -18,7 +18,7 @@ const QuestionsDummyData = [
     createdDate: '2022-12-23T16:10:15.8723082',
     modifiedDate: '2022-12-23T16:10:15.8723082',
     memberName: null,
-    tag: null,
+    tag: ['java', 'javascript'],
     likes: 0,
   },
   {
@@ -29,7 +29,7 @@ const QuestionsDummyData = [
     createdDate: '2022-12-23T16:10:15.8723082',
     modifiedDate: '2022-12-23T16:10:15.8723082',
     memberName: null,
-    tag: null,
+    tag: ['java', 'C#', 'python'],
     likes: 0,
   },
 ];

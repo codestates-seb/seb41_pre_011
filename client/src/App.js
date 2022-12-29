@@ -27,6 +27,7 @@ import Sing_up from './pages/Sing_up';
 import Board_List from './pages/Board_list';
 import Tag_list from './pages/Tag_list';
 import User_list from './pages/User_list';
+import Board_edit from './pages/Board_edit';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/board" element={<Board />} />
                 <Route path="/board_list" element={<Board_List />} />
                 <Route path="/board_write" element={<Board_write />} />
+                <Route path="/board_edit" element={<Board_edit />} />
                 <Route path="/tag_list" element={<Tag_list />} />
                 <Route path="/user_list" element={<User_list />} />
               </Routes>

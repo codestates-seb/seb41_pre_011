@@ -77,16 +77,16 @@ const TagContentsCard = () => {
   return (
     <ContentsWrapper>
       {data.map((it) => (
-        <TagContentsCardBox key={it.id}>
+        <TagContentsCardBox key={it.tagId}>
           <TagContentsDiv>
-            <TagContentsButton>{it.tag}</TagContentsButton>
+            <TagContentsButton>{it.name}</TagContentsButton>
           </TagContentsDiv>
           <TagContentsDiv>
-            <TagContentsInfo>{it.contents}</TagContentsInfo>
+            <TagContentsInfo>{it.description}</TagContentsInfo>
           </TagContentsDiv>
           <TagContentsQuestionsDiv>
             <TagContentQuestions>
-              {it.questions} <br />
+              {it.count} <br />
               questions
             </TagContentQuestions>
           </TagContentsQuestionsDiv>

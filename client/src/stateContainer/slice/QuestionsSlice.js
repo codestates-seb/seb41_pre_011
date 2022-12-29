@@ -10,8 +10,19 @@ const QuestionsSlice = createSlice({
   initialState,
   reducers: {
     create(state, action) {
-      state.value.push({ title: action.payload.title });
+      state.QuestionsDummyData.push({
+        questionId: 4,
+        title: action.payload.title,
+        questionContent: action.payload.problem,
+        attemptContent: action.payload.trying,
+        tag: [action.payload.tag],
+      });
     },
+    // delete(state, actions) {
+    //   state.QuestionsDummyData.filter((it) => {
+    //     it.id !== actions.payload;
+    //   });
+    // },
   },
 });
 
