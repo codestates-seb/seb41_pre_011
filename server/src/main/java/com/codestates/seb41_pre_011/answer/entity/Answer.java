@@ -30,7 +30,7 @@ public class Answer {
     @ElementCollection
     private List<String> tags;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private Member member;
 

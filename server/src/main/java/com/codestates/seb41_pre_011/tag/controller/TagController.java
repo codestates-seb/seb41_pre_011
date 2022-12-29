@@ -2,7 +2,6 @@ package com.codestates.seb41_pre_011.tag.controller;
 
 import com.codestates.seb41_pre_011.dto.MultiResponseDto;
 import com.codestates.seb41_pre_011.dto.SingleResponseDto;
-import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.dto.TagDto;
 import com.codestates.seb41_pre_011.tag.entity.Tag;
 import com.codestates.seb41_pre_011.tag.mapper.TagMapper;
