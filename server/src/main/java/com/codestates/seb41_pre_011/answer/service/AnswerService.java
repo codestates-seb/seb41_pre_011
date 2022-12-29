@@ -4,7 +4,6 @@ import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.answer.repository.AnswerRepository;
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
-import com.codestates.seb41_pre_011.tag.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -29,6 +28,7 @@ public class AnswerService {
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
         Optional.ofNullable(answer.getContent()).ifPresent(findAnswer::setContent);
+        Optional.ofNullable(answer.getTags()).ifPresent(findAnswer::setTags);
         if(answer.getModifiedDate() == null) {answer.setModifiedDate(LocalDateTime.now());}
         return answerRepository.save(findAnswer);
     }
@@ -36,6 +36,9 @@ public class AnswerService {
     public Answer findAnswer(int answerId) {
         Answer answer = findVerifiedAnswer(answerId);
         return answer;
+    }
+    public List<Answer> findByQuestion(int questionId){
+        return answerRepository.findByQuestionId(questionId);
     }
 
     public Page<Answer> findAnswers(int page, int size) {
