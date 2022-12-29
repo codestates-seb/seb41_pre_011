@@ -30,7 +30,7 @@ public class Answer {
 
     @ManyToOne
     @JoinColumn
-    private Member Member;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "question")
