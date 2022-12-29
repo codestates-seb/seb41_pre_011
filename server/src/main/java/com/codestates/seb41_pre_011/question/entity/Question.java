@@ -3,7 +3,6 @@ package com.codestates.seb41_pre_011.question.entity;
 import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.tag.entity.TagQuestion;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,6 +30,8 @@ public class Question {
     private LocalDateTime createdDate;
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
+    @ElementCollection
+    private List<String> tags;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

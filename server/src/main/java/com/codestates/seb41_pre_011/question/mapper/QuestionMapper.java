@@ -11,6 +11,18 @@ import java.util.List;
 public interface QuestionMapper {
     Question questionPostToQuestion(QuestionDto.Post requestBody);
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
-    QuestionDto.Response questionToQuestionResponse(Question question);
+    default QuestionDto.Response questionToQuestionResponse(Question question) {
+        QuestionDto.Response questionResponseDto = new QuestionDto.Response();
+                questionResponseDto.setQuestionId(question.getQuestionId());
+                questionResponseDto.setTitle(question.getTitle());
+                questionResponseDto.setQuestionContent(question.getQuestionContent());
+                questionResponseDto.setAttemptContent(question.getAttemptContent());
+                questionResponseDto.setCreatedDate(question.getCreatedDate());
+                questionResponseDto.setModifiedDate(question.getModifiedDate());
+                questionResponseDto.setMemberName(question.getMember().getName());
+                questionResponseDto.setTag(question.getTags());
+
+                return questionResponseDto;
+    };
     List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions);
 }

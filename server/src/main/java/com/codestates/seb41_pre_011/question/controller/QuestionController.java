@@ -26,6 +26,7 @@ public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
+
     public QuestionController(QuestionService questionService, QuestionMapper mapper) {
         this.questionService = questionService;
         this.mapper = mapper;
@@ -35,6 +36,9 @@ public class QuestionController {
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody){
         Question question = mapper.questionPostToQuestion(requestBody);
         Question createdQuestion = questionService.createQuestion(question);
+        Member member = new Member();
+        member.setName("김코딩");
+        question.setMember(member);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createdQuestion);
         return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
