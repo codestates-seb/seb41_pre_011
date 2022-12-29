@@ -5,22 +5,17 @@ import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.answer.mapper.AnswerMapper;
 import com.codestates.seb41_pre_011.answer.service.AnswerService;
 import com.codestates.seb41_pre_011.dto.ListResponseDto;
-import com.codestates.seb41_pre_011.dto.MultiResponseDto;
 import com.codestates.seb41_pre_011.dto.SingleResponseDto;
+
 import com.codestates.seb41_pre_011.member.entity.Member;
-import com.codestates.seb41_pre_011.tag.entity.Tag;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -39,10 +34,10 @@ public class AnswerController {
     @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
-        Answer createdAnswer = answerService.createAnswer(answer);
         Member member = new Member();
         member.setName("김상순");
         answer.setMember(member);
+        Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
         return new ResponseEntity<>(new SingleResponseDto(response),HttpStatus.CREATED);
     }

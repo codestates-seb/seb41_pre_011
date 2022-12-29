@@ -1,6 +1,5 @@
 package com.codestates.seb41_pre_011.answer.dto;
 
-import com.codestates.seb41_pre_011.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
