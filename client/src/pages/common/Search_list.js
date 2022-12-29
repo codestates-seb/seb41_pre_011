@@ -99,6 +99,12 @@ const ItemQuestion = styled.li`
   }
 `;
 
+const IconTalk = styled.span`
+  width: 16px;
+  height: 16px;
+  background-position: 0 -6120px;
+`;
+
 const SideBar = styled.div`
   width: 300px;
   margin-left: 24px;
@@ -182,7 +188,20 @@ const Search_list = () => {
         </ListQuestion>
       </MainBar>
 
-      <SideBar></SideBar>
+      <SideBar>
+        <svg
+          aria-hidden="true"
+          className="va-text-top svg-icon iconPencilSm"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+        >
+          <path d="m11.1 1.71 1.13 1.12c.2.2.2.51 0 .71L11.1 4.7 9.21 2.86l1.17-1.15c.2-.2.51-.2.71 0ZM2 10.12l6.37-6.43 1.88 1.88L3.88 12H2v-1.88Z"></path>
+        </svg>
+        <IconTalk className="icoFavi">
+          <span className="blind">말풍선</span>
+        </IconTalk>
+      </SideBar>
     </Wrapper>
   );
 };

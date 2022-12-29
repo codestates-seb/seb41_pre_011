@@ -5,6 +5,7 @@ import BtnBasic from '../../components/btnBasic/BtnBasic';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import LoadingDiv from '../../components/loading/Loading';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -80,20 +81,6 @@ const NoticeWrite = styled.div`
     }
   }
 `;
-const LoadingDiv = styled.div`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  z-index: 200;
-`;
 
 const Board_inputs = () => {
   const [title, setTitle] = useState('');
@@ -120,7 +107,7 @@ const Board_inputs = () => {
               title: title,
               questionContent: problem,
               attemptContent: trying,
-              tag: ['hi'],
+              tag: tag,
             }
           )
           .then((res) => console.log(res.data))
@@ -238,7 +225,7 @@ const Board_inputs = () => {
           </BtnBasic>
         </BtnRow>
       </form>
-      {loading && <LoadingDiv>Loading</LoadingDiv>}
+      {loading && <LoadingDiv>Loading...</LoadingDiv>}
     </Wrapper>
   );
 };

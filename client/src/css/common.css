@@ -13,3 +13,11 @@
   background-repeat: no-repeat;
   background-size: 189px 530px;
 }
+
+.icoFavi {
+  display: block;
+  overflow: hidden;
+  background-image: url('../assets/favicons-sprite16.png');
+  background-repeat: no-repeat;
+  background-size: 16px 7038px;
+}

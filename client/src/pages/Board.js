@@ -5,8 +5,9 @@ import TagBasic from '../components/tagBasic/TagBasic';
 import BtnBasic from '../components/btnBasic/BtnBasic';
 import { Link, useSearchParams } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
-import { useSelector } from 'react-redux';
-// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -61,36 +62,56 @@ const ContentBoard = styled.div`
 const Board = () => {
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
-  const questionsData = useSelector(
-    (state) => state.QuestionsSlice.QuestionsDummyData
-  );
-  const answerData = useSelector((state) => state.AnswerSlice.AnswerDummyData);
+  const [aQuestionData, setAQuestionsData] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question/${questionId}`
+      )
+      .then((res) => setAQuestionsData(res.data.data));
+  }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
+  //     )
+  //     .then((res) => console.log(res.data.data));
+  // });
+
+  // const answerData = useSelector((state) => state.AnswerSlice.AnswerDummyData);
   return (
     <Wrapper>
       <TitBoard>
-        <TitleBasic>{questionsData[questionId - 1].title}</TitleBasic>
+        <TitleBasic>{aQuestionData.title}</TitleBasic>
       </TitBoard>
       <ContentBoard>
         <div className="mainBar">
           <div className="areaQuestion">
             <p className="descQ">
-              {questionsData[questionId - 1].questionContent}
+              {aQuestionData.questionContent}
               <br />
-              {questionsData[questionId - 1].attemptContent}
+              {aQuestionData.attemptContent}
             </p>
 
-            <div className="tagsQ">
-              {questionsData[questionId - 1].tag.map((it, idx) => (
-                <TagBasic key={idx}>{it}</TagBasic>
-              ))}
-            </div>
+            {console.log(aQuestionData.tag)}
+            {aQuestionData.tag === null ||
+            aQuestionData.tag === undefined ? undefined : (
+              <div className="tagsQ">
+                {aQuestionData.tag.map((it, idx) => (
+                  <TagBasic key={idx}>{it}</TagBasic>
+                ))}
+              </div>
+            )}
+
             <div className="editQ">
               <Link to={`/board_edit?questionId=${questionId}`}>Edit</Link>
             </div>
           </div>
           <div className="areaAnswers">
             <strong className="titA">Answer</strong>
-            <div className="descA">{answerData[questionId - 1].content}</div>
+            {/* <div className="descA">{answerData[questionId - 1].content}</div> */}
           </div>
           <div className="areaWriteAnswer">
             <strong className="titW">Write Answer</strong>

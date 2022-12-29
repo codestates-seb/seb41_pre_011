@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import AnswerDummyData from '../../dummy/AnswerDummyData';
 
 const initialState = {
-  AnswerDummyData,
+  AnswerData: [],
 };
 
 const AnswerSlice = createSlice({
@@ -10,7 +9,7 @@ const AnswerSlice = createSlice({
   initialState,
   reducers: {
     create(state, actions) {
-      state.AnswerDummyData.push({ name: actions.payload.name });
+      state.AnswerData.push({ name: actions.payload.name });
     },
   },
 });
