@@ -1,4 +1,11 @@
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   #  h2:
   #    console:
   #      enabled: true
@@ -10,13 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 config:
   domain: http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com/
-  jpa:
-    hibernate:
-      ddl-auto: create
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+
 #  sql:
 #    init:
 #      data-locations: classpath*:db/h2/data.sql
