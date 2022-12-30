@@ -1,10 +1,10 @@
 package com.codestates.seb41_pre_011.memberTest;
 
-import com.codestates.seb41_pre_011.answer.dto.member.controller.MemberController;
-import com.codestates.seb41_pre_011.answer.dto.member.dto.MemberDto;
-import com.codestates.seb41_pre_011.answer.dto.member.entity.Member;
-import com.codestates.seb41_pre_011.answer.dto.member.mapper.MemberMapper;
-import com.codestates.seb41_pre_011.answer.dto.member.service.MemberService;
+import com.codestates.seb41_pre_011.member.controller.MemberController;
+import com.codestates.seb41_pre_011.member.dto.MemberDto;
+import com.codestates.seb41_pre_011.member.entity.Member;
+import com.codestates.seb41_pre_011.member.mapper.MemberMapper;
+import com.codestates.seb41_pre_011.member.service.MemberService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
