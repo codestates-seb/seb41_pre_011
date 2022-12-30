@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import InpTxt from '../components/inpTxt/InpTxt';
 import BtnBasic from '../components/btnBasic/BtnBasic';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import LoadingDiv from '../components/loading/Loading';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -118,10 +121,40 @@ const SignUpRow = styled.div`
 `;
 
 const Sing_up = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        axios
+          .post(
+            'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member',
+            {
+              email,
+              name,
+              password,
+            }
+          )
+          .then((res) => console.log(res.data))
+          .then(setLoading(false))
+          .then(alert('회원등록이 완료되었습니다.'));
+        navigate('/login');
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
+  };
+
   return (
     <Wrapper>
       <WrapForm>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="sideBar">
             <h2 className="titSb">Join the Stack Overflow community</h2>
             <div className="descSb">
@@ -198,8 +231,8 @@ const Sing_up = () => {
                 <InpTxt
                   htmlId="name"
                   autoComplete="off"
-                  value={``}
-                  onChange={console.log(123)}
+                  value={name}
+                  onChange={setName}
                   required={true}
                 />
               </div>
@@ -210,8 +243,8 @@ const Sing_up = () => {
                 <InpTxt
                   htmlId="email"
                   autoComplete="off"
-                  value={``}
-                  onChange={console.log(123)}
+                  value={email}
+                  onChange={setEmail}
                   required={true}
                 />
               </div>
@@ -222,9 +255,10 @@ const Sing_up = () => {
                 <InpTxt
                   htmlId="password"
                   autoComplete="off"
-                  value={``}
-                  onChange={console.log(123)}
+                  value={password}
+                  onChange={setPassword}
                   required={true}
+                  type="password"
                 />
               </div>
               <div className="formContentRow">
@@ -239,6 +273,7 @@ const Sing_up = () => {
           </div>
         </form>
       </WrapForm>
+      {loading && <LoadingDiv>Loading...</LoadingDiv>}
     </Wrapper>
   );
 };

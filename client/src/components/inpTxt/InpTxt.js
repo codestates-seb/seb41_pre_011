@@ -42,6 +42,7 @@ const InpTxtEl = styled.span`
 
 const InpTxt = ({
   children,
+  type,
   htmlId,
   placeholder,
   autoComplete,
@@ -57,7 +58,7 @@ const InpTxt = ({
         {children}
         <input
           className={hadIcon ? 'inpG hadIcon' : 'inpG'}
-          type="text"
+          type={type ? type : 'text'}
           placeholder={placeholder ? placeholder : ''}
           autoComplete={autoComplete ? autoComplete : ''}
           aria-label={ariaLabel ? ariaLabel : ''}

@@ -129,6 +129,7 @@ const Login = () => {
                 value={``}
                 onChange={console.log(123)}
                 required={true}
+                type="password"
               />
             </div>
             <div className="formContentRow">
