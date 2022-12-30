@@ -63,7 +63,7 @@ public class AnswerController {
     public ResponseEntity getAnswersByQuestion(@RequestParam int questionId) {
         List<Answer> answers = answerService.findByQuestion(questionId);
         return new ResponseEntity<>(
-                new ListResponseDto<>(answers), HttpStatus.OK);
+                new ListResponseDto<>(answerMapper.answersToAnswerResponseDto(answers)), HttpStatus.OK);
     }
 
 //    @GetMapping
