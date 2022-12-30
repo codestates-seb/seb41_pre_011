@@ -7,7 +7,7 @@ const TitleEl = styled.h2`
   margin-bottom: 16px;
 `;
 
-const TitleBasic = ({ children }) => {
-  return <TitleEl>{children}</TitleEl>;
+const TitleBasic = ({ children, className }) => {
+  return <TitleEl className={className ? className : ''}>{children}</TitleEl>;
 };
 export default TitleBasic;
