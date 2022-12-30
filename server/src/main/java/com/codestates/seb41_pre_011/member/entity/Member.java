@@ -2,6 +2,7 @@ package com.codestates.seb41_pre_011.member.entity;
 
 import com.codestates.seb41_pre_011.answer.entity.Answer;
 import com.codestates.seb41_pre_011.question.entity.Question;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Member {
     private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
+    @JsonBackReference
     private List<Answer> answers = new ArrayList<>();
 }
 
