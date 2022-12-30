@@ -17,6 +17,7 @@ public interface AnswerMapper {
         answerResponseDto.setAnswerId(answer.getAnswerId());
         answerResponseDto.setQuestionId(answer.getQuestionId());
         answerResponseDto.setMemberName(answer.getMember().getName());
+        answerResponseDto.setMemberImage(answer.getMember().getImage());
         answerResponseDto.setContent(answer.getContent());
         answerResponseDto.setCreatedDate(answer.getCreatedDate());
         answerResponseDto.setModifiedDate(answer.getModifiedDate());

@@ -20,6 +20,7 @@ public interface QuestionMapper {
                 questionResponseDto.setCreatedDate(question.getCreatedDate());
                 questionResponseDto.setModifiedDate(question.getModifiedDate());
                 questionResponseDto.setMemberName(question.getMember().getName());
+                questionResponseDto.setMemberImage(question.getMember().getImage());
                 questionResponseDto.setTags(question.getTags());
 
                 return questionResponseDto;

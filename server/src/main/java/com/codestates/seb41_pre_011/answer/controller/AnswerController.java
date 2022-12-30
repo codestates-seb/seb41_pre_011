@@ -36,6 +36,7 @@ public class AnswerController {
         Answer answer = answerMapper.answerPostDtoToAnswer(requestBody);
         Member member = new Member();
         member.setName("김상순");
+        member.setImage("https://avatars.dicebear.com/api/bottts/153.svg");
         answer.setMember(member);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
