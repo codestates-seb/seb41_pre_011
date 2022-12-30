@@ -42,12 +42,14 @@ const InpTxtEl = styled.span`
 
 const InpTxt = ({
   children,
+  htmlId,
   placeholder,
   autoComplete,
   ariaLabel,
   hadIcon,
   onChange,
   value,
+  required,
 }) => {
   return (
     <InpTxtEl>
@@ -59,6 +61,8 @@ const InpTxt = ({
           placeholder={placeholder ? placeholder : ''}
           autoComplete={autoComplete ? autoComplete : ''}
           aria-label={ariaLabel ? ariaLabel : ''}
+          id={htmlId ? htmlId : ''}
+          required={required ? required : ''}
           // 기능
           value={value}
           onChange={(e) => {
