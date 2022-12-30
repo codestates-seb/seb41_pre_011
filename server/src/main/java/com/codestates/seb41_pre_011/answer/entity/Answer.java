@@ -3,7 +3,11 @@ package com.codestates.seb41_pre_011.answer.entity;
 import com.codestates.seb41_pre_011.member.entity.Member;
 import com.codestates.seb41_pre_011.question.entity.Question;
 import com.codestates.seb41_pre_011.tag.entity.TagAnswer;
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+=======
+import com.fasterxml.jackson.annotation.JsonBackReference;
+>>>>>>> c8d7398632ab96f9820a399815c269bd724b68b8
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +38,7 @@ public class Answer {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonManagedReference
     @JoinColumn
+    @JsonBackReference
     private Member member;
 
     @ManyToOne

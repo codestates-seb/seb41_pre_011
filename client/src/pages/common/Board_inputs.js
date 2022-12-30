@@ -86,13 +86,12 @@ const Board_inputs = () => {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [trying, setTrying] = useState('');
-  const [tag, setTag] = useState('');
+  const [tags, setTag] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   const makeSetTag = (stringTag) => {
     setTag(stringTag.trim().split(','));
-    console.log(tag);
   };
 
   const handleSubmit = (e) => {
@@ -107,7 +106,7 @@ const Board_inputs = () => {
               title: title,
               questionContent: problem,
               attemptContent: trying,
-              tag: tag,
+              tags: tags,
             }
           )
           .then((res) => console.log(res.data))
@@ -213,7 +212,7 @@ const Board_inputs = () => {
               typing to see suggestions.
             </p>
             <div className="txtFiledCw">
-              <InpTxt autoComplete="off" value={tag} onChange={makeSetTag} />
+              <InpTxt autoComplete="off" value={tags} onChange={makeSetTag} />
             </div>
           </div>
           <div className="tipWrite"></div>

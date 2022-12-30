@@ -39,6 +39,7 @@ public class AnswerDto {
         private int answerId;
         private int questionId;
         private String memberName;
+        private String memberImage;
         private String content;
         private List<String> tags;
         private LocalDateTime createdDate;

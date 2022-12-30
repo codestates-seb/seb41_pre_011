@@ -48,7 +48,8 @@ public class QuestionDto {
         private LocalDateTime createdDate;
         private LocalDateTime modifiedDate;
         private String memberName;
-        private List<String> tag;
+        private String memberImage;
+        private List<String> tags;
 
         public void setMember(Member member) {this.memberName = member.getName();}
     }
