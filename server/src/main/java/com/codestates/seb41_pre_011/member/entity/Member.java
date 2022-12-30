@@ -26,8 +26,12 @@ public class Member {
     private String name;
 //    @Column(nullable = false)
     @JsonIgnore
+    @Column(length = 100, nullable = false)
     private String password;
     private String image;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();

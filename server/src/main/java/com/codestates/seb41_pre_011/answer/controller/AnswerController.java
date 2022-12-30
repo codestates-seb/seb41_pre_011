@@ -37,6 +37,7 @@ public class AnswerController {
         Member member = new Member();
         member.setName("김상순");
         member.setImage("https://avatars.dicebear.com/api/bottts/153.svg");
+        member.setPassword("Code^States1");
         answer.setMember(member);
         Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.Response response = answerMapper.answerToAnswerResponseDto(createdAnswer);
