@@ -1,5 +1,6 @@
 package com.codestates.seb41_pre_011.member.service;
 
+import com.codestates.seb41_pre_011.auth.utils.CustomAuthorityUtils;
 import com.codestates.seb41_pre_011.exception.BusinessLogicException;
 import com.codestates.seb41_pre_011.exception.ExceptionCode;
 import com.codestates.seb41_pre_011.member.entity.Member;
@@ -7,22 +8,38 @@ import com.codestates.seb41_pre_011.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
 
     public Member createMember(Member member) {
+        verifyExistsEmail(member.getEmail());
+
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        // 추가: DB에 User Role 저장
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+
         int randImage = randBetween(1,400);
         if(member.getImage()==null) {member.setImage("https://avatars.dicebear.com/api/bottts/2" + randImage + ".svg");}
+
         return memberRepository.save(member);
     }
 
@@ -54,5 +71,10 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         Member findmember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findmember;
+    }
+    private void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 }

@@ -37,6 +37,7 @@ public class QuestionController {
         Member member = new Member();
         member.setName("김코딩");
         member.setImage("https://avatars.dicebear.com/api/bottts/151.svg");
+        member.setPassword("Code^States1");
         question.setMember(member);
         Question createdQuestion = questionService.createQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createdQuestion);
