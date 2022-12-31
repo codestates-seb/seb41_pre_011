@@ -30,15 +30,21 @@ const PageNumberButton = styled.button`
   &:hover {
     background-color: rgba(160, 160, 160, 0.2);
   }
+  &.on {
+    color: #fff;
+    background-color: rgb(244, 130, 37);
+    border-color: rgb(244, 130, 37);
+  }
 `;
 
 const User_list = () => {
   const [pageData, setPageData] = useState([]);
   // const [searchParams] = useSearchParams();
   // const tagPage = searchParams.get('page');
-  const PageLengthData = [...Array(pageData)].map((it, idx) => {
+  console.log(pageData);
+  const PageLengthData = [...Array(pageData.totalPages)].map((it, idx) => {
     return (it = {
-      // nowNum: QuestionsSlicePagingData.page === idx + 1 ? true : false,
+      nowNum: pageData.page === idx + 1 ? true : false,
       id: idx + 1,
     });
   });
@@ -50,6 +56,7 @@ const User_list = () => {
       <PageNumberDiv>
         {PageLengthData.map((it) => (
           <PageNumberButton
+            className={it.nowNum ? 'on' : ''}
             key={it.id}
             onClick={() => {
               navigate(`/user_list?page=${it.id}`);

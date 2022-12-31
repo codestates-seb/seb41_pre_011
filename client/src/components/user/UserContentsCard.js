@@ -59,7 +59,7 @@ const UserContentsCard = ({ setPageData }) => {
           setData(res.data.data);
           return res;
         })
-        .then((res) => setPageData(res.data.pageInfo.totalPages));
+        .then((res) => setPageData(res.data.pageInfo));
     } catch (error) {
       console.log(error);
     }
