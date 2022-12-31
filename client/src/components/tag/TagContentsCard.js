@@ -7,7 +7,6 @@ const ContentsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 1051px;
-  background-color: black;
   justify-content: space-between;
 `;
 
@@ -20,7 +19,6 @@ const TagContentsCardBox = styled.div`
   padding: 12px;
   width: 255px;
   height: 225px;
-  background-color: pink;
   margin-bottom: 10px;
 `;
 
