@@ -17,9 +17,9 @@ const Home = () => {
       <br />
       <Link to="/board_write">board_write</Link>
       <br />
-      <Link to="/tag_list">tag_list</Link>
+      <Link to="/tag_list?page=1">tag_list</Link>
       <br />
-      <Link to="/user_list">user_list</Link>
+      <Link to="/user_list?page=1">user_list</Link>
 
       <Search_list />
     </div>

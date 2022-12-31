@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const ContentsWrapper = styled.div`
   display: flex;
@@ -69,19 +70,25 @@ const TagContentQuestions = styled.div`
   padding-top: 1px;
 `;
 
-const TagContentsCard = () => {
+const TagContentsCard = ({ setPageData }) => {
+  const [searchParams] = useSearchParams();
+  const pageNumber = searchParams.get('page');
   const [data, setData] = useState([]);
   useEffect(() => {
     try {
       axios
         .get(
-          'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/tag?page=1&size=16'
+          `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/tag?page=${pageNumber}&size=16`
         )
-        .then((res) => setData(res.data.data));
+        .then((res) => {
+          setData(res.data.data);
+          return res;
+        })
+        .then((res) => setPageData(res.data.pageInfo.totalPages));
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [pageNumber]);
   return (
     <ContentsWrapper>
       {data.map((it) => (
