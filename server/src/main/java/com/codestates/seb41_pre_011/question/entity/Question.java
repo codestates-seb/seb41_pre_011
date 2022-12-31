@@ -3,8 +3,7 @@ package com.codestates.seb41_pre_011.question.entity;
 import com.codestates.seb41_pre_011.answer.entity.Answer;
 
 import com.codestates.seb41_pre_011.member.entity.Member;
-import com.codestates.seb41_pre_011.question.dto.TagQuestionResponseDto;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.codestates.seb41_pre_011.tag.entity.TagQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +31,8 @@ public class Question {
     private LocalDateTime createdDate;
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
-    @ElementCollection(targetClass = Integer.class)
-    private List<TagQuestionResponseDto> tags;
+    @ElementCollection
+    private List<String> tags;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "MEMBER_ID")
@@ -42,6 +41,6 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
-    @OneToMany(targetEntity = TagQuestion.class, mappedBy = "question")
+    @OneToMany(mappedBy = "question")
     private List<TagQuestion> tagQuestions = new ArrayList<>();
 }
