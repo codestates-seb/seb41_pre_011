@@ -9,6 +9,8 @@ import InpTxt from '../components/inpTxt/InpTxt';
 // import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getAnswerData } from '../stateContainer/slice/AnswerSlice';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -150,6 +152,8 @@ const Board = () => {
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const [aQuestionData, setAQuestionsData] = useState({});
+  // const dispatch = useDispatch();
+  // const AnswerSliceData = useSelector((state) => state.AnswerSlice.AnswerData);
 
   useEffect(() => {
     axios
@@ -165,6 +169,7 @@ const Board = () => {
         `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
       )
       .then((res) => console.log(res.data.data));
+    // .then((res) => dispatch(getAnswerData(res.data.data)));
   });
 
   // const answerData = useSelector((state) => state.AnswerSlice.AnswerDummyData);
@@ -213,8 +218,10 @@ const Board = () => {
           </div>
           <div className="areaAnswers">
             <strong className="titA">Answer</strong>
-            <ListAnswer>
-              <li>
+
+            {/* {AnswerSliceData.map((it)=>(
+                <ListAnswer key={it.answerId}>
+                  <li>
                 <div className="contAnswer"></div>
                 <div className="editAnser">
                   <form>
@@ -231,12 +238,12 @@ const Board = () => {
               </li>
               <li>
                 <div className="contAnswer">
-                  <p className="descA">asdfsadf asdfasd asdf asdf asdf asdf</p>
+                  <p className="descA">{it.content}</p>
                   <ListWriteInfo>
                     <dt>Created : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
+                    <dd>{it.createdDate}</dd>
                     <dt>Modified : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
+                    <dd>{it.modifiedDate}</dd>
                   </ListWriteInfo>
 
                   <MemberRow>
@@ -256,6 +263,9 @@ const Board = () => {
                 </div>
                 <div className="editAnser"></div>
               </li>
+              </ListAnswer>
+              ))} */}
+            <ListAnswer>
               <li>
                 <div className="contAnswer">
                   <p className="descA">asdfsadf asdfasd asdf asdf asdf asdf</p>

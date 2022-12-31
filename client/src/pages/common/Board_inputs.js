@@ -107,7 +107,8 @@ const Board_inputs = () => {
               questionContent: problem,
               attemptContent: trying,
               tags: tags,
-            }
+            },
+            { withCredentials: true }
           )
           .then((res) => console.log(res.data))
           .then(setLoading(false))

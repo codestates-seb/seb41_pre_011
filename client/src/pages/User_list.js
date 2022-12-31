@@ -41,7 +41,6 @@ const User_list = () => {
   const [pageData, setPageData] = useState([]);
   // const [searchParams] = useSearchParams();
   // const tagPage = searchParams.get('page');
-  console.log(pageData);
   const PageLengthData = [...Array(pageData.totalPages)].map((it, idx) => {
     return (it = {
       nowNum: pageData.page === idx + 1 ? true : false,
