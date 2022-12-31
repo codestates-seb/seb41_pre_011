@@ -1,6 +1,7 @@
 package com.codestates.seb41_pre_011.question.dto;
 
 import com.codestates.seb41_pre_011.member.entity.Member;
+import com.codestates.seb41_pre_011.question.entity.TagQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,7 @@ public class QuestionDto {
         private String questionContent;
         @NotBlank(message = "내용을 입력해 주세요.")
         private String attemptContent;
-        private List<String> tags;
+        private List<TagQuestionDto> tags;
     }
 
     @Getter
@@ -32,7 +33,7 @@ public class QuestionDto {
         private String questionContent;
         @NotBlank(message = "수정할 내용을 입력해 주세요.")
         private String attemptContent;
-        private List<String> tags;
+        private List<TagQuestionDto> tags;
 
         public void setQuestionId(int questionId) {this.questionId = questionId;}
     }
@@ -49,7 +50,7 @@ public class QuestionDto {
         private LocalDateTime modifiedDate;
         private String memberName;
         private String memberImage;
-        private List<String> tags;
+        private List<TagQuestionResponseDto> tags;
 
         public void setMember(Member member) {this.memberName = member.getName();}
     }
