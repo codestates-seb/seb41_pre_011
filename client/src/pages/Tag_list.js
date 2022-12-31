@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import TagContentsCard from '../components/tag/TagContentsCard';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -26,7 +28,40 @@ const TagMore = styled.div`
   color: #0074cc;
 `;
 
+const PageNumberDiv = styled.div`
+  text-align: center;
+  margin-top: 20px;
+`;
+const PageNumberButton = styled.button`
+  border: solid 1px rgb(214, 217, 220);
+  padding-left: 8px;
+  padding-right: 8px;
+  color: rgb(59, 67, 69);
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: 5px;
+
+  &:hover {
+    background-color: rgba(160, 160, 160, 0.2);
+  }
+  &.on {
+    color: #fff;
+    background-color: rgb(244, 130, 37);
+    border-color: rgb(244, 130, 37);
+  }
+`;
+
 const Tag_list = () => {
+  const [pageData, setPageData] = useState([]);
+  // const [searchParams] = useSearchParams();
+  // const tagPage = searchParams.get('page');
+  const PageLengthData = [...Array(pageData.totalPages)].map((it, idx) => {
+    return (it = {
+      nowNum: pageData.page === idx + 1 ? true : false,
+      id: idx + 1,
+    });
+  });
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Tag>Tags</Tag>
@@ -36,7 +71,20 @@ const Tag_list = () => {
         find and answer your question.
       </TagInfo>
       <TagMore>Show all tag synonyms</TagMore>
-      <TagContentsCard />
+      <TagContentsCard setPageData={setPageData} />
+      <PageNumberDiv>
+        {PageLengthData.map((it) => (
+          <PageNumberButton
+            className={it.nowNum ? 'on' : ''}
+            key={it.id}
+            onClick={() => {
+              navigate(`/tag_list?page=${it.id}`);
+            }}
+          >
+            {it.id}
+          </PageNumberButton>
+        ))}
+      </PageNumberDiv>
     </Wrapper>
   );
 };

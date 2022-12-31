@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const UserWrapper = styled.div`
   display: flex;
@@ -44,25 +45,30 @@ const Email = styled.div`
   margin-left: 2px;
 `;
 
-const UserContentsCard = () => {
+const UserContentsCard = ({ setPageData }) => {
+  const [searchParams] = useSearchParams();
+  const pageNumber = searchParams.get('page');
   const [data, setData] = useState([]);
   useEffect(() => {
     try {
       axios
         .get(
-          'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member?page=1&size=16'
+          `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member?page=${pageNumber}&size=16`
         )
-        .then((res) => setData(res.data.data));
+        .then((res) => {
+          setData(res.data.data);
+          return res;
+        })
+        .then((res) => setPageData(res.data.pageInfo));
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [pageNumber]);
 
-  console.log(data);
   return (
     <UserWrapper>
       {data.map((it) => (
-        <UserContentsCardBox key={it.id}>
+        <UserContentsCardBox key={it.memberId}>
           <UserImage src={`${it.image}`} />
           <UserDetails>
             <UserName>{it.name}</UserName>
