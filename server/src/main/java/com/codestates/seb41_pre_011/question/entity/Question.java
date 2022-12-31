@@ -32,7 +32,7 @@ public class Question {
     private LocalDateTime createdDate;
     @Column(nullable = false)
     private LocalDateTime modifiedDate;
-    @ElementCollection
+    @ElementCollection(targetClass = Integer.class)
     private List<TagQuestionResponseDto> tags;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -42,6 +42,6 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(targetEntity = TagQuestion.class, mappedBy = "question")
     private List<TagQuestion> tagQuestions = new ArrayList<>();
 }
