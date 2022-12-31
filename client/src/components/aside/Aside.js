@@ -85,12 +85,12 @@ const Aside = () => {
               </Link>
             </li>
             <li className={pathname === '/tag_list' ? 'on' : undefined}>
-              <Link to="/tag_list" className="linkNav">
+              <Link to="/tag_list?page=1" className="linkNav">
                 <span>Tags</span>
               </Link>
             </li>
             <li className={pathname === '/user_list' ? 'on' : undefined}>
-              <Link to="/user_list" className="linkNav">
+              <Link to="/user_list?page=1" className="linkNav">
                 <span>Users</span>
               </Link>
             </li>
