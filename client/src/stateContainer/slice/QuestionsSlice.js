@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   QuestionsData: [],
+  QpagingData: {},
 };
 
 const QuestionsSlice = createSlice({
@@ -20,8 +21,12 @@ const QuestionsSlice = createSlice({
     getQuestionsData(state, action) {
       state.QuestionsData = [...action.payload];
     },
+    getQpagingData(state, action) {
+      state.QpagingData = { ...action.payload };
+    },
   },
 });
 
 export default QuestionsSlice.reducer;
-export const { create, getQuestionsData } = QuestionsSlice.actions;
+export const { create, getQuestionsData, getQpagingData } =
+  QuestionsSlice.actions;

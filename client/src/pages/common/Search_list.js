@@ -3,11 +3,15 @@ import TitleBasic from '../../components/titleBasic/TitleBasic';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
 import TagBasic from '../../components/tagBasic/TagBasic';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { Link } from 'react-router-dom';
+import Paging from '../../components/paging/Paging';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { getQuestionsData } from '../../stateContainer/slice/QuestionsSlice';
+import {
+  getQuestionsData,
+  getQpagingData,
+} from '../../stateContainer/slice/QuestionsSlice';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -101,9 +105,23 @@ const ItemQuestion = styled.li`
 `;
 
 const Search_list = () => {
+  const [searchParams] = useSearchParams();
+  let nowPageNum = searchParams.get('page');
+
   const dispatch = useDispatch();
   const QuestionsSliceData = useSelector(
     (state) => state.QuestionsSlice.QuestionsData
+  );
+  const QuestionsSlicePagingData = useSelector(
+    (state) => state.QuestionsSlice.QpagingData
+  );
+  const pagingArr = [...Array(QuestionsSlicePagingData.totalPages)].map(
+    (v, i) => {
+      return (v = {
+        nowNum: QuestionsSlicePagingData.page === i + 1 ? true : false,
+        num: i + 1,
+      });
+    }
   );
 
   useEffect(() => {
@@ -111,17 +129,18 @@ const Search_list = () => {
       try {
         axios
           .get(
-            'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question?page=1&size=30'
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question?page=${nowPageNum}&size=8`
           )
           .then((res) => {
-            return dispatch(getQuestionsData(res.data.data));
+            dispatch(getQuestionsData(res.data.data));
+            dispatch(getQpagingData(res.data.pageInfo));
           });
       } catch (error) {
         console.error(error);
       }
     };
-    updateQuestionsData();
-  }, []);
+    updateQuestionsData(nowPageNum);
+  }, [nowPageNum]);
 
   return (
     <Wrapper>
@@ -147,10 +166,6 @@ const Search_list = () => {
                   <span className="value">0</span>
                   <span className="txt">answers</span>
                 </div>
-                {/* <div className="viewsState">
-                  <span className="value">0</span>
-                  <span className="txt">views</span>
-                </div> */}
               </div>
               <div className="postContent">
                 <strong className="titPc">
@@ -175,6 +190,7 @@ const Search_list = () => {
             </ItemQuestion>
           ))}
         </ListQuestion>
+        <Paging location={'/board_list'} pagingArr={pagingArr}></Paging>
       </MainBar>
 
       <Sidebar />

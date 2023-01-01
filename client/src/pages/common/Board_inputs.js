@@ -115,7 +115,7 @@ const Board_inputs = () => {
           .then((res) => console.log(res.data))
           .then(setLoading(false))
           .then(alert('추가되었습니다'));
-        navigate('/board_list');
+        navigate('/board_list?page=1');
       } catch (error) {
         console.log(error);
       }
