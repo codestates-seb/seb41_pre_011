@@ -13,17 +13,17 @@ public interface QuestionMapper {
     Question questionPatchToQuestion(QuestionDto.Patch requestBody);
     default QuestionDto.Response questionToQuestionResponse(Question question) {
         QuestionDto.Response questionResponseDto = new QuestionDto.Response();
-                questionResponseDto.setQuestionId(question.getQuestionId());
-                questionResponseDto.setTitle(question.getTitle());
-                questionResponseDto.setQuestionContent(question.getQuestionContent());
-                questionResponseDto.setAttemptContent(question.getAttemptContent());
-                questionResponseDto.setCreatedDate(question.getCreatedDate());
-                questionResponseDto.setModifiedDate(question.getModifiedDate());
-                questionResponseDto.setMemberName(question.getMember().getName());
-                questionResponseDto.setMemberImage(question.getMember().getImage());
-                questionResponseDto.setTags(question.getTags());
+        questionResponseDto.setQuestionId(question.getQuestionId());
+        questionResponseDto.setTitle(question.getTitle());
+        questionResponseDto.setQuestionContent(question.getQuestionContent());
+        questionResponseDto.setAttemptContent(question.getAttemptContent());
+        questionResponseDto.setCreatedDate(question.getCreatedDate());
+        questionResponseDto.setModifiedDate(question.getModifiedDate());
+        questionResponseDto.setMemberName(question.getMember().getName());
+        questionResponseDto.setMemberImage(question.getMember().getImage());
+        questionResponseDto.setTags(question.getTags());
 
-                return questionResponseDto;
+        return questionResponseDto;
     };
     List<QuestionDto.Response> questionsToQuestionResponses(List<Question> questions);
 }
