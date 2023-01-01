@@ -150,11 +150,10 @@ const TagDiv = styled.div`
   margin-left: 17px;
   margin-bottom: 5px;
 `;
-const DeleteSpan = styled.span`
+const DeleteButton = styled.button`
   cursor: pointer;
   height: 100%;
   width: 50px;
-  margin-left: 10px;
   color: red;
 `;
 
@@ -269,13 +268,14 @@ const Board = () => {
                           Edit
                         </Link>
                       </div>
-                      <DeleteSpan
+                      <DeleteButton
+                        type="button"
                         onClick={() => {
                           handleDelete(it.answerId);
                         }}
                       >
                         Delete
-                      </DeleteSpan>
+                      </DeleteButton>
                       <div className="memberInfoMR">
                         <img src={it.memberImage} alt="" />
                         <span>

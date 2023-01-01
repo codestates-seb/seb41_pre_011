@@ -93,7 +93,7 @@ const Login = () => {
   const [cookies, setCookie] = useCookies(['cookie_name']);
   const handleSubmit = (e) => {
     const expireDate = new Date();
-    expireDate.setMinutes(expireDate.getMinutes() + 1);
+    expireDate.setMinutes(expireDate.getMinutes() + 5);
     e.preventDefault();
     axios
       .post(
@@ -108,8 +108,8 @@ const Login = () => {
         setCookie(
           'cookie_name',
           {
-            aToken: 'aToken',
-            rToken: 'rToken',
+            authorization: res.headers.get('authorization'),
+            refresh: res.headers.get('refresh'),
             email: email,
           },
           {
@@ -117,10 +117,6 @@ const Login = () => {
             expires: expireDate,
           }
         );
-        // let aToken = res.headers.get('Authorization');
-        // console.log(aToken);
-        // let rToken = res.headers.get('Refresh');
-        // console.log(rToken);
       })
       .then(console.log(cookies));
   };

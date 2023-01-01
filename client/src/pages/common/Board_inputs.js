@@ -6,7 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingDiv from '../../components/loading/Loading';
-// import Login from '../Login';
+import { withCookies, Cookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -93,6 +93,8 @@ const Board_inputs = () => {
   const makeSetTag = (stringTag) => {
     setTag(stringTag.trim().split(','));
   };
+  const authorization_cookie = new Cookies();
+  console.log(authorization_cookie.get('cookie_name'));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -230,4 +232,4 @@ const Board_inputs = () => {
     </Wrapper>
   );
 };
-export default Board_inputs;
+export default withCookies(Board_inputs);
