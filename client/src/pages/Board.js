@@ -146,10 +146,10 @@ const ListAnswer = styled.ul`
     }
   }
 `;
-const TagDiv = styled.div`
-  margin-left: 17px;
-  margin-bottom: 5px;
-`;
+// const TagDiv = styled.div`
+//   margin-left: 17px;
+//   margin-bottom: 5px;
+// `;
 const DeleteButton = styled.button`
   cursor: pointer;
   height: 100%;
@@ -183,7 +183,14 @@ const Board = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(123);
+    axios.post(
+      `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`,
+      {
+        questionId: questionId,
+        content: writeAnswer,
+        // tags: ['javascript', 'java', 'html'],
+      }
+    );
   };
 
   useEffect(() => {
@@ -287,7 +294,7 @@ const Board = () => {
                   </div>
                   <div className="editAnser"></div>
                 </li>
-                {it.tags === null || it.tags === undefined ? undefined : (
+                {/* {it.tags === null || it.tags === undefined ? undefined : (
                   <TagDiv>
                     <div className="tagsQ">
                       {it.tags.map((it, idx) => (
@@ -295,7 +302,7 @@ const Board = () => {
                       ))}
                     </div>
                   </TagDiv>
-                )}
+                )} */}
               </ListAnswer>
             ))}
           </div>

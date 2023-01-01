@@ -89,17 +89,17 @@ const NoticeWrite = styled.div`
 
 const Answer_edit = () => {
   const [answer, setAnswer] = useState('');
-  const [tags, setTag] = useState('');
+  // const [tags, setTag] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const answerId = searchParams.get('answerId');
   const [loading, setLoading] = useState(false);
 
-  const makeTagArray = (tagString) => {
-    const tagArray = tagString.trim().split(',');
-    return tagArray;
-  };
+  // const makeTagArray = (tagString) => {
+  //   const tagArray = tagString.trim().split(',');
+  //   return tagArray;
+  // };
 
   useEffect(() => {
     axios
@@ -129,7 +129,7 @@ const Answer_edit = () => {
             {
               answerId: answerId,
               content: answer,
-              tags: makeTagArray(tags),
+              // tags: makeTagArray(tags),
             }
           )
           .then(setLoading(false))
@@ -165,7 +165,7 @@ const Answer_edit = () => {
             <div className="tipWrite"></div>
           </BoxWrite>
 
-          <BoxWrite>
+          {/* <BoxWrite>
             <div className="contWrite">
               <strong className="titCw">Tags</strong>
               <div className="txtFiledCw">
@@ -173,7 +173,7 @@ const Answer_edit = () => {
               </div>
             </div>
             <div className="tipWrite"></div>
-          </BoxWrite>
+          </BoxWrite> */}
 
           <BtnRow>
             <BtnBasic>
