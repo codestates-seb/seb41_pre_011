@@ -82,7 +82,11 @@ const TagContentsCard = ({ setPageData }) => {
           setData(res.data.data);
           return res;
         })
-        .then((res) => setPageData(res.data.pageInfo));
+        .then((res) => {
+          setPageData(res.data.pageInfo);
+          return res;
+        })
+        .then((res) => console.log(res.status));
     } catch (error) {
       console.error(error);
     }
