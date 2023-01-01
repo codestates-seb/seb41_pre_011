@@ -107,14 +107,13 @@ const Answer_edit = () => {
         `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
       )
       .then((res) => {
-        console.log(
-          res.data.data.filter((it) => {
-            if (it.answerId === Number(answerId)) {
-              return it;
-            }
-          })
-        );
+        const filterData = res.data.data.filter((it) => {
+          if (it.answerId === Number(answerId)) {
+            return it;
+          }
+        });
         // if (res.data.data.tags !== null) setTag(res.data.data.tags.join(', '));
+        setAnswer(filterData[0].content);
       });
   }, []);
 
@@ -154,7 +153,6 @@ const Answer_edit = () => {
             <div className="contWrite">
               <strong className="titCw">Correct your answer</strong>
               <div className="txtFiledCw">
-                {console.log(answer)}
                 <InpTxt
                   autoComplete="off"
                   value={answer}
