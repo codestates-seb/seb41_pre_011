@@ -7,7 +7,6 @@ const UserWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 1051px;
-  background-color: black;
   justify-content: space-between;
 `;
 
@@ -15,7 +14,6 @@ const UserContentsCardBox = styled.div`
   box-sizing: border-box;
   display: flex;
   padding: 5px 6px 7px 7px;
-  background-color: pink;
   width: 255px;
   height: 100px;
   margin-bottom: 10px;
@@ -33,7 +31,7 @@ const UserDetails = styled.div`
 `;
 
 const UserName = styled.div`
-  color: 0074cc;
+  color: rgb(0, 116, 204);
   font-size: 17px;
   margin-left: 2px;
 `;
@@ -43,6 +41,7 @@ const Email = styled.div`
   font-size: 13px;
   margin-top: 2px;
   margin-left: 2px;
+  font-weight: bold;
 `;
 
 const UserContentsCard = ({ setPageData }) => {

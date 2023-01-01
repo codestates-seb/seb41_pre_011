@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingDiv from '../../components/loading/Loading';
+// import Login from '../Login';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -89,7 +90,6 @@ const Board_inputs = () => {
   const [tags, setTag] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const makeSetTag = (stringTag) => {
     setTag(stringTag.trim().split(','));
   };
@@ -107,7 +107,8 @@ const Board_inputs = () => {
               questionContent: problem,
               attemptContent: trying,
               tags: tags,
-            }
+            },
+            { withCredentials: true }
           )
           .then((res) => console.log(res.data))
           .then(setLoading(false))
@@ -118,7 +119,8 @@ const Board_inputs = () => {
       }
     }, 2000);
   };
-
+  // const bannerCookie = useCookies(['cookie_name']);
+  // console.log(bannerCookie)
   return (
     <Wrapper>
       <TitleBasic>Ask a public question</TitleBasic>
