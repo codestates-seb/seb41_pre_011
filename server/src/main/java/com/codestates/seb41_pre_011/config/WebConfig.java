@@ -16,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8080")
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080")
+                .allowedOrigins("http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com")
                 .allowedOrigins("*")
                 .allowedMethods("*")
                 .exposedHeaders("Authorization", "Refresh")
