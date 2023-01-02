@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import LoadingDiv from '../components/loading/Loading';
+import { withCookies, Cookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -88,9 +89,16 @@ const NoticeWrite = styled.div`
 `;
 
 const Answer_edit = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userCookiesData = new Cookies();
+    const userCookiesGetData = userCookiesData.get('userCookies');
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    }
+  }, []);
   const [answer, setAnswer] = useState('');
   // const [tags, setTag] = useState('');
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const answerId = searchParams.get('answerId');
@@ -188,4 +196,4 @@ const Answer_edit = () => {
   );
 };
 
-export default Answer_edit;
+export default withCookies(Answer_edit);

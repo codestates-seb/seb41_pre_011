@@ -4,10 +4,11 @@ import BtnBasic from '../../components/btnBasic/BtnBasic';
 import TagBasic from '../../components/tagBasic/TagBasic';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Paging from '../../components/paging/Paging';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { withCookies, Cookies } from 'react-cookie';
 import {
   getQuestionsData,
   getQpagingData,
@@ -107,6 +108,7 @@ const ItemQuestion = styled.li`
 const Search_list = () => {
   const [searchParams] = useSearchParams();
   let nowPageNum = searchParams.get('page');
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const QuestionsSliceData = useSelector(
@@ -123,6 +125,16 @@ const Search_list = () => {
       });
     }
   );
+  const handleButton = () => {
+    const userCookiesData = new Cookies();
+    console.log(userCookiesData.get('userCookies'));
+    const userCookiesGetData = userCookiesData.get('userCookies');
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    } else {
+      navigate('/board_write');
+    }
+  };
 
   useEffect(() => {
     const updateQuestionsData = () => {
@@ -148,7 +160,9 @@ const Search_list = () => {
         <div className="rowMB">
           <TitleBasic>Questions</TitleBasic>
           <BtnBasic>
-            <Link to="/board_write">Ask Question</Link>
+            <button type="button" onClick={handleButton}>
+              Ask Question
+            </button>
           </BtnBasic>
         </div>
         <div className="rowMB">
@@ -197,4 +211,4 @@ const Search_list = () => {
     </Wrapper>
   );
 };
-export default Search_list;
+export default withCookies(Search_list);

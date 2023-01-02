@@ -4,12 +4,13 @@ import TitleBasic from '../components/titleBasic/TitleBasic';
 import TagBasic from '../components/tagBasic/TagBasic';
 import BtnBasic from '../components/btnBasic/BtnBasic';
 import Sidebar from '../components/sidebar/Sidebar';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getAnswerData } from '../stateContainer/slice/AnswerSlice';
+import { withCookies, Cookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -89,7 +90,7 @@ const MemberRow = styled.div`
   .editMR {
     flex: 1;
 
-    a {
+    button {
       color: hsl(210, 8%, 45%);
     }
   }
@@ -158,13 +159,13 @@ const DeleteButton = styled.button`
 `;
 
 const Board = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const [aQuestionData, setAQuestionsData] = useState({});
   const dispatch = useDispatch();
   // const [AnswerSliceData, setAnswerSliceData] = useState([...AnswerSliceData1]);
   let AnswerSliceData = useSelector((state) => state.AnswerSlice.AnswerData);
-  console.log(AnswerSliceData);
   const [writeAnswer, setWriteAnswer] = useState('');
   // const [reRender, setReRender] = useState(questionId);
   // const handleAnswer = () => {
@@ -176,6 +177,18 @@ const Board = () => {
   //   navigate(`/board?questionId=${questionId}`);
   // };
 
+  const handleButton = () => {
+    useEffect(() => {
+      const userCookiesData = new Cookies();
+      console.log(userCookiesData.get('userCookies'));
+      const userCookiesGetData = userCookiesData.get('userCookies');
+      if (userCookiesGetData === undefined) {
+        navigate('/login');
+      } else {
+        navigate(`/board_edit?questionId=${questionId}`);
+      }
+    }, []);
+  };
   const handleDelete = (answerId) => {
     axios
       .delete(
@@ -194,22 +207,29 @@ const Board = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`,
-        {
-          questionId: questionId,
-          content: writeAnswer,
-          // tags: ['javascript', 'java', 'html'],
-        }
-      )
-      .then((res) => {
-        if (res.status === 201) {
-          dispatch(getAnswerData([...AnswerSliceData, res.data.data]));
-          // window.location.replace(`/board?questionId=${questionId}`);
-          setWriteAnswer('');
-        }
-      });
+    const userCookiesData = new Cookies();
+    console.log(userCookiesData.get('userCookies'));
+    const userCookiesGetData = userCookiesData.get('userCookies');
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    } else {
+      axios
+        .post(
+          `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`,
+          {
+            questionId: questionId,
+            content: writeAnswer,
+            // tags: ['javascript', 'java', 'html'],
+          }
+        )
+        .then((res) => {
+          if (res.status === 201) {
+            dispatch(getAnswerData([...AnswerSliceData, res.data.data]));
+            // window.location.replace(`/board?questionId=${questionId}`);
+            setWriteAnswer('');
+          }
+        });
+    }
   };
 
   useEffect(() => {
@@ -259,7 +279,9 @@ const Board = () => {
 
             <MemberRow>
               <div className="editMR">
-                <Link to={`/board_edit?questionId=${questionId}`}>Edit</Link>
+                <button type="button" onClick={handleButton}>
+                  Edit
+                </button>
               </div>
               <div className="memberInfoMR">
                 <img src={aQuestionData.memberImage} alt="" />
@@ -349,4 +371,4 @@ const Board = () => {
     </Wrapper>
   );
 };
-export default Board;
+export default withCookies(Board);

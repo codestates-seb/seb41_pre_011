@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import InpTxt from '../components/inpTxt/InpTxt';
 import BtnBasic from '../components/btnBasic/BtnBasic';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
@@ -90,10 +90,11 @@ const SignUpRow = styled.div`
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [cookies, setCookie] = useCookies(['cookie_name']);
+  const [cookies, setCookie] = useCookies(['userCookies']);
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     const expireDate = new Date();
-    expireDate.setMinutes(expireDate.getMinutes() + 5);
+    expireDate.setMinutes(expireDate.getMinutes() + 20);
     e.preventDefault();
     axios
       .post(
@@ -104,21 +105,29 @@ const Login = () => {
         }
       )
       .then((res) => {
-        console.log(res.headers);
-        setCookie(
-          'cookie_name',
-          {
-            authorization: res.headers.get('authorization'),
-            refresh: res.headers.get('refresh'),
-            email: email,
-          },
-          {
-            path: '/',
-            expires: expireDate,
-          }
-        );
+        if (res.status === 200) {
+          console.log('로그인 성공');
+          console.log(cookies);
+          setCookie(
+            'userCookies',
+            {
+              authorization: res.headers.get('authorization'),
+              refresh: res.headers.get('refresh'),
+              email: email,
+            },
+            {
+              path: '/', // 모든 페이지에서 쿠키 사용가능
+              expires: expireDate,
+            }
+          );
+          navigate('/board_list?page=1');
+        }
       })
-      .then(console.log(cookies));
+      .catch((error) => {
+        if (error.response.status) {
+          alert('email 혹은 password가 다릅니다 !');
+        }
+      });
   };
   return (
     <Wrapper>
