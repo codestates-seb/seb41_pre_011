@@ -23,7 +23,7 @@ public class CorsFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.addHeader("Access-Control-Allow-Origin", "http://seb41-pre-011.s3-website.ap-northeast-2.amazonaws.com");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods","POST");
         response.addHeader("Access-Control-Allow-Methods", "PATCH");
