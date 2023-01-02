@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import InpTxt from '../inpTxt/InpTxt';
 import BtnBasic from '../btnBasic/BtnBasic';
@@ -80,7 +80,37 @@ const BtnInLinkBoxHd = styled(BtnBasic)`
   }
 `;
 
+const UserBoxHd = styled.div`
+  display: flex;
+  align-items: center;
+
+  .infoMy {
+    display: flex;
+    padding-right: 4px;
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 4px 6px;
+
+      img {
+        width: 28px;
+        height: 28px;
+      }
+      .txtUser {
+        margin-left: 3px;
+      }
+    }
+    a:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+`;
+
 const Header = () => {
+  const location = useLocation();
+  console.log(location);
+
   return (
     <HeaderWrapper>
       <HeaderEl>
@@ -116,20 +146,40 @@ const Header = () => {
               </InpTxt>
             </form>
 
-            <div className="linkBoxHd">
-              <ul className="listLogin">
-                <li>
-                  <BtnInLinkBoxHd link="true" className="garyColor">
-                    <Link to="/login">Log in</Link>
-                  </BtnInLinkBoxHd>
-                </li>
-                <li>
-                  <BtnInLinkBoxHd link="true">
-                    <Link to="/sing_up">Sign Up</Link>
-                  </BtnInLinkBoxHd>
-                </li>
-              </ul>
-            </div>
+            {location.pathname === '/board_list' ? (
+              <UserBoxHd>
+                <span className="infoMy">
+                  <Link to="/Mypage">
+                    <img
+                      className="imgUser"
+                      src="https://avatars.dicebear.com/api/bottts/137.svg"
+                      alt=""
+                    />
+
+                    <span className="txtUser">김코딩</span>
+                  </Link>
+                </span>
+
+                <BtnInLinkBoxHd>
+                  <button type="button">log out</button>
+                </BtnInLinkBoxHd>
+              </UserBoxHd>
+            ) : (
+              <div className="linkBoxHd">
+                <ul className="listLogin">
+                  <li>
+                    <BtnInLinkBoxHd link="true" className="garyColor">
+                      <Link to="/login">Log in</Link>
+                    </BtnInLinkBoxHd>
+                  </li>
+                  <li>
+                    <BtnInLinkBoxHd link="true">
+                      <Link to="/sing_up">Sign Up</Link>
+                    </BtnInLinkBoxHd>
+                  </li>
+                </ul>
+              </div>
+            )}
           </UtilsHd>
         </div>
       </HeaderEl>
