@@ -49,6 +49,11 @@ public class QuestionService {
                 Sort.by("questionId").descending()));
     }
 
+    public Page<Question> findQuestionsByTitle(int page, int size, String search) {
+        return questionRepository.findAllByTitleContaining(search,PageRequest.of(page, size,
+                Sort.by("questionId").descending()));
+    }
+
     public void deleteQuestion(int questionId) { questionRepository.deleteById(questionId);
     }
 
