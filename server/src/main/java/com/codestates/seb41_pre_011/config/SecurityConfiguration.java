@@ -60,7 +60,6 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
 //                        .antMatchers(HttpMethod.POST,"/*/member").permitAll()
-//                        .antMatchers(HttpMethod.GET, "/*/member").hasRole("ADMIN")
 //                        .antMatchers(HttpMethod.POST,"/*/question").hasAnyRole("USER","ADMIN")
 //                        .antMatchers(HttpMethod.PATCH,"/*/question/**").hasAnyRole("USER","ADMIN")
 //                        .antMatchers(HttpMethod.DELETE,"/*/question/**").hasAnyRole("USER","ADMIN")

@@ -101,7 +101,7 @@ const Board_inputs = () => {
       try {
         axios
           .post(
-            'http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question',
+            'http://localhost:8080/v1/question',
             {
               title: title,
               questionContent: problem,
