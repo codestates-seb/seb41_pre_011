@@ -51,8 +51,8 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(int memberId) {
-        Member member = findVerifiedMember(memberId);
+    public Member findMember(String memberEmail) {
+        Member member = findVerifiedMemberByEmail(memberEmail);
         member.setPassword(null);
         return member;
     }
@@ -69,6 +69,11 @@ public class MemberService {
 
     public Member findVerifiedMember(int memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
+        Member findmember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findmember;
+    }
+    public Member findVerifiedMemberByEmail(String memberEmail) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(memberEmail);
         Member findmember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findmember;
     }
