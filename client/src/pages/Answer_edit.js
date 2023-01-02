@@ -89,17 +89,17 @@ const NoticeWrite = styled.div`
 
 const Answer_edit = () => {
   const [answer, setAnswer] = useState('');
-  const [tags, setTag] = useState('');
+  // const [tags, setTag] = useState('');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const answerId = searchParams.get('answerId');
   const [loading, setLoading] = useState(false);
 
-  const makeTagArray = (tagString) => {
-    const tagArray = tagString.trim().split(',');
-    return tagArray;
-  };
+  // const makeTagArray = (tagString) => {
+  //   const tagArray = tagString.trim().split(',');
+  //   return tagArray;
+  // };
 
   useEffect(() => {
     axios
@@ -107,14 +107,13 @@ const Answer_edit = () => {
         `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
       )
       .then((res) => {
-        console.log(
-          res.data.data.filter((it) => {
-            if (it.answerId === Number(answerId)) {
-              return it;
-            }
-          })
-        );
+        const filterData = res.data.data.filter((it) => {
+          if (it.answerId === Number(answerId)) {
+            return it;
+          }
+        });
         // if (res.data.data.tags !== null) setTag(res.data.data.tags.join(', '));
+        setAnswer(filterData[0].content);
       });
   }, []);
 
@@ -125,11 +124,11 @@ const Answer_edit = () => {
       try {
         axios
           .patch(
-            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${questionId}`,
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`,
             {
               answerId: answerId,
               content: answer,
-              tags: makeTagArray(tags),
+              // tags: makeTagArray(tags),
             }
           )
           .then(setLoading(false))
@@ -154,7 +153,6 @@ const Answer_edit = () => {
             <div className="contWrite">
               <strong className="titCw">Correct your answer</strong>
               <div className="txtFiledCw">
-                {console.log(answer)}
                 <InpTxt
                   autoComplete="off"
                   value={answer}
@@ -165,7 +163,7 @@ const Answer_edit = () => {
             <div className="tipWrite"></div>
           </BoxWrite>
 
-          <BoxWrite>
+          {/* <BoxWrite>
             <div className="contWrite">
               <strong className="titCw">Tags</strong>
               <div className="txtFiledCw">
@@ -173,7 +171,7 @@ const Answer_edit = () => {
               </div>
             </div>
             <div className="tipWrite"></div>
-          </BoxWrite>
+          </BoxWrite> */}
 
           <BtnRow>
             <BtnBasic>

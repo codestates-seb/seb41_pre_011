@@ -146,10 +146,10 @@ const ListAnswer = styled.ul`
     }
   }
 `;
-const TagDiv = styled.div`
-  margin-left: 17px;
-  margin-bottom: 5px;
-`;
+// const TagDiv = styled.div`
+//   margin-left: 17px;
+//   margin-bottom: 5px;
+// `;
 const DeleteButton = styled.button`
   cursor: pointer;
   height: 100%;
@@ -162,9 +162,11 @@ const Board = () => {
   const questionId = searchParams.get('questionId');
   const [aQuestionData, setAQuestionsData] = useState({});
   const dispatch = useDispatch();
-  const AnswerSliceData = useSelector((state) => state.AnswerSlice.AnswerData);
-  // const navigate = useNavigate();
+  // const [AnswerSliceData, setAnswerSliceData] = useState([...AnswerSliceData1]);
+  let AnswerSliceData = useSelector((state) => state.AnswerSlice.AnswerData);
+  console.log(AnswerSliceData);
   const [writeAnswer, setWriteAnswer] = useState('');
+  // const [reRender, setReRender] = useState(questionId);
   // const handleAnswer = () => {
   //   axios;
   //   .post(
@@ -175,15 +177,39 @@ const Board = () => {
   // };
 
   const handleDelete = (answerId) => {
-    console.log(answerId);
-    axios.delete(
-      `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`
-    );
+    axios
+      .delete(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`
+      )
+      .then((res) => {
+        if (res.status === 204) {
+          const AAA = AnswerSliceData.filter((it) => {
+            return it.answerId !== answerId;
+          });
+          dispatch(getAnswerData([...AAA]));
+          // window.location.replace(`/board?questionId=${questionId}`);
+        }
+      });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(123);
+    axios
+      .post(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`,
+        {
+          questionId: questionId,
+          content: writeAnswer,
+          // tags: ['javascript', 'java', 'html'],
+        }
+      )
+      .then((res) => {
+        if (res.status === 201) {
+          dispatch(getAnswerData([...AnswerSliceData, res.data.data]));
+          // window.location.replace(`/board?questionId=${questionId}`);
+          setWriteAnswer('');
+        }
+      });
   };
 
   useEffect(() => {
@@ -250,7 +276,6 @@ const Board = () => {
             {AnswerSliceData.map((it) => (
               <ListAnswer key={it.answerId}>
                 <li>
-                  {console.log(it)}
                   <div className="contAnswer">
                     <p className="descA">{it.content}</p>
                     <ListWriteInfo>
@@ -287,7 +312,7 @@ const Board = () => {
                   </div>
                   <div className="editAnser"></div>
                 </li>
-                {it.tags === null || it.tags === undefined ? undefined : (
+                {/* {it.tags === null || it.tags === undefined ? undefined : (
                   <TagDiv>
                     <div className="tagsQ">
                       {it.tags.map((it, idx) => (
@@ -295,7 +320,7 @@ const Board = () => {
                       ))}
                     </div>
                   </TagDiv>
-                )}
+                )} */}
               </ListAnswer>
             ))}
           </div>
@@ -318,6 +343,7 @@ const Board = () => {
             </form>
           </div>
         </div>
+        {/* <div>{reRender}</div> */}
         <Sidebar />
       </ContentBoard>
     </Wrapper>
