@@ -99,7 +99,7 @@ const Mypage = () => {
     setTimeout(() => {
       try {
         axios
-          .post(
+          .patch(
             `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${memberId}`,
             {
               name,

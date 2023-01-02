@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import TitleBasic from '../../components/titleBasic/TitleBasic';
 import InpTxt from '../../components/inpTxt/InpTxt';
 import BtnBasic from '../../components/btnBasic/BtnBasic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingDiv from '../../components/loading/Loading';
@@ -83,18 +83,25 @@ const NoticeWrite = styled.div`
   }
 `;
 
+const userCookiesData = new Cookies();
+const userCookiesGetData = userCookiesData.get('userCookies');
+
 const Board_inputs = () => {
+  console.log(userCookiesGetData.authorization);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    }
+  }, []);
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
   const [trying, setTrying] = useState('');
   const [tags, setTag] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const makeSetTag = (stringTag) => {
     setTag(stringTag.trim().split(','));
   };
-  const authorization_cookie = new Cookies();
-  console.log(authorization_cookie.get('cookie_name'));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -109,6 +116,11 @@ const Board_inputs = () => {
               questionContent: problem,
               attemptContent: trying,
               tags: tags,
+            },
+            {
+              headers: {
+                Authorization: userCookiesGetData.authorization,
+              },
             },
             { withCredentials: true }
           )
