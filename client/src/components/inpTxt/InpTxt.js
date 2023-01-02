@@ -37,6 +37,15 @@ const InpTxtEl = styled.span`
     .inpG.hadIcon {
       padding-left: 32px;
     }
+
+    &.readOnly .inpG {
+      background-color: rgba(0, 0, 0, 0.05);
+      cursor: not-allowed;
+    }
+    &.readOnly .inpG:focus {
+      border: 1px solid hsl(210, 8%, 75%);
+      box-shadow: none;
+    }
   }
 `;
 
@@ -51,10 +60,11 @@ const InpTxt = ({
   onChange,
   value,
   required,
+  readonly,
 }) => {
   return (
     <InpTxtEl>
-      <span className="innerInpTxt">
+      <span className={readonly ? 'innerInpTxt readOnly' : 'innerInpTxt'}>
         {children}
         <input
           className={hadIcon ? 'inpG hadIcon' : 'inpG'}
@@ -64,6 +74,7 @@ const InpTxt = ({
           aria-label={ariaLabel ? ariaLabel : ''}
           id={htmlId ? htmlId : ''}
           required={required ? required : ''}
+          readOnly={readonly ? readonly : ''}
           // 기능
           value={value}
           onChange={(e) => {

@@ -1,4 +1,11 @@
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+
 import styled from 'styled-components';
+import InpTxt from '../components/inpTxt/InpTxt';
+import BtnBasic from '../components/btnBasic/BtnBasic';
+import LoadingDiv from '../components/loading/Loading';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -61,49 +68,107 @@ const InfoTextDiv = styled.div`
 `;
 
 const InfoInputDiv = styled.div`
+  width: 420px;
   margin-top: 2px;
   text-align: left;
 `;
 
-const InfoInput = styled.input`
-  box-sizing: border-box;
-  padding: 0.6em 0.7em;
-  width: 421.33px;
-  height: 32.8px;
-  border: 1px solid hsl(210, 8%, 75%);
-  font-size: 13px;
-  color: hsl(210, 8%, 5%);
-  border-radius: 3px;
-  background-color: white;
-`;
-
 const Mypage = () => {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const memberId = searchParams.get('memberId');
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${memberId}`
+      )
+      .then((res) => {
+        setName(res.data.data.name);
+        setEmail(res.data.data.email);
+      });
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        axios
+          .post(
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${memberId}`,
+            {
+              name,
+              password,
+            },
+            { withCredentials: true }
+          )
+          .then((res) => {
+            setName(res.data.data.name);
+            setEmail(res.data.data.email);
+          })
+          .then(setLoading(false))
+          .then(alert('수정 되었습니다'));
+        //navigate('/board_list');
+      } catch (error) {
+        console.log(error);
+      }
+    }, 2000);
+  };
+
   return (
     <Wrapper>
       <Edit>Edit your profile</Edit>
       <Public>Public information</Public>
-      <InformationWrapper>
-        <ImageDiv>Profile image</ImageDiv>
-        <Image src="https://avatars.dicebear.com/api/bottts/1.svg" />
-        <InfoDiv>
-          <InfoTextDiv>User name</InfoTextDiv>
-          <InfoInputDiv>
-            <InfoInput></InfoInput>
-          </InfoInputDiv>
-        </InfoDiv>
-        <InfoDiv>
-          <InfoTextDiv>Password</InfoTextDiv>
-          <InfoInputDiv>
-            <InfoInput></InfoInput>
-          </InfoInputDiv>
-        </InfoDiv>
-        <InfoDiv>
-          <InfoTextDiv>Email</InfoTextDiv>
-          <InfoInputDiv>
-            <InfoInput value={'이메일'} disabled></InfoInput>
-          </InfoInputDiv>
-        </InfoDiv>
-      </InformationWrapper>
+      <form onSubmit={handleSubmit}>
+        <InformationWrapper>
+          <ImageDiv>Profile image</ImageDiv>
+          <Image src="https://avatars.dicebear.com/api/bottts/1.svg" />
+          <InfoDiv>
+            <InfoTextDiv>User name</InfoTextDiv>
+            <InfoInputDiv>
+              <InpTxt
+                htmlId="name"
+                autoComplete="off"
+                value={name}
+                onChange={setName}
+              />
+            </InfoInputDiv>
+          </InfoDiv>
+          <InfoDiv>
+            <InfoTextDiv>Password</InfoTextDiv>
+            <InfoInputDiv>
+              <InpTxt
+                autoComplete="off"
+                htmlId="password"
+                value={password}
+                onChange={setPassword}
+              />
+            </InfoInputDiv>
+          </InfoDiv>
+          <InfoDiv>
+            <InfoTextDiv>Email</InfoTextDiv>
+            <InfoInputDiv>
+              <InpTxt
+                htmlId="email"
+                utoComplete="off"
+                value={email}
+                readonly={true}
+              />
+            </InfoInputDiv>
+          </InfoDiv>
+          <InfoDiv>
+            <BtnBasic>
+              <button type="submit">save member info</button>
+            </BtnBasic>
+          </InfoDiv>
+        </InformationWrapper>
+      </form>
+      {loading && <LoadingDiv>Loading...</LoadingDiv>}
     </Wrapper>
   );
 };
