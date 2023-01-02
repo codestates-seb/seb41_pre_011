@@ -124,7 +124,7 @@ const Answer_edit = () => {
       try {
         axios
           .patch(
-            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${questionId}`,
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`,
             {
               answerId: answerId,
               content: answer,
