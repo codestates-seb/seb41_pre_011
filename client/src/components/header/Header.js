@@ -1,6 +1,11 @@
-import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCookieData } from '../../stateContainer/slice/CookieSlice';
 
+import styled from 'styled-components';
 import InpTxt from '../inpTxt/InpTxt';
 import BtnBasic from '../btnBasic/BtnBasic';
 
@@ -98,7 +103,7 @@ const UserBoxHd = styled.div`
         height: 28px;
       }
       .txtUser {
-        margin-left: 3px;
+        margin: 4px 3px 0 0;
       }
     }
     a:hover {
@@ -108,19 +113,57 @@ const UserBoxHd = styled.div`
 `;
 
 const Header = () => {
-  const location = useLocation();
-  console.log(location);
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+
+  const userCookiesData = new Cookies();
+  const uCookieData = userCookiesData.get('userCookies');
+  const dispatch = useDispatch();
+
+  if (uCookieData) {
+    dispatch(getCookieData(true));
+  }
+  let loginOn = useSelector((state) => state.CookieSlice.cookieData);
+
+  console.log(loginOn);
+  useEffect(() => {
+    if (!loginOn) {
+      console.log('header 로그인 안했음');
+    } else {
+      console.log('header 로그인 했음');
+      const userData = () => {
+        try {
+          axios
+            .get(
+              `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${uCookieData.email}`
+            )
+            .then((res) => {
+              setName(res.data.data.name);
+              setImage(res.data.data.image);
+            });
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      userData();
+    }
+  }, [loginOn]);
+
+  const handleLogout = () => {
+    userCookiesData.remove('userCookies');
+    dispatch(getCookieData(false));
+  };
 
   return (
     <HeaderWrapper>
       <HeaderEl>
         <div className="innerHd">
           <LogoHd>
-            <a href="#none">
+            <Link to="/board_list?page=1">
               <span className="logo icoSprite">
                 <span className="blind">Stack Overflow</span>
               </span>
-            </a>
+            </Link>
           </LogoHd>
 
           <UtilsHd>
@@ -146,22 +189,20 @@ const Header = () => {
               </InpTxt>
             </form>
 
-            {location.pathname === '/board_list' ? (
+            {loginOn ? (
               <UserBoxHd>
                 <span className="infoMy">
-                  <Link to="/Mypage">
-                    <img
-                      className="imgUser"
-                      src="https://avatars.dicebear.com/api/bottts/137.svg"
-                      alt=""
-                    />
+                  <Link to={`/Mypage?userEmail=${uCookieData.email}`}>
+                    <img className="imgUser" src={image} alt="" />
 
-                    <span className="txtUser">김코딩</span>
+                    <span className="txtUser">{name}</span>
                   </Link>
                 </span>
 
                 <BtnInLinkBoxHd>
-                  <button type="button">log out</button>
+                  <button type="button" onClick={handleLogout}>
+                    log out
+                  </button>
                 </BtnInLinkBoxHd>
               </UserBoxHd>
             ) : (
@@ -187,4 +228,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withCookies(Header);
