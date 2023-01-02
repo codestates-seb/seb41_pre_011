@@ -32,6 +32,7 @@ public class MemberController {
         this.memberMapper = memberMapper;
     }
 
+    @CrossOrigin(exposedHeaders = "Authorization")
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestbody) {
         Member member = memberMapper.memberPostDtoToMember(requestbody);
