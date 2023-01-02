@@ -70,6 +70,16 @@ public class QuestionController {
                 pageQuestions), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity getQuestionsByTitle(@RequestParam int page,
+                                              @RequestParam int size,
+                                              @RequestParam String search){
+        Page<Question> pageQuestions = questionService.findQuestionsByTitle(page - 1, size,search);
+        List<Question> responses = pageQuestions.getContent();
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.questionsToQuestionResponses(responses),
+                pageQuestions), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@PathVariable("question-id") int questionId){
         questionService.deleteQuestion(questionId);
