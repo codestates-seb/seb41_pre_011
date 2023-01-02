@@ -15,20 +15,12 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8080")
                 .allowedOrigins("http://localhost:3000")
-<<<<<<< HEAD
-//                .allowedOrigins("http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080")
-                .allowedOrigins("*")
-                .allowedMethods("*")
-                .allowCredentials(true)
-                .exposedHeaders("Authorization")
-=======
                 .allowedOrigins("http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080")
                 .allowedOrigins("*")
                 .allowedMethods("*")
                 .exposedHeaders("Authorization", "Refresh")
                 .allowedHeaders()
                 .allowCredentials(false)
->>>>>>> 7e03189891b8d21eed6b8fdf6becc07d55937e21
                 .maxAge(3000);
 
     }

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="65042410-86d4-44ec-9442-6c20c8ad8191" name="변경" comment="" />
+    <list default="true" id="65042410-86d4-44ec-9442-6c20c8ad8191" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Mypage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Mypage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/filter/CorsFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/filter/CorsFilter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,13 +53,9 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/kim/pre/seb41_pre_011"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="client" />
