@@ -6,6 +6,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
+import { useDispatch } from 'react-redux';
+import { getCookieData } from '../stateContainer/slice/CookieSlice';
+
 const Wrapper = styled.div`
   width: 1100px;
   box-sizing: border-box;
@@ -92,6 +95,9 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [cookies, setCookie] = useCookies(['userCookies']);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     const expireDate = new Date();
     expireDate.setMinutes(expireDate.getMinutes() + 20);
@@ -120,6 +126,8 @@ const Login = () => {
               expires: expireDate,
             }
           );
+
+          dispatch(getCookieData(true));
           navigate('/board_list?page=1');
         }
       })

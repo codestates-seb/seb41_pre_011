@@ -77,19 +77,23 @@ const Mypage = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [searchParams] = useSearchParams();
-  const memberId = searchParams.get('memberId');
+  const userEmail = searchParams.get('userEmail');
+
+  console.log(userEmail);
 
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${memberId}`
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${userEmail}`
       )
       .then((res) => {
         setName(res.data.data.name);
         setEmail(res.data.data.email);
+        setImage(res.data.data.image);
       });
   }, []);
 
@@ -100,10 +104,10 @@ const Mypage = () => {
       try {
         axios
           .patch(
-            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${memberId}`,
+            `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/member/${userEmail}`,
             {
-              name,
-              password,
+              name: name,
+              password: password,
             },
             { withCredentials: true }
           )
@@ -127,7 +131,7 @@ const Mypage = () => {
       <form onSubmit={handleSubmit}>
         <InformationWrapper>
           <ImageDiv>Profile image</ImageDiv>
-          <Image src="https://avatars.dicebear.com/api/bottts/1.svg" />
+          <Image src={image} />
           <InfoDiv>
             <InfoTextDiv>User name</InfoTextDiv>
             <InfoInputDiv>

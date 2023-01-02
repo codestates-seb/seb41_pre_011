@@ -1,28 +1,19 @@
-import { Link } from 'react-router-dom';
-import Search_list from './common/Search_list';
+import styled from 'styled-components';
+import TitleBasic from '../components/titleBasic/TitleBasic';
+
+const Wrapper = styled.div`
+  width: 1100px;
+  box-sizing: border-box;
+  padding: 24px;
+  margin: 0 auto;
+  display: flex;
+`;
 
 const Home = () => {
   return (
-    <div>
-      <h1>home</h1>
-      <Link to="/login">login</Link>
-      <br />
-      <Link to="/sing_up">sing_up</Link>
-      <br />
-      <Link to="/mypage">mypage</Link>
-      <br />
-      <Link to="/board">board</Link>
-      <br />
-      <Link to="/board_list">board_list</Link>
-      <br />
-      <Link to="/board_write">board_write</Link>
-      <br />
-      <Link to="/tag_list?page=1">tag_list</Link>
-      <br />
-      <Link to="/user_list?page=1">user_list</Link>
-
-      <Search_list />
-    </div>
+    <Wrapper>
+      <TitleBasic>Stack Overflow</TitleBasic>
+    </Wrapper>
   );
 };
 export default Home;
