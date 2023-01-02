@@ -29,6 +29,8 @@ public class MemberDetailsService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+
+
         return new MemberDetails(findMember);
     }
 
@@ -40,6 +42,7 @@ public class MemberDetailsService implements UserDetailsService {
             setRoles(member.getRoles());
         }
 
+
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             return authorityUtils.createAuthorities(this.getRoles());
@@ -49,6 +52,8 @@ public class MemberDetailsService implements UserDetailsService {
         public String getUsername() {
             return getEmail();
         }
+
+        public int getUserId(){return getUserId();}
 
         @Override
         public boolean isAccountNonExpired() {
@@ -69,5 +74,7 @@ public class MemberDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
+
+
     }
 }

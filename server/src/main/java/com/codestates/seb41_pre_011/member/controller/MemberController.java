@@ -31,7 +31,7 @@ public class MemberController {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
     }
-
+    @CrossOrigin(exposedHeaders = "Authorization")
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestbody) {
         Member member = memberMapper.memberPostDtoToMember(requestbody);
@@ -44,10 +44,11 @@ public class MemberController {
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{member-id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive int memberId,
+    @PatchMapping("/{member-email}")
+    public ResponseEntity patchMember(@PathVariable("member-email") String memberEmail,
                                       @Valid @RequestBody MemberDto.Patch requestbody) {
-        requestbody.setMemberId(memberId);
+        Member findMember = memberService.findMember(memberEmail);
+        requestbody.setMemberId(findMember.getMemberId());
         Member updateMember = memberService.updateMember(memberMapper.memberPatchDtoToMember(requestbody));
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(updateMember);
         return new ResponseEntity<>(
@@ -55,9 +56,9 @@ public class MemberController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") @Positive int memberId) {
-        Member findMember = memberService.findMember(memberId);
+    @GetMapping("/{member-email}")
+    public ResponseEntity getMember(@PathVariable("member-email") String memberEmail) {
+        Member findMember = memberService.findMember(memberEmail);
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(findMember);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response),
