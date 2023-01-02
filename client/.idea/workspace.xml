@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="65042410-86d4-44ec-9442-6c20c8ad8191" name="변경" comment="변경">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Mypage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Mypage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/filter/CorsFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/codestates/seb41_pre_011/filter/CorsFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
