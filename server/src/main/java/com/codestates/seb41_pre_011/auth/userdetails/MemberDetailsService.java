@@ -60,6 +60,7 @@ public class MemberDetailsService implements UserDetailsService {
             return true;
         }
 
+        public int getUserId(){return getUserId();}
         @Override
         public boolean isAccountNonLocked() {
             return true;

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Arrays;
 
@@ -59,17 +60,16 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-//                        .antMatchers(HttpMethod.POST,"/*/member").permitAll()
-//                        .antMatchers(HttpMethod.GET, "/*/member").hasRole("ADMIN")
-//                        .antMatchers(HttpMethod.POST,"/*/question").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.PATCH,"/*/question/**").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.DELETE,"/*/question/**").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.POST,"/*/answer").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.PATCH,"/*/answer/**").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.DELETE,"/*/answer/**").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.POST,"/*/tag").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.PATCH,"/*/tag/**").hasAnyRole("USER","ADMIN")
-//                        .antMatchers(HttpMethod.DELETE,"/*/tag/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.POST,"/*/member").permitAll()
+                        .antMatchers(HttpMethod.POST,"/*/question").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.PATCH,"/*/question/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.DELETE,"/*/question/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.POST,"/*/answer").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.PATCH,"/*/answer/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.DELETE,"/*/answer/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.POST,"/*/tag").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.PATCH,"/*/tag/**").hasAnyRole("USER","ADMIN")
+                        .antMatchers(HttpMethod.DELETE,"/*/tag/**").hasAnyRole("USER","ADMIN")
                         .anyRequest().permitAll()
                 );
         return http.build();

@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "Authorization")
 @RestController
 @RequestMapping("/v1/member")
 @Validated
@@ -31,6 +31,7 @@ public class MemberController {
         this.memberService = memberService;
         this.memberMapper = memberMapper;
     }
+
     @CrossOrigin(exposedHeaders = "Authorization")
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestbody) {
