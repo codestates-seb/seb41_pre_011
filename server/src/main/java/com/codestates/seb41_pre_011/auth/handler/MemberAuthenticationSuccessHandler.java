@@ -15,5 +15,6 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         log.info("# Authenticated successfully!");
+        response.getWriter().print("test");
     }
 }

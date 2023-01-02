@@ -14,7 +14,8 @@ public class WebConfig implements WebMvcConfigurer {
 //                .allowedOrigins("http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080")
                 .allowedOrigins("*")
                 .allowedMethods("*")
-                .allowCredentials(false)
+                .allowCredentials(true)
+                .exposedHeaders("Authorization")
                 .maxAge(3000);
     }
 }
