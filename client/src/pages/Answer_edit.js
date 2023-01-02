@@ -88,11 +88,12 @@ const NoticeWrite = styled.div`
   }
 `;
 
+const userCookiesData = new Cookies();
+const userCookiesGetData = userCookiesData.get('userCookies');
+
 const Answer_edit = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const userCookiesData = new Cookies();
-    const userCookiesGetData = userCookiesData.get('userCookies');
     if (userCookiesGetData === undefined) {
       navigate('/login');
     }
@@ -112,7 +113,12 @@ const Answer_edit = () => {
   useEffect(() => {
     axios
       .get(
-        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`,
+        {
+          headers: {
+            Authorization: userCookiesGetData.authorization,
+          },
+        }
       )
       .then((res) => {
         const filterData = res.data.data.filter((it) => {
@@ -137,6 +143,11 @@ const Answer_edit = () => {
               answerId: answerId,
               content: answer,
               // tags: makeTagArray(tags),
+            },
+            {
+              headers: {
+                Authorization: userCookiesGetData.authorization,
+              },
             }
           )
           .then(setLoading(false))

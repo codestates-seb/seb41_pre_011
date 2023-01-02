@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import LoadingDiv from '../components/loading/Loading';
+import { withCookies, Cookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -86,6 +87,10 @@ const NoticeWrite = styled.div`
     }
   }
 `;
+
+const userCookiesData = new Cookies();
+const userCookiesGetData = userCookiesData.get('userCookies');
+
 const Board_edit = () => {
   const [title, setTitle] = useState('');
   const [problem, setProblem] = useState('');
@@ -128,6 +133,11 @@ const Board_edit = () => {
               questionContent: problem,
               attemptContent: trying,
               tags: makeTagArray(tags),
+            },
+            {
+              headers: {
+                Authorization: userCookiesGetData.authorization,
+              },
             }
           )
           .then(setLoading(false))
@@ -220,4 +230,4 @@ const Board_edit = () => {
     </Wrapper>
   );
 };
-export default Board_edit;
+export default withCookies(Board_edit);
