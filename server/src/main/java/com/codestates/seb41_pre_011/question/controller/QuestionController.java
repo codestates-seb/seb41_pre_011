@@ -37,7 +37,7 @@ public class QuestionController {
         Member member = new Member();
         member.setName("김코딩");
         member.setImage("https://avatars.dicebear.com/api/bottts/151.svg");
-        member.setPassword("Code^States1");
+        member.setPassword("Code^States");
         question.setMember(member);
         Question createdQuestion = questionService.createQuestion(question);
         QuestionDto.Response response = mapper.questionToQuestionResponse(createdQuestion);
@@ -77,15 +77,3 @@ public class QuestionController {
     }
 
 }
-
-
-//    @GetMapping
-//    public ResponseEntity getMembers(@RequestParam int page,
-//                                     @RequestParam int size) {
-//        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
-//        List<Member> members = pageMembers.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(memberMapper.membersToMemberResponseDto(members),
-//                        pageMembers),
-//                HttpStatus.OK);
-//    }

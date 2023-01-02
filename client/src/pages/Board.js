@@ -6,9 +6,10 @@ import BtnBasic from '../components/btnBasic/BtnBasic';
 import Sidebar from '../components/sidebar/Sidebar';
 import { Link, useSearchParams } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { getAnswerData } from '../stateContainer/slice/AnswerSlice';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -145,11 +146,71 @@ const ListAnswer = styled.ul`
     }
   }
 `;
+// const TagDiv = styled.div`
+//   margin-left: 17px;
+//   margin-bottom: 5px;
+// `;
+const DeleteButton = styled.button`
+  cursor: pointer;
+  height: 100%;
+  width: 50px;
+  color: red;
+`;
 
 const Board = () => {
   const [searchParams] = useSearchParams();
   const questionId = searchParams.get('questionId');
   const [aQuestionData, setAQuestionsData] = useState({});
+  const dispatch = useDispatch();
+  // const [AnswerSliceData, setAnswerSliceData] = useState([...AnswerSliceData1]);
+  let AnswerSliceData = useSelector((state) => state.AnswerSlice.AnswerData);
+  console.log(AnswerSliceData);
+  const [writeAnswer, setWriteAnswer] = useState('');
+  // const [reRender, setReRender] = useState(questionId);
+  // const handleAnswer = () => {
+  //   axios;
+  //   .post(
+  //     `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`
+  //   )
+  //   .then((res) => console.log(res.data));
+  //   navigate(`/board?questionId=${questionId}`);
+  // };
+
+  const handleDelete = (answerId) => {
+    axios
+      .delete(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`
+      )
+      .then((res) => {
+        if (res.status === 204) {
+          const AAA = AnswerSliceData.filter((it) => {
+            return it.answerId !== answerId;
+          });
+          dispatch(getAnswerData([...AAA]));
+          // window.location.replace(`/board?questionId=${questionId}`);
+        }
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer`,
+        {
+          questionId: questionId,
+          content: writeAnswer,
+          // tags: ['javascript', 'java', 'html'],
+        }
+      )
+      .then((res) => {
+        if (res.status === 201) {
+          dispatch(getAnswerData([...AnswerSliceData, res.data.data]));
+          // window.location.replace(`/board?questionId=${questionId}`);
+          setWriteAnswer('');
+        }
+      });
+  };
 
   useEffect(() => {
     axios
@@ -164,10 +225,8 @@ const Board = () => {
       .get(
         `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer?questionId=${questionId}`
       )
-      .then((res) => console.log(res.data.data));
-  });
-
-  // const answerData = useSelector((state) => state.AnswerSlice.AnswerDummyData);
+      .then((res) => dispatch(getAnswerData(res.data.data)));
+  }, []);
   return (
     <Wrapper>
       <TitBoard>
@@ -213,110 +272,68 @@ const Board = () => {
           </div>
           <div className="areaAnswers">
             <strong className="titA">Answer</strong>
-            <ListAnswer>
-              <li>
-                <div className="contAnswer"></div>
-                <div className="editAnser">
-                  <form>
-                    <div className="rowEditA">
-                      <InpTxt autoComplete="off" />
-                    </div>
-                    <div className="rowBtnA">
-                      <BtnBasic className="editBtn">
-                        <button type="submit">Edit</button>
-                      </BtnBasic>
-                    </div>
-                  </form>
-                </div>
-              </li>
-              <li>
-                <div className="contAnswer">
-                  <p className="descA">asdfsadf asdfasd asdf asdf asdf asdf</p>
-                  <ListWriteInfo>
-                    <dt>Created : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                    <dt>Modified : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                  </ListWriteInfo>
 
-                  <MemberRow>
-                    <div className="editMR">
-                      <Link to={`/board_edit?questionId=${questionId}`}>
-                        Edit
-                      </Link>
-                    </div>
-                    <div className="memberInfoMR">
-                      <img src={aQuestionData.memberImage} alt="" />
-                      <span>
-                        <span className="blind">작성자 :</span>
-                        {aQuestionData.memberName}
-                      </span>
-                    </div>
-                  </MemberRow>
-                </div>
-                <div className="editAnser"></div>
-              </li>
-              <li>
-                <div className="contAnswer">
-                  <p className="descA">asdfsadf asdfasd asdf asdf asdf asdf</p>
-                  <ListWriteInfo>
-                    <dt>Created : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                    <dt>Modified : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                  </ListWriteInfo>
+            {AnswerSliceData.map((it) => (
+              <ListAnswer key={it.answerId}>
+                <li>
+                  <div className="contAnswer">
+                    <p className="descA">{it.content}</p>
+                    <ListWriteInfo>
+                      <dt>Created : </dt>
+                      <dd>{it.createdDate}</dd>
+                      <dt>Modified : </dt>
+                      <dd>{it.modifiedDate}</dd>
+                    </ListWriteInfo>
 
-                  <MemberRow>
-                    <div className="editMR">
-                      <Link to={`/board_edit?questionId=${questionId}`}>
-                        Edit
-                      </Link>
+                    <MemberRow>
+                      <div className="editMR">
+                        <Link
+                          to={`/answer_edit?questionId=${questionId}&answerId=${it.answerId}`}
+                        >
+                          Edit
+                        </Link>
+                      </div>
+                      <DeleteButton
+                        type="button"
+                        onClick={() => {
+                          handleDelete(it.answerId);
+                        }}
+                      >
+                        Delete
+                      </DeleteButton>
+                      <div className="memberInfoMR">
+                        <img src={it.memberImage} alt="" />
+                        <span>
+                          <span className="blind">작성자 :</span>
+                          {it.memberName}
+                        </span>
+                      </div>
+                    </MemberRow>
+                  </div>
+                  <div className="editAnser"></div>
+                </li>
+                {/* {it.tags === null || it.tags === undefined ? undefined : (
+                  <TagDiv>
+                    <div className="tagsQ">
+                      {it.tags.map((it, idx) => (
+                        <TagBasic key={idx}>{it}</TagBasic>
+                      ))}
                     </div>
-                    <div className="memberInfoMR">
-                      <img src={aQuestionData.memberImage} alt="" />
-                      <span>
-                        <span className="blind">작성자 :</span>
-                        {aQuestionData.memberName}
-                      </span>
-                    </div>
-                  </MemberRow>
-                </div>
-                <div className="editAnser"></div>
-              </li>
-              <li>
-                <div className="contAnswer">
-                  <p className="descA">asdfsadf asdfasd asdf asdf asdf asdf</p>
-                  <ListWriteInfo>
-                    <dt>Created : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                    <dt>Modified : </dt>
-                    <dd>2022-12-30T03:29:13.227659</dd>
-                  </ListWriteInfo>
-
-                  <MemberRow>
-                    <div className="editMR">
-                      <Link to={`/board_edit?questionId=${questionId}`}>
-                        Edit
-                      </Link>
-                    </div>
-                    <div className="memberInfoMR">
-                      <img src={aQuestionData.memberImage} alt="" />
-                      <span>
-                        <span className="blind">작성자 :</span>
-                        {aQuestionData.memberName}
-                      </span>
-                    </div>
-                  </MemberRow>
-                </div>
-                <div className="editAnser"></div>
-              </li>
-            </ListAnswer>
+                  </TagDiv>
+                )} */}
+              </ListAnswer>
+            ))}
           </div>
           <div className="areaWriteAnswer">
             <strong className="titA">Write Answer</strong>
-            <form>
+
+            <form onSubmit={handleSubmit}>
               <div>
-                <InpTxt autoComplete="off" />
+                <InpTxt
+                  autoComplete="off"
+                  value={writeAnswer}
+                  onChange={setWriteAnswer}
+                />
               </div>
               <div className="btnRow">
                 <BtnBasic>
@@ -326,6 +343,7 @@ const Board = () => {
             </form>
           </div>
         </div>
+        {/* <div>{reRender}</div> */}
         <Sidebar />
       </ContentBoard>
     </Wrapper>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoadingDiv from '../../components/loading/Loading';
+import { withCookies, Cookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -89,10 +90,11 @@ const Board_inputs = () => {
   const [tags, setTag] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const makeSetTag = (stringTag) => {
     setTag(stringTag.trim().split(','));
   };
+  const authorization_cookie = new Cookies();
+  console.log(authorization_cookie.get('cookie_name'));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,18 +109,20 @@ const Board_inputs = () => {
               questionContent: problem,
               attemptContent: trying,
               tags: tags,
-            }
+            },
+            { withCredentials: true }
           )
           .then((res) => console.log(res.data))
           .then(setLoading(false))
           .then(alert('추가되었습니다'));
-        navigate('/board_list');
+        navigate('/board_list?page=1');
       } catch (error) {
         console.log(error);
       }
     }, 2000);
   };
-
+  // const bannerCookie = useCookies(['cookie_name']);
+  // console.log(bannerCookie)
   return (
     <Wrapper>
       <TitleBasic>Ask a public question</TitleBasic>
@@ -228,4 +232,4 @@ const Board_inputs = () => {
     </Wrapper>
   );
 };
-export default Board_inputs;
+export default withCookies(Board_inputs);

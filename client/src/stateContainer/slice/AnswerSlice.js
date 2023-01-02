@@ -5,14 +5,14 @@ const initialState = {
 };
 
 const AnswerSlice = createSlice({
-  name: createSlice,
+  name: 'AnswerSlice',
   initialState,
   reducers: {
-    create(state, actions) {
-      state.AnswerData.push({ name: actions.payload.name });
+    getAnswerData(state, actions) {
+      state.AnswerData = [...actions.payload];
     },
   },
 });
 
 export default AnswerSlice.reducer;
-export const { create } = AnswerSlice.actions;
+export const { getAnswerData } = AnswerSlice.actions;

@@ -33,7 +33,6 @@ public class Answer {
     private List<String> tags;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JsonManagedReference
     @JoinColumn
     @JsonBackReference
     private Member member;

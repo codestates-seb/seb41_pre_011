@@ -28,6 +28,7 @@ import Board_List from './pages/Board_list';
 import Tag_list from './pages/Tag_list';
 import User_list from './pages/User_list';
 import Board_edit from './pages/Board_edit';
+import Answer_edit from './pages/Answer_edit';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/board_edit" element={<Board_edit />} />
                 <Route path="/tag_list" element={<Tag_list />} />
                 <Route path="/user_list" element={<User_list />} />
+                <Route path="/answer_edit" element={<Answer_edit />} />
               </Routes>
             </div>
           </Container>

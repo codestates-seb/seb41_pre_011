@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import InpTxt from '../components/inpTxt/InpTxt';
 import BtnBasic from '../components/btnBasic/BtnBasic';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Wrapper = styled.div`
   width: 1100px;
@@ -85,10 +88,42 @@ const SignUpRow = styled.div`
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [cookies, setCookie] = useCookies(['cookie_name']);
+  const handleSubmit = (e) => {
+    const expireDate = new Date();
+    expireDate.setMinutes(expireDate.getMinutes() + 5);
+    e.preventDefault();
+    axios
+      .post(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/auth/login`,
+        {
+          username: email,
+          password: password,
+        }
+      )
+      .then((res) => {
+        console.log(res.headers);
+        setCookie(
+          'cookie_name',
+          {
+            authorization: res.headers.get('authorization'),
+            refresh: res.headers.get('refresh'),
+            email: email,
+          },
+          {
+            path: '/',
+            expires: expireDate,
+          }
+        );
+      })
+      .then(console.log(cookies));
+  };
   return (
     <Wrapper>
       <WrapForm>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="formLogoRow">
             <h2 className="titForm">
               <svg
@@ -114,8 +149,8 @@ const Login = () => {
               <InpTxt
                 htmlId="email"
                 autoComplete="off"
-                value={``}
-                onChange={console.log(123)}
+                value={email}
+                onChange={setEmail}
                 required={true}
               />
             </div>
@@ -126,8 +161,8 @@ const Login = () => {
               <InpTxt
                 htmlId="password"
                 autoComplete="off"
-                value={``}
-                onChange={console.log(123)}
+                value={password}
+                onChange={setPassword}
                 required={true}
                 type="password"
               />

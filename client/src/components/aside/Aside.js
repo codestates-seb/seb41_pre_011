@@ -71,7 +71,7 @@ const Aside = () => {
           <strong className="titNav">PUBLIC</strong>
           <ul className="listSubNav">
             <li className={pathname === '/board_list' ? 'on' : undefined}>
-              <Link to="/board_list" className="linkNav">
+              <Link to="/board_list?page=1" className="linkNav">
                 <svg
                   aria-hidden="true"
                   className="icoNav"
