@@ -4,7 +4,10 @@ import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCookieData } from '../../stateContainer/slice/CookieSlice';
-
+import {
+  getQuestionsData,
+  getQpagingData,
+} from '../../stateContainer/slice/QuestionsSlice';
 import styled from 'styled-components';
 import InpTxt from '../inpTxt/InpTxt';
 import BtnBasic from '../btnBasic/BtnBasic';
@@ -115,7 +118,7 @@ const UserBoxHd = styled.div`
 const Header = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
-
+  const [search, setSearch] = useState('');
   const userCookiesData = new Cookies();
   const uCookieData = userCookiesData.get('userCookies');
   const dispatch = useDispatch();
@@ -154,6 +157,19 @@ const Header = () => {
     dispatch(getCookieData(false));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .get(
+        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/question/search?page=1&size=10&search=${search}`
+      )
+      .then((res) => {
+        dispatch(getQuestionsData(res.data.data));
+        dispatch(getQpagingData(res.data.pageInfo));
+        // (res.data.pageInfo.totalElements);
+      });
+  };
+
   return (
     <HeaderWrapper>
       <HeaderEl>
@@ -167,12 +183,14 @@ const Header = () => {
           </LogoHd>
 
           <UtilsHd>
-            <form>
+            <form onSubmit={handleSubmit}>
               <InpTxt
                 placeholder="Search…"
                 autoComplete="off"
                 ariaLabel="Search"
                 hadIcon={true}
+                value={search}
+                onChange={setSearch}
               >
                 <svg
                   aria-hidden="true"

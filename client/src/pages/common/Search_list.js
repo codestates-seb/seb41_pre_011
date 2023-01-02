@@ -166,7 +166,9 @@ const Search_list = () => {
           </BtnBasic>
         </div>
         <div className="rowMB">
-          <span className="infoQuestions">23,356,349 questions</span>
+          <span className="infoQuestions">
+            {QuestionsSlicePagingData.totalElements} questions
+          </span>
         </div>
         <ListQuestion>
           {QuestionsSliceData.map((it) => (
