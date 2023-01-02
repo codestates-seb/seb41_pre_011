@@ -4,7 +4,7 @@ import TitleBasic from '../components/titleBasic/TitleBasic';
 import TagBasic from '../components/tagBasic/TagBasic';
 import BtnBasic from '../components/btnBasic/BtnBasic';
 import Sidebar from '../components/sidebar/Sidebar';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import InpTxt from '../components/inpTxt/InpTxt';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -158,6 +158,9 @@ const DeleteButton = styled.button`
   color: red;
 `;
 
+const userCookiesData = new Cookies();
+const userCookiesGetData = userCookiesData.get('userCookies');
+
 const Board = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -178,31 +181,44 @@ const Board = () => {
   // };
 
   const handleButton = () => {
-    useEffect(() => {
-      const userCookiesData = new Cookies();
-      console.log(userCookiesData.get('userCookies'));
-      const userCookiesGetData = userCookiesData.get('userCookies');
-      if (userCookiesGetData === undefined) {
-        navigate('/login');
-      } else {
-        navigate(`/board_edit?questionId=${questionId}`);
-      }
-    }, []);
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    } else {
+      navigate(`/board_edit?questionId=${questionId}`);
+    }
   };
+
+  const handleLink = (answerId) => {
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    } else {
+      navigate(`/answer_edit?questionId=${questionId}&answerId=${answerId}`);
+    }
+  };
+
   const handleDelete = (answerId) => {
-    axios
-      .delete(
-        `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`
-      )
-      .then((res) => {
-        if (res.status === 204) {
-          const AAA = AnswerSliceData.filter((it) => {
-            return it.answerId !== answerId;
-          });
-          dispatch(getAnswerData([...AAA]));
-          // window.location.replace(`/board?questionId=${questionId}`);
-        }
-      });
+    if (userCookiesGetData === undefined) {
+      navigate('/login');
+    } else {
+      axios
+        .delete(
+          `http://ec2-13-209-138-5.ap-northeast-2.compute.amazonaws.com:8080/v1/answer/${answerId}`,
+          {
+            headers: {
+              Authorization: userCookiesGetData.authorization,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 204) {
+            const AAA = AnswerSliceData.filter((it) => {
+              return it.answerId !== answerId;
+            });
+            dispatch(getAnswerData([...AAA]));
+            // window.location.replace(`/board?questionId=${questionId}`);
+          }
+        });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -220,6 +236,11 @@ const Board = () => {
             questionId: questionId,
             content: writeAnswer,
             // tags: ['javascript', 'java', 'html'],
+          },
+          {
+            headers: {
+              Authorization: userCookiesGetData.authorization,
+            },
           }
         )
         .then((res) => {
@@ -309,11 +330,14 @@ const Board = () => {
 
                     <MemberRow>
                       <div className="editMR">
-                        <Link
-                          to={`/answer_edit?questionId=${questionId}&answerId=${it.answerId}`}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleLink(it.answerId);
+                          }}
                         >
                           Edit
-                        </Link>
+                        </button>
                       </div>
                       <DeleteButton
                         type="button"
